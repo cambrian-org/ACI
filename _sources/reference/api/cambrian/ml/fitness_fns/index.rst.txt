@@ -1,0 +1,127 @@
+cambrian.ml.fitness_fns
+=======================
+
+.. py:module:: cambrian.ml.fitness_fns
+
+.. autoapi-nested-parse::
+
+   Fitness functions for evaluating the fitness of agents. These functions are used by
+   the optimizers to evaluate the fitness of the agents. The fitness functions are
+   responsible for loading the evaluations and monitor files and calculating the fitness
+   of the agent based on the evaluations.
+
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   cambrian.ml.fitness_fns.parse_evaluations_npz
+   cambrian.ml.fitness_fns.parse_monitor_csv
+   cambrian.ml.fitness_fns.top_n_percent
+   cambrian.ml.fitness_fns.fitness_from_evaluations
+   cambrian.ml.fitness_fns.fitness_from_monitor
+   cambrian.ml.fitness_fns.fitness_from_txt
+   cambrian.ml.fitness_fns.fitness_num_eyes
+   cambrian.ml.fitness_fns.fitness_num_eyes_and_fov
+
+
+Module Contents
+---------------
+
+.. py:function:: parse_evaluations_npz(evaluations_npz)
+
+   Parse the evaluations npz file and return the rewards.
+
+
+.. py:function:: parse_monitor_csv(monitor_csv)
+
+   Parse the monitor csv file and return the timesteps and rewards.
+
+
+.. py:function:: top_n_percent(data, percent, use_outliers, max_zscore = 3.0)
+
+   Calculate the mean of the top `percent` of the data, optionally excluding
+   outliers.
+
+
+.. py:function:: fitness_from_evaluations(config, evaluations_npz, *, return_data = False, use_outliers = False, percent = 25.0, quartiles = (25, 75))
+
+   Calculate the fitness of the agent based on evaluation results. The fitness is
+   determined by taking the mean of the top `percent` of the evaluation rewards,
+   optionally excluding outliers.
+
+   :Parameters: * **config** (*MjCambrianConfig*) -- Configuration for the evaluation.
+                * **evaluations_npz** (*Path*) -- Path to the `.npz` file containing evaluation data.
+
+   :keyword return_data: If True, returns the evaluation data along with the fitness.
+   :kwtype return_data: bool
+   :keyword use_outliers: If True, includes outliers in the fitness calculation.
+                          Defaults to False.
+   :kwtype use_outliers: bool
+   :keyword percent: Defines the top 'n' percent of rewards to be used for
+                     calculating fitness. Defaults to 75.0.
+   :kwtype percent: float
+
+   :returns: *float | Tuple[float, np.ndarray]* -- The calculated fitness value. If `return_data`
+             is True, returns a tuple containing the fitness value and the full evaluation
+             data as a numpy array.
+
+   .. rubric:: Notes
+
+   - The rewards array should be a 2D array where each row represents an evaluation
+     run and each column represents the rewards for each evaluation step.
+   - If the evaluations file does not exist, returns negative infinity as the
+     fitness value.
+
+
+.. py:function:: fitness_from_monitor(config, monitor_csv, *, return_data = False, percent = 25.0, n_episodes = 1)
+
+   Calculate the fitness of the agent based on monitor data. The fitness is determined
+   by taking the specified `percent` of the cumulative monitor rewards.
+
+   :Parameters: * **config** (*MjCambrianConfig*) -- Configuration for the evaluation.
+                * **monitor_csv** (*Path*) -- Path to the CSV file containing monitor data.
+
+   :keyword return_data: If True, returns the monitor data along with the fitness.
+                         Defaults to False.
+   :kwtype return_data: bool
+   :keyword percent: Defines the top 'n' percent of rewards to be used for
+                     calculating fitness. Defaults to 75.0 (3rd quartile).
+   :kwtype percent: float
+   :keyword n_episodes: The number of episodes to use sum rewards for. Defaults to 1.
+                        n_episodes must be a common factor of the number of episodes in the monitor
+                        data.
+   :kwtype n_episodes: int
+
+   :returns: *float | Tuple[float, Tuple[np.ndarray, np.ndarray]]* -- The calculated fitness
+             value. If `return_data` is True, returns a tuple containing the fitness value
+             and the monitor data (timesteps, rewards) as numpy arrays.
+
+   .. rubric:: Notes
+
+   - If the rewards are empty, returns negative infinity as the fitness value.
+   - The monitor data should contain timesteps and corresponding rewards.
+
+
+.. py:function:: fitness_from_txt(config, txt_file)
+
+   Calculate the fitness of the agent. Uses the 3rd quartile of the cumulative
+   monitor rewards.
+
+
+.. py:function:: fitness_num_eyes(config, *, pattern, mean = 0, std = 5, assume_one = True)
+
+   This fitness function will return higher rewards generally for agents with more
+   eyes.
+
+   :Parameters: **pattern** (*str*) -- The path to the number of eyes in the config.
+
+
+.. py:function:: fitness_num_eyes_and_fov(config, *, num_eyes_pattern, fov_pattern, mean = 0, std = 5, assume_one = True, optimal_fov = 45)
+
+   This fitness function will return higher rewards generally for agents with more
+   eyes and a fov closer to the `optimal_fov`.
+
+

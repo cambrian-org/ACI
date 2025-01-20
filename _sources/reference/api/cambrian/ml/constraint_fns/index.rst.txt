@@ -1,0 +1,82 @@
+cambrian.ml.constraint_fns
+==========================
+
+.. py:module:: cambrian.ml.constraint_fns
+
+.. autoapi-nested-parse::
+
+   These are constraint functions for the optimizers. These functions are used to prune
+   experiments from the search space.
+
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   cambrian.ml.constraint_fns.nevergrad_constraint_fn
+   cambrian.ml.constraint_fns.constrain_total_pixels
+   cambrian.ml.constraint_fns.constrain_total_memory_throughput
+   cambrian.ml.constraint_fns.constrain_morphologically_feasible_eyes
+   cambrian.ml.constraint_fns.constrain_total_num_eyes
+
+
+Module Contents
+---------------
+
+.. py:function:: nevergrad_constraint_fn(parameterization, /, *, fn, **parameters)
+
+   This function is used to prune experiments for nevergrad sweepers. It will
+   return False if the experiment should be pruned.
+
+
+.. py:function:: constrain_total_pixels(*, num_eyes_to_generate, resolution, max_num_pixels)
+
+   This constraint method will check whether the total number of pixels generated
+   is less than a certain threshold.
+
+
+.. py:function:: constrain_total_memory_throughput(*, num_eyes_to_generate, resolution, stack_size, max_pixels_in_memory)
+
+   This constraint method will check whether the total number of pixels generated
+   is less than a certain threshold.
+
+
+.. py:function:: constrain_morphologically_feasible_eyes(*, num_eyes_to_generate, resolution, lon_range, radius = 0.1, pixel_size = 0.005, **_)
+
+   This constraint method will check whether the eye config, if placed
+   num_eyes_to_generate along the longitude of the agent, would be
+   morphologically feasible. Morphologically feasible in this approximated case is
+   basically whether all the eyes would fit. There are two primary factors here:
+
+   1. sensorsize and number of eyes. We want to make sure, along the horizontal axis,
+   that the eyes don't overlap.
+
+   2. The total number of pixels. We want to make sure that the total number of pixels
+   generated is less than a certain threshold.
+
+   Going to approximate the agent as a circle and the eyes as a line with a length
+   equal to the sensorsize width. Then we'll check whether the eyes fit in the allowed
+   longitude range.
+
+
+   :Parameters: * **num_eyes_to_generate** (*int*) -- The number of eyes to generate along
+                  the longitude of the agent.
+                * **resolution** (*Tuple[int, int] | int*) -- The resolution of the eye.
+                * **lon_range** (*Tuple[int, int] | int*) -- The range of longitudes in which to generate
+                  the eyes. This is in degrees.
+
+   :keyword radius: The radius of the agent. Default is 0.2.
+   :kwtype radius: float
+   :keyword pixel_size: The pixel size of the eye. This is used to calculate the
+                        total width of the eyes. Default is 0.01.
+   :kwtype pixel_size: float
+
+
+.. py:function:: constrain_total_num_eyes(*, num_eyes_to_generate, max_num_eyes)
+
+   This constraint method will check whether the total number of eyes generated
+   is less than a certain threshold.
+
+

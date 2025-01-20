@@ -1,0 +1,18 @@
+h1, h2, h3, h4, h5, h6 {
+	font-weight: 400;
+}
+
+p {
+	font-size: 90%;
+}
+
+.highlight {
+	font-size: 90%;
+}
+
+.caption-text {
+	opacity: 0.7;
+	font-size: 80%;
+	max-width: 25%;
+	text-align: center;
+}

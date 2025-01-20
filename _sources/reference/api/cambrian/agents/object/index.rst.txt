@@ -1,0 +1,47 @@
+cambrian.agents.object
+======================
+
+.. py:module:: cambrian.agents.object
+
+.. autoapi-nested-parse::
+
+   Defines a static agent which does not learn. This is useful for defining objects in
+   the environment.
+
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   cambrian.agents.object.MjCambrianAgentObject
+
+
+Module Contents
+---------------
+
+.. py:class:: MjCambrianAgentObject(config, name)
+
+   Bases: :py:obj:`cambrian.agents.agent.MjCambrianAgent2D`
+
+
+   This is a class which defines an object agent. An object agent is
+   essentially a non-trainable agent. It's simply an object in the environment which
+   has no observations or actions.
+
+
+   .. py:method:: get_action_privileged(_)
+
+      This is a deviation from the standard gym API. This method is similar to
+      step, but it has "privileged" access to information such as the environment.
+      This method can be overridden by agents which are not trainable and need to
+      implement custom step logic.
+
+      :Parameters: **env** (*MjCambrianEnv*) -- The environment that the agent is in. This can be
+                   used to get information about the environment.
+
+      :returns: *List[float]* -- The action to take.
+
+
+

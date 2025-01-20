@@ -1,0 +1,162 @@
+cambrian.eyes.eye
+=================
+
+.. py:module:: cambrian.eyes.eye
+
+.. autoapi-nested-parse::
+
+   Defines the `MjCambrianEye` class, which is used to define an eye for the cambrian
+   environment. The eye is essentially a camera that is attached to a body in the
+   environment. The eye can render images and provide observations to the agent.
+
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   cambrian.eyes.eye.MjCambrianEyeConfig
+   cambrian.eyes.eye.MjCambrianEye
+
+
+Module Contents
+---------------
+
+.. py:class:: MjCambrianEyeConfig
+
+   Bases: :py:obj:`hydra_config.HydraContainerConfig`
+
+
+   Defines the config for an eye. Used for type hinting.
+
+   :ivar instance: The class instance to use
+                   when creating the eye. Takes the config and the name of the eye as
+                   arguments.
+
+   :vartype instance: Callable[[Self, str], MjCambrianEye]
+   :ivar fov: Independent of the `fovy` field in the MJCF
+              xml. Used to calculate the sensorsize field. Specified in degrees. Mutually
+              exclusive with `fovy`. If `focal` is unset, it is set to 1, 1. Will override
+              `sensorsize`, if set. Fmt: fovy fovx.
+   :vartype fov: Tuple[float, float]
+   :ivar focal: The focal length of the camera.
+                Fmt: focal_y focal_x.
+   :vartype focal: Tuple[float, float]
+   :ivar sensorsize: The size of the sensor. Fmt: height width.
+   :vartype sensorsize: Tuple[float, float]
+   :ivar resolution: The width and height of the rendered image.
+                     Fmt: height width.
+   :vartype resolution: Tuple[int, int]
+   :ivar coord: The x and y coordinates of the eye.
+                This is used to determine the placement of the eye on the agent.
+                Specified in degrees. This attr isn't actually used by eye, but by the
+                agent. The eye has no knowledge of the geometry it's trying to be placed
+                on. Fmt: lat lon
+   :vartype coord: Tuple[float, float]
+   :ivar orthographic: Whether the camera is orthographic
+
+   :vartype orthographic: bool
+   :ivar renderer: The renderer config to use for the
+                   underlying renderer.
+
+   :vartype renderer: MjCambrianRendererConfig
+
+
+.. py:class:: MjCambrianEye(config, name, *, disable_render = False)
+
+   Defines an eye for the cambrian environment. It essentially wraps a mujoco Camera
+   object and provides some helper methods for rendering and generating the XML. The
+   eye is attached to the parent body such that movement of the parent body will move
+   the eye.
+
+   :Parameters: * **config** (*MjCambrianEyeConfig*) -- The configuration for the eye.
+                * **name** (*str*) -- The name of the eye.
+
+   :keyword disable_render: Whether to disable rendering. Defaults to False.
+                            This is useful for derived classes which don't intend to use the default
+                            rendering mechanism.
+   :kwtype disable_render: bool
+
+
+   .. py:method:: generate_xml(parent_xml, geom, parent_body_name = None, parent = None)
+
+      Generate the xml for the eye.
+
+      In order to combine the xml for an eye with the xml for the agent that it's
+      attached to, we need to replicate the path with which we want to attach the eye.
+      For instance, if the body with which we want to attach the eye to is at
+      `mujoco/worldbody/torso`, then we need to replicate that path in the new xml.
+      This is kind of difficult with the `xml` library, but we'll utilize the
+      `CambrianXML` helpers for this.
+
+      :Parameters: * **parent_xml** (*MjCambrianXML*) -- The xml of the parent body. Used as a reference
+                     to extract the path of the parent body.
+                   * **geom** (*MjCambrianGeometry*) -- The geometry of the parent body. Used to
+                     calculate the pos and quat of the eye.
+                   * **parent_body_name** (*Optional[str]*) -- The name of the parent body. Will
+                     search for the body tag with this name, i.e.
+                     <body name="<parent_body_name>" ...>. Either this or `parent` must be
+                     set.
+                   * **parent** (*Optional[List[Element] | Element]*) -- The parent element to attach
+                     the eye to. If set, `parent_body_name` will be ignored. Either this or
+                     `parent_body_name` must be set.
+
+
+
+   .. py:method:: reset(spec)
+
+      Sets up the camera for rendering. This should be called before rendering
+      the first time.
+
+
+
+   .. py:method:: step(obs = None)
+
+      Simply calls `render` and sets the last observation. See `render()` for more
+      information.
+
+      :Parameters: **obs** (*Optional[ObsType]*) -- The observation to set. Defaults to
+                   None. This can be used by derived classes to set the observation
+                   directly.
+
+
+
+   .. py:method:: render()
+
+      Render the image from the camera. Will always only return the rgb array.
+
+      This differs from step in that this is a debug method. The rendered image here
+      will be used to visualize the eye in the viewer.
+
+
+
+   .. py:property:: config
+      :type: MjCambrianEyeConfig
+
+
+      The config for the eye.
+
+
+   .. py:property:: name
+      :type: str
+
+
+      The name of the eye.
+
+
+   .. py:property:: observation_space
+      :type: gymnasium.spaces.Box
+
+
+      Constructs the observation space for the eye. The observation space is a
+      `spaces.Box` with the shape of the resolution of the eye.
+
+
+   .. py:property:: prev_obs
+      :type: torch.Tensor
+
+
+      The last observation returned by `self.render()`.
+
+

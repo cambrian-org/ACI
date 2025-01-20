@@ -1,0 +1,139 @@
+cambrian.envs.reward_fns
+========================
+
+.. py:module:: cambrian.envs.reward_fns
+
+.. autoapi-nested-parse::
+
+   Reward fns. These can be used to calculate rewards for agents.
+
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   cambrian.envs.reward_fns.calc_delta
+   cambrian.envs.reward_fns.calc_quickness
+   cambrian.envs.reward_fns.apply_reward_fn
+   cambrian.envs.reward_fns.reward_fn_constant
+   cambrian.envs.reward_fns.reward_fn_done
+   cambrian.envs.reward_fns.reward_fn_euclidean_delta_from_init
+   cambrian.envs.reward_fns.reward_fn_euclidean_delta_to_agent
+   cambrian.envs.reward_fns.reward_fn_agent_respawned
+   cambrian.envs.reward_fns.reward_fn_close_to_agent
+   cambrian.envs.reward_fns.reward_fn_has_contacts
+   cambrian.envs.reward_fns.reward_fn_action
+   cambrian.envs.reward_fns.reward_combined
+
+
+Module Contents
+---------------
+
+.. py:function:: calc_delta(agent, info, point = np.array([0, 0]))
+
+   Calculates the delta position of the agent from a point.
+
+   :returns: *np.ndarray* --
+
+             The delta position of the agent from the point
+                 (i.e. current - prev).
+
+
+.. py:function:: calc_quickness(env)
+
+   Calculates the quickness of the agent.
+
+
+.. py:function:: apply_reward_fn(env, agent, *, reward_fn, for_agents = None, scale_by_quickness = False, disable = False, disable_on_max_episode_steps = False)
+
+   Applies the reward function to the agent if it is in the for_agents list.
+
+
+.. py:function:: reward_fn_constant(env, agent, terminated, truncated, info, *, reward, **kwargs)
+
+   Returns a constant reward.
+
+
+.. py:function:: reward_fn_done(env, agent, terminated, truncated, info, *, termination_reward = 0.0, truncation_reward = 0.0, **kwargs)
+
+   Rewards the agent if the episode is done. Termination indicates a successful
+   episode, while truncation indicates an unsuccessful episode. If the time limit is
+   reached, this is considered a termination. Applying a reward in this case can be
+   disabled with the ``disable_on_max_episode_steps`` keyword argument.
+
+   :keyword termination_reward: The reward to give the agent if the episode is
+                                terminated. Defaults to 0.
+   :kwtype termination_reward: float
+   :keyword truncation_reward: The reward to give the agent if the episode is
+                               truncated. Defaults to 0.
+   :kwtype truncation_reward: float
+
+
+.. py:function:: reward_fn_euclidean_delta_from_init(env, agent, terminated, truncated, info, *, reward = 1.0, **kwargs)
+
+   Rewards the change in distance over the previous step.
+
+
+.. py:function:: reward_fn_euclidean_delta_to_agent(env, agent, terminated, truncated, info, *, reward, to_agents = None, **kwargs)
+
+   Rewards the change in distance to any enabled agent over the previous step.
+   Convention is that a positive reward indicates getting closer to the agent.
+
+
+.. py:function:: reward_fn_agent_respawned(env, agent, terminated, truncated, info, *, reward, **kwargs)
+
+   This reward function rewards the agent if it has been respawned.
+
+
+.. py:function:: reward_fn_close_to_agent(env, agent, terminated, truncated, info, *, reward, distance_threshold, from_agents = None, to_agents = None, **kwargs)
+
+   This reward function rewards the agent if it is close to another agent.
+
+   :keyword reward: The reward to give the agent if it is close to another agent.
+                    Default is 0.
+   :kwtype reward: float
+   :keyword distance_threshold: The distance threshold to check if the agent is
+                                close to another agent.
+   :kwtype distance_threshold: float
+   :keyword from_agents: The names of the agents that the reward
+                         should be calculated from. If None, the reward will be calculated from all
+                         agents.
+   :kwtype from_agents: Optional[List[str]]
+   :keyword to_agents: The names of the agents that the reward
+                       should be calculated to. If None, the reward will be calculated to all
+                       agents.
+   :kwtype to_agents: Optional[List[str]]
+
+
+.. py:function:: reward_fn_has_contacts(env, agent, terminated, truncated, info, *, reward, **kwargs)
+
+   Rewards the agent if it has contacts.
+
+
+.. py:function:: reward_fn_action(env, agent, terminated, truncated, info, *, reward, index = None, normalize = False, absolute = False, **kwargs)
+
+   Rewards the agent based on the action taken.
+
+   :keyword reward: The reward to give the agent if the action is taken.
+   :kwtype reward: float
+   :keyword index: The index of the action to use for the reward. If None,
+                   the sum of the action is used.
+   :kwtype index: Optional[int]
+   :keyword normalize: Whether to normalize the action to be in the range [0, 1).
+   :kwtype normalize: bool
+   :keyword absolute: Whether to use the absolute value of the action.
+   :kwtype absolute: bool
+
+
+.. py:function:: reward_combined(env, agent, terminated, truncated, info, *, exclusive_fns = [], **reward_fns)
+
+   Combines multiple reward functions into one.
+
+   :keyword exclusive_fns: If provided, only the reward functions
+                           with this name will be used if it's non-zero. As in, in order, the first
+                           function to return a non-zero reward will be returned.
+   :kwtype exclusive_fns: Optional[List[str]]
+
+

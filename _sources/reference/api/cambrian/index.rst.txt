@@ -1,0 +1,109 @@
+cambrian
+========
+
+.. py:module:: cambrian
+
+.. autoapi-nested-parse::
+
+   Cambrian package init file.
+
+
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 1
+
+   /reference/api/cambrian/agents/index
+   /reference/api/cambrian/config/index
+   /reference/api/cambrian/envs/index
+   /reference/api/cambrian/eyes/index
+   /reference/api/cambrian/main/index
+   /reference/api/cambrian/ml/index
+   /reference/api/cambrian/renderer/index
+   /reference/api/cambrian/utils/index
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   cambrian.__author__
+   cambrian.__license__
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   cambrian.MjCambrianConfig
+   cambrian.MjCambrianTrainer
+
+
+Package Contents
+----------------
+
+.. py:class:: MjCambrianConfig
+
+   Bases: :py:obj:`hydra_config.HydraContainerConfig`
+
+
+   The base config for the mujoco cambrian environment. Used for type hinting.
+
+   :ivar logdir: The primary directory which simulation data is stored in. This is
+                 the highest level directory used for the experiment. `expdir` is the
+                 subdirectory used for a specific experiment.
+   :vartype logdir: Path
+   :ivar expdir: The directory used for a specific experiment. This is the
+                 directory where the experiment's data is stored. Should evaluate to
+                 `logdir / `expsubdir`
+   :vartype expdir: Path
+   :ivar expsubdir: The subdirectory relative to logdir where the experiment's
+                    data is stored. This is the directory where the experiment's data is stored.
+   :vartype expsubdir: Path
+   :ivar expname: The name of the experiment. Used to name the logging
+                  subdirectory.
+
+   :vartype expname: str
+   :ivar seed: The base seed used when initializing the default thread/process.
+               Launched processes should use this seed value to calculate their own seed
+               values. This is used to ensure that each process has a unique seed.
+
+   :vartype seed: int
+   :ivar training: The config for the training process.
+   :vartype training: MjCambrianTrainingConfig
+   :ivar env: The config for the environment.
+   :vartype env: MjCambrianEnvConfig
+   :ivar eval_env: The config for the evaluation environment.
+
+   :vartype eval_env: MjCambrianEnvConfig
+
+
+.. py:class:: MjCambrianTrainer(config)
+
+   This is the trainer class for running training and evaluation.
+
+   :Parameters: **config** (*MjCambrianConfig*) -- The config to use for training and evaluation.
+
+
+   .. py:method:: train()
+
+      Train the agent.
+
+
+
+.. py:data:: __author__
+   :value: 'Camera Culture (a2cc@media.mit.edu)'
+
+
+   Camera Culture (a2cc@media.mit.edu)
+
+.. py:data:: __license__
+   :value: 'BSD3'
+
+
+   BSD3
+

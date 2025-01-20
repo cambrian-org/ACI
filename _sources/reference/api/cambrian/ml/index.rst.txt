@@ -1,0 +1,26 @@
+cambrian.ml
+===========
+
+.. py:module:: cambrian.ml
+
+.. autoapi-nested-parse::
+
+   This module defines the Cambrian ml scripts.
+
+
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 1
+
+   /reference/api/cambrian/ml/callbacks/index
+   /reference/api/cambrian/ml/constraint_fns/index
+   /reference/api/cambrian/ml/evo/index
+   /reference/api/cambrian/ml/features_extractors/index
+   /reference/api/cambrian/ml/fitness_fns/index
+   /reference/api/cambrian/ml/model/index
+   /reference/api/cambrian/ml/trainer/index
+
+

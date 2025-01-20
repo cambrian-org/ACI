@@ -1,0 +1,77 @@
+cambrian.renderer.render_utils
+==============================
+
+.. py:module:: cambrian.renderer.render_utils
+
+.. autoapi-nested-parse::
+
+   Rendering utilities.
+
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   cambrian.renderer.render_utils.resize
+   cambrian.renderer.render_utils.resize_with_aspect_fill
+   cambrian.renderer.render_utils.generate_composite
+   cambrian.renderer.render_utils.convert_depth_distances
+   cambrian.renderer.render_utils.convert_depth_to_rgb
+
+
+Module Contents
+---------------
+
+.. py:function:: resize(images, height, width)
+
+   Resize the image to the specified height and width.
+
+
+.. py:function:: resize_with_aspect_fill(images, height, width)
+
+   Resize the image while maintaining the aspect ratio and
+   filling the rest with black.
+
+
+.. py:function:: generate_composite(images)
+
+   This is a debug method which renders the images as a composite image.
+
+   Will appear as a compound eye. For example, if we have a 3x3 grid of eyes:
+       TL T TR
+       ML M MR
+       BL B BR
+
+   Each eye has a red border around it.
+
+   .. note:: This assumes that the images have the same dimensions.
+
+
+.. py:function:: convert_depth_distances(model, depth)
+
+   Converts depth values from OpenGL to metric depth values using PyTorch.
+
+   :Parameters: * **model** (*mj.MjModel*) -- The model.
+                * **depth** (*torch.Tensor*) -- The depth values to convert.
+
+   :returns: *torch.Tensor* -- The converted depth values.
+
+   .. note::
+
+      This function is based on
+      [this code](https://github.com/google-deepmind/mujoco/blob/main/            python/mujoco/renderer.py).
+      It is adapted to use PyTorch instead of NumPy.
+
+
+.. py:function:: convert_depth_to_rgb(depth, znear = None, zfar = None)
+
+   Converts depth values to RGB values.
+
+   :Parameters: * **model** (*mj.MjModel*) -- The model.
+                * **depth** (*torch.Tensor*) -- The depth values.
+
+   :returns: *torch.Tensor* -- The RGB values.
+
+

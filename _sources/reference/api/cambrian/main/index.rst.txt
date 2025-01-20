@@ -1,0 +1,12 @@
+cambrian.main
+=============
+
+.. py:module:: cambrian.main
+
+.. autoapi-nested-parse::
+
+   This is the main entrypoint for the ``cambrian`` package. It's used to run the
+   training and evaluation loops.
+
+
+

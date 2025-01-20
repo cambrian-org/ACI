@@ -1,0 +1,129 @@
+cambrian.eyes.optics
+====================
+
+.. py:module:: cambrian.eyes.optics
+
+.. autoapi-nested-parse::
+
+   This is an optics-enabled eye, which implements a height map and a PSF on top
+   of the existing eye.
+
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   cambrian.eyes.optics.MjCambrianApertureConfig
+   cambrian.eyes.optics.MjCambrianCircularApertureConfig
+   cambrian.eyes.optics.MjCambrianMaskApertureConfig
+   cambrian.eyes.optics.MjCambrianOpticsEyeConfig
+   cambrian.eyes.optics.MjCambrianOpticsEye
+
+
+Module Contents
+---------------
+
+.. py:class:: MjCambrianApertureConfig
+
+   Bases: :py:obj:`hydra_config.HydraContainerConfig`
+
+
+   Base dataclass which provides additional methods for working with configs.
+
+
+.. py:class:: MjCambrianCircularApertureConfig
+
+   Bases: :py:obj:`MjCambrianApertureConfig`
+
+
+   This defines the config for the circular aperture. This extends the base aperture
+   config and adds additional parameters for the circular aperture.
+
+   :ivar radius: Radius of the circular aperture.
+
+   :vartype radius: float
+
+
+.. py:class:: MjCambrianMaskApertureConfig
+
+   Bases: :py:obj:`MjCambrianApertureConfig`
+
+
+   This defines the config for the custom aperture. This extends the base aperture
+   config and adds additional parameters for the custom aperture.
+
+   :ivar mask: Aperture mask. This is a 2D array that defines
+               the aperture mask. The aperture mask is a binary mask that defines the
+               aperture of the lens. It's a binary mask where 1 lets light through and 0
+               blocks it. The mask can only be None if randomize is True or if size is
+               not None. Defaults to None.
+   :vartype mask: Optional[List[List[int]]]
+   :ivar randomize: Randomize the aperture mask. If True, the aperture mask is
+                    randomized.
+   :vartype randomize: bool
+   :ivar random_prob: Probability of the aperture mask being 1. If
+                      None, the probability is 0.5. Defaults to None.
+   :vartype random_prob: Optional[float]
+   :ivar size: Size of the aperture mask. This is the size
+               of the aperture mask. If None, the size is the same as the pupil resolution.
+               Defaults to None.
+
+   :vartype size: Optional[Tuple[int, int]]
+
+
+.. py:class:: MjCambrianOpticsEyeConfig
+
+   Bases: :py:obj:`cambrian.eyes.eye.MjCambrianEyeConfig`
+
+
+   This defines the config for the optics module. This extends the base eye config
+   and adds additional parameters for the optics module.
+
+   :ivar pupil_resolution: Resolution of the pupil plane. This
+                           is used to calculate the PSF.
+
+   :vartype pupil_resolution: Tuple[int, int]
+   :ivar noise_std: Standard deviation of the Gaussian noise to be
+                    added to the image. If 0.0, no noise is added.
+   :vartype noise_std: float
+   :ivar wavelengths: Wavelengths of the RGB channels.
+
+   :vartype wavelengths: Tuple[float, float, float]
+   :ivar f_stop: F-stop of the lens. This is used to calculate the PSF.
+   :vartype f_stop: float
+   :ivar refractive_index: Refractive index of the lens material.
+   :vartype refractive_index: float
+   :ivar height_map: Height map of the lens. This is used to
+                     calculate the phase shift of the light passing through the lens. Uses a
+                     radially symmetric approximation.
+
+   :vartype height_map: List[float]
+   :ivar aperture: Aperture config. This defines the
+                   aperture of the lens. The aperture can be circular or custom.
+
+   :vartype aperture: MjCambrianApertureConfig
+   :ivar depths: Depths at which the PSF is calculated. If empty, the psf
+                 is calculated for each render call; otherwise, the PSFs are precomputed.
+
+   :vartype depths: List[float]
+
+
+.. py:class:: MjCambrianOpticsEye(config, name)
+
+   Bases: :py:obj:`cambrian.eyes.eye.MjCambrianEye`
+
+
+   This class applies the depth invariant PSF to the image.
+
+   :Parameters: **config** (*MjCambrianOpticsConfig*) -- Config for the optics module.
+
+
+   .. py:method:: step()
+
+      Overwrites the default render method to apply the depth invariant PSF to the
+      image.
+
+
+

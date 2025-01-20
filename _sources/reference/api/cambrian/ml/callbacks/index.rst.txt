@@ -1,0 +1,131 @@
+cambrian.ml.callbacks
+=====================
+
+.. py:module:: cambrian.ml.callbacks
+
+.. autoapi-nested-parse::
+
+   Callbacks used during training and/or evaluation.
+
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   cambrian.ml.callbacks.MjCambrianPlotMonitorCallback
+   cambrian.ml.callbacks.MjCambrianEvalCallback
+   cambrian.ml.callbacks.MjCambrianGPUUsageCallback
+   cambrian.ml.callbacks.MjCambrianSavePolicyCallback
+   cambrian.ml.callbacks.MjCambrianProgressBarCallback
+   cambrian.ml.callbacks.MjCambrianCallbackListWithSharedParent
+   cambrian.ml.callbacks.MjCambrianSaveConfigCallback
+
+
+Module Contents
+---------------
+
+.. py:class:: MjCambrianPlotMonitorCallback(logdir, filename, n_episodes = 1)
+
+   Bases: :py:obj:`stable_baselines3.common.callbacks.BaseCallback`
+
+
+   Should be used with an EvalCallback to plot the evaluation results.
+
+   This callback will take the monitor.csv file produced by the VecMonitor and
+   plot the results and save it as an image. Should be passed as the
+   `callback_after_eval` for the EvalCallback.
+
+   :Parameters: * **logdir** (*Path | str*) -- The directory where the evaluation results are stored. The
+                  evaluations.npz file is expected to be at `<logdir>/<filename>.csv`. The
+                  resulting plot is going to be stored at
+                  `<logdir>/evaluations/<filename>.png`.
+                * **filename** (*Path | str*) -- The filename of the monitor file. The saved file will be
+                  `<logdir>/<filename>.csv`. And the resulting plot will be saved as
+                  `<logdir>/evaluations/<filename>.png`.
+
+
+.. py:class:: MjCambrianEvalCallback(eval_env, callback_on_new_best = None, callback_after_eval = None, n_eval_episodes = 5, eval_freq = 10000, log_path = None, best_model_save_path = None, deterministic = True, render = False, verbose = 1, warn = True)
+
+   Bases: :py:obj:`stable_baselines3.common.callbacks.EvalCallback`
+
+
+   Overwrites the default EvalCallback to support saving visualizations at the same
+   time as the evaluation.
+
+   .. note:: Only the first environment is visualized
+
+
+.. py:class:: MjCambrianGPUUsageCallback(logdir, logfile = 'gpu_usage.csv', *, verbose = 0)
+
+   Bases: :py:obj:`stable_baselines3.common.callbacks.BaseCallback`
+
+
+   This callback will log the GPU usage at the end of each evaluation.
+   We'll log to a csv.
+
+
+.. py:class:: MjCambrianSavePolicyCallback(logdir, *, verbose = 0)
+
+   Bases: :py:obj:`stable_baselines3.common.callbacks.BaseCallback`
+
+
+   Should be used with an EvalCallback to save the policy.
+
+   This callback will save the policy at the end of each evaluation. Should be passed
+   as the `callback_after_eval` for the EvalCallback.
+
+   :Parameters: **logdir** (*Path | str*) -- The directory to store the generated visualizations. The
+                resulting visualizations are going to be stored at
+                `<logdir>/evaluations/visualization.gif`.
+
+
+.. py:class:: MjCambrianProgressBarCallback
+
+   Bases: :py:obj:`stable_baselines3.common.callbacks.ProgressBarCallback`
+
+
+   Overwrite the default progress bar callback to flush the pbar on deconstruct.
+
+
+   .. py:method:: __del__()
+
+      This string will restore the terminal back to its original state.
+
+
+
+.. py:class:: MjCambrianCallbackListWithSharedParent(callbacks)
+
+   Bases: :py:obj:`stable_baselines3.common.callbacks.CallbackList`
+
+
+   Class for chaining callbacks.
+
+   :param callbacks: A list of callbacks that will be called
+       sequentially.
+
+
+.. py:class:: MjCambrianSaveConfigCallback
+
+   Bases: :py:obj:`hydra.experimental.callbacks.Callback`
+
+
+   This callback will save the resolved hydra config to the logdir.
+
+
+   .. py:method:: on_run_start(config, **kwargs)
+
+      Called in RUN mode before job/application code starts. `config` is composed with overrides.
+      Some `hydra.runtime` configs are not populated yet.
+      See hydra.core.utils.run_job for more info.
+
+
+
+   .. py:method:: on_multirun_start(config, **kwargs)
+
+      Called in MULTIRUN mode before any job starts.
+      When using a launcher, this will be executed on local machine before any Sweeper/Launcher is initialized.
+
+
+

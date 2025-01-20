@@ -1,0 +1,148 @@
+cambrian.ml.model
+=================
+
+.. py:module:: cambrian.ml.model
+
+.. autoapi-nested-parse::
+
+   Custom model class for Cambrian. This class is a subclass of the PPO model from
+   Stable Baselines 3. It overrides the save and load methods to only save the policy
+   weights. It also adds a method to load rollout data from a previous training run. The
+   predict method is then overwritten to return the next action in the rollout if the
+   rollout data is loaded. This is useful for testing the evolutionary loop without
+   having to train the agent each time.
+
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   cambrian.ml.model.MjCambrianModel
+
+
+Module Contents
+---------------
+
+.. py:class:: MjCambrianModel(*args, **kwargs)
+
+   Bases: :py:obj:`stable_baselines3.PPO`
+
+
+   Proximal Policy Optimization algorithm (PPO) (clip version)
+
+   Paper: https://arxiv.org/abs/1707.06347
+   Code: This implementation borrows code from OpenAI Spinning Up (https://github.com/openai/spinningup/)
+   https://github.com/ikostrikov/pytorch-a2c-ppo-acktr-gail and
+   Stable Baselines (PPO2 from https://github.com/hill-a/stable-baselines)
+
+   Introduction to PPO: https://spinningup.openai.com/en/latest/algorithms/ppo.html
+
+   :param policy: The policy model to use (MlpPolicy, CnnPolicy, ...)
+   :param env: The environment to learn from (if registered in Gym, can be str)
+   :param learning_rate: The learning rate, it can be a function
+       of the current progress remaining (from 1 to 0)
+   :param n_steps: The number of steps to run for each environment per update
+       (i.e. rollout buffer size is n_steps * n_envs where n_envs is number of environment copies running in parallel)
+       NOTE: n_steps * n_envs must be greater than 1 (because of the advantage normalization)
+       See https://github.com/pytorch/pytorch/issues/29372
+   :param batch_size: Minibatch size
+   :param n_epochs: Number of epoch when optimizing the surrogate loss
+   :param gamma: Discount factor
+   :param gae_lambda: Factor for trade-off of bias vs variance for Generalized Advantage Estimator
+   :param clip_range: Clipping parameter, it can be a function of the current progress
+       remaining (from 1 to 0).
+   :param clip_range_vf: Clipping parameter for the value function,
+       it can be a function of the current progress remaining (from 1 to 0).
+       This is a parameter specific to the OpenAI implementation. If None is passed (default),
+       no clipping will be done on the value function.
+       IMPORTANT: this clipping depends on the reward scaling.
+   :param normalize_advantage: Whether to normalize or not the advantage
+   :param ent_coef: Entropy coefficient for the loss calculation
+   :param vf_coef: Value function coefficient for the loss calculation
+   :param max_grad_norm: The maximum value for the gradient clipping
+   :param use_sde: Whether to use generalized State Dependent Exploration (gSDE)
+       instead of action noise exploration (default: False)
+   :param sde_sample_freq: Sample a new noise matrix every n steps when using gSDE
+       Default: -1 (only sample at the beginning of the rollout)
+   :param rollout_buffer_class: Rollout buffer class to use. If ``None``, it will be automatically selected.
+   :param rollout_buffer_kwargs: Keyword arguments to pass to the rollout buffer on creation
+   :param target_kl: Limit the KL divergence between updates,
+       because the clipping is not enough to prevent large update
+       see issue #213 (cf https://github.com/hill-a/stable-baselines/issues/213)
+       By default, there is no limit on the kl div.
+   :param stats_window_size: Window size for the rollout logging, specifying the number of episodes to average
+       the reported success rate, mean episode length, and mean reward over
+   :param tensorboard_log: the log location for tensorboard (if None, no logging)
+   :param policy_kwargs: additional arguments to be passed to the policy on creation
+   :param verbose: Verbosity level: 0 for no output, 1 for info messages (such as device or wrappers used), 2 for
+       debug messages
+   :param seed: Seed for the pseudo random generators
+   :param device: Device (cpu, cuda, ...) on which the code should be run.
+       Setting it to auto, the code will be run on the GPU if possible.
+   :param _init_setup_model: Whether or not to build the network at the creation of the instance
+
+
+   .. py:method:: save_policy(path)
+
+      Overwrite the save method. Instead of saving the entire state, we'll
+      just save the policy weights.
+
+
+
+   .. py:method:: load_policy(path)
+
+      Overwrite the load method. Instead of loading the entire state, we'll just
+      load the policy weights.
+
+      There are four cases to consider:
+          - A layer in the saved policy is identical in shape to the current policy
+              - Do nothing for this layer
+          - A layer is both present in the saved policy and the current policy, but
+              the shapes are different
+              - Delete the layer from the saved policy
+          - A layer is present in the saved policy but not the current policy
+              - Delete the layer from the saved policy
+          - A layer is present in the current policy but not the saved policy
+              - Do nothing for this layer. By setting `strict=False` in the call to
+                  `load_state_dict`, we can ignore this layer.
+
+
+
+   .. py:method:: load_rollout(path)
+
+      Load the rollout data from a previous training run. The rollout is a list
+      of actions based on a current step. The model.predict call will then be
+      overwritten to return the next action. This loader is "dumb" in the sense that
+      it doesn't actually process the observations when it's using rollout, it will
+      simply keep track of the current step and return the next action in the
+      rollout.
+
+
+
+   .. py:method:: load_weights(weights, **kwargs)
+      :classmethod:
+
+
+      Load the weights for the policy. This is useful for testing the
+      evolutionary loop without having to train the agent each time.
+
+
+
+   .. py:method:: predict(*args, **kwargs)
+
+      Get the policy action from an observation (and optional hidden state).
+      Includes sugar-coating to handle different observations (e.g. normalizing images).
+
+      :param observation: the input observation
+      :param state: The last hidden states (can be None, used in recurrent policies)
+      :param episode_start: The last masks (can be None, used in recurrent policies)
+          this correspond to beginning of episodes,
+          where the hidden states of the RNN must be reset.
+      :param deterministic: Whether or not to return deterministic actions.
+      :return: the model's action and the next hidden state
+          (used in recurrent policies)
+
+
+

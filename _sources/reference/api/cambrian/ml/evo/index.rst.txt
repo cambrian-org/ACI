@@ -1,0 +1,30 @@
+cambrian.ml.evo
+===============
+
+.. py:module:: cambrian.ml.evo
+
+.. autoapi-nested-parse::
+
+   Defines the configuration for the evolutionary algorithm.
+
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   cambrian.ml.evo.MjCambrianEvoConfig
+
+
+Module Contents
+---------------
+
+.. py:class:: MjCambrianEvoConfig
+
+   Bases: :py:obj:`hydra_config.HydraContainerConfig`
+
+
+   Base dataclass which provides additional methods for working with configs.
+
+

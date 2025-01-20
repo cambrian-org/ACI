@@ -1,0 +1,205 @@
+cambrian.utils
+==============
+
+.. py:module:: cambrian.utils
+
+.. autoapi-nested-parse::
+
+   This module defines the Cambrian utilities.
+
+
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 1
+
+   /reference/api/cambrian/utils/cambrian_xml/index
+   /reference/api/cambrian/utils/logger/index
+   /reference/api/cambrian/utils/spec/index
+   /reference/api/cambrian/utils/types/index
+   /reference/api/cambrian/utils/wrappers/index
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   cambrian.utils.MjCambrianActuator
+   cambrian.utils.MjCambrianJoint
+   cambrian.utils.MjCambrianGeometry
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   cambrian.utils.evaluate_policy
+   cambrian.utils.save_data
+   cambrian.utils.try_load_pickle
+   cambrian.utils.generate_sequence_from_range
+   cambrian.utils.setattrs_temporary
+   cambrian.utils.make_odd
+   cambrian.utils.round_half_up
+   cambrian.utils.safe_index
+   cambrian.utils.pickle_unpickleable_object
+   cambrian.utils.unpickle_unpickleable_object
+   cambrian.utils.agent_selected
+
+
+Package Contents
+----------------
+
+.. py:function:: evaluate_policy(env, model, num_runs, *, record_kwargs = None, step_callback = lambda: True, done_callback = lambda _: True)
+
+   Evaluate a policy.
+
+   :Parameters: * **env** (*gym.Env*) -- The environment to evaluate the policy on. Assumed to be a
+                  VecEnv wrapper around a MjCambrianEnv.
+                * **model** (*MjCambrianModel*) -- The model to evaluate.
+                * **num_runs** (*int*) -- The number of runs to evaluate the policy on.
+
+   :keyword record_kwargs: The keyword arguments to pass to the save
+                           method of the environment. If None, the environment will not be recorded.
+   :kwtype record_kwargs: Dict[str, Any]
+   :keyword step_callback: The callback function to call at each step.
+                           If the function returns False, the evaluation will stop.
+   :kwtype step_callback: Callable[[], bool]
+   :keyword done_callback: The callback function to call when a run
+                           is done. If the function returns False, the evaluation will stop.
+   :kwtype done_callback: Callable[[int], bool]
+
+   :returns: *float* -- The cumulative reward of the evaluation.
+
+
+.. py:function:: save_data(data, outdir, pickle_file)
+
+   Save the parsed data to a pickle file.
+
+
+.. py:function:: try_load_pickle(folder, pickle_file)
+
+   Try to load the data from the pickle file.
+
+
+.. py:function:: generate_sequence_from_range(range, num, endpoint = True)
+
+   Generate a sequence of numbers from a range. If num is 1, the average of the
+   range is returned. Otherwise, a sequence of numbers is generated using np.linspace.
+
+   :Parameters: * **range** (*Tuple[float, float]*) -- The range of the sequence.
+                * **num** (*int*) -- The number of elements in the sequence.
+
+   :keyword endpoint: Whether to include the endpoint in the sequence.
+   :kwtype endpoint: bool
+
+
+.. py:function:: setattrs_temporary(*args)
+
+   Temporarily set attributes of an object.
+
+
+.. py:function:: make_odd(num)
+
+   Make a number odd by adding 1 if it is even. If `num` is a float, it is cast to
+   an int.
+
+
+.. py:function:: round_half_up(n)
+
+   Round a number to the nearest integer, rounding half up.
+
+
+.. py:function:: safe_index(arr, value, *, default = None)
+
+   Safely get the index of a value in a list. If the value is not in the list, None
+   is returned.
+
+
+.. py:class:: MjCambrianActuator
+
+   Helper class which stores information about a Mujoco actuator.
+
+   :ivar adr: The Mujoco actuator ID (index into model.actuator_* arrays).
+   :vartype adr: int
+   :ivar trnadr: The index of the actuator's transmission in the model.
+   :vartype trnadr: int
+   :ivar ctrlrange: The control range of the actuator.
+   :vartype ctrlrange: Tuple[float, float]
+   :ivar ctrllimited: Whether the actuator is control-limited.
+
+   :vartype ctrllimited: bool
+
+
+.. py:class:: MjCambrianJoint
+
+   Helper class which stores information about a Mujoco joint.
+
+   :ivar type: The Mujoco joint type (mj.mjtJoint).
+   :vartype type: int
+   :ivar adr: The Mujoco joint ID (index into model.jnt_* arrays).
+   :vartype adr: int
+   :ivar qposadr: The index of the joint's position in the qpos array.
+   :vartype qposadr: int
+   :ivar numqpos: The number of positions in the joint.
+   :vartype numqpos: int
+   :ivar qveladr: The index of the joint's velocity in the qvel array.
+   :vartype qveladr: int
+   :ivar numqvel: The number of velocities in the joint.
+
+   :vartype numqvel: int
+
+
+   .. py:method:: create(model, jntadr)
+      :staticmethod:
+
+
+      Create a Joint object from a Mujoco model and joint body ID.
+
+
+
+   .. py:property:: qposadrs
+      :type: List[int]
+
+
+      Get the indices of the joint's positions in the qpos array.
+
+
+   .. py:property:: qveladrs
+      :type: List[int]
+
+
+      Get the indices of the joint's velocities in the qvel array.
+
+
+.. py:class:: MjCambrianGeometry
+
+   Helper class which stores information about a Mujoco geometry
+
+   :ivar id: The Mujoco geometry ID (index into model.geom_* arrays).
+   :vartype id: int
+   :ivar rbound: The radius of the geometry's bounding sphere.
+   :vartype rbound: float
+   :ivar pos: The position of the geometry relative to the body.
+
+   :vartype pos: np.ndarray
+
+
+.. py:function:: pickle_unpickleable_object(source)
+
+   Return a reduce tuple: (unpickle_callable, (args,))
+
+
+.. py:function:: unpickle_unpickleable_object(cls, attributes)
+
+   This will be called automatically by Python when unpickling.
+
+
+.. py:function:: agent_selected(agent, agents)
+
+   Check if the agent is selected.
+
+

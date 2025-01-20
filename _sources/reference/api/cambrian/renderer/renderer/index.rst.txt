@@ -1,0 +1,123 @@
+cambrian.renderer.renderer
+==========================
+
+.. py:module:: cambrian.renderer.renderer
+
+.. autoapi-nested-parse::
+
+   Wrapper around the mujoco viewer for rendering scenes.
+
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   cambrian.renderer.renderer.MjCambrianRendererSaveMode
+   cambrian.renderer.renderer.MjCambrianRendererConfig
+   cambrian.renderer.renderer.MjCambrianViewer
+   cambrian.renderer.renderer.MjCambrianOffscreenViewer
+   cambrian.renderer.renderer.MjCambrianOnscreenViewer
+   cambrian.renderer.renderer.MjCambrianRenderer
+
+
+Module Contents
+---------------
+
+.. py:class:: MjCambrianRendererSaveMode(*args, **kwds)
+
+   Bases: :py:obj:`enum.Flag`
+
+
+   The save modes for saving rendered images.
+
+
+.. py:class:: MjCambrianRendererConfig
+
+   Bases: :py:obj:`hydra_config.HydraContainerConfig`
+
+
+   The config for the renderer. Used for type hinting.
+
+   A renderer corresponds to a single camera. The renderer can then view the scene in
+   different ways, like offscreen (rgb_array) or onscreen (human).
+
+   :ivar render_modes: The render modes to use for the renderer. See
+                       `MjCambrianRenderer.metadata["render.modes"]` for options.
+
+   :vartype render_modes: List[str]
+   :ivar width: The width of the rendered image. For onscreen renderers,
+                if this is set, the window cannot be resized. Must be set for offscreen
+                renderers.
+   :vartype width: Optional[int]
+   :ivar height: The height of the rendered image. For onscreen
+                 renderers, if this is set, the window cannot be resized. Must be set for
+                 offscreen renderers.
+
+   :vartype height: Optional[int]
+   :ivar fullscreen: Whether to render in fullscreen or not. If True,
+                     the width and height are ignored and the window is rendered in fullscreen.
+                     This is only valid for onscreen renderers.
+
+   :vartype fullscreen: Optional[bool]
+   :ivar scene: The scene to render.
+   :vartype scene: Type[mj.MjvScene]
+   :ivar scene_options: The options to use for rendering.
+   :vartype scene_options: mj.MjvOption
+   :ivar camera: The camera to use for rendering.
+
+   :vartype camera: mj.MjvCamera
+   :ivar use_shared_context: Whether to use a shared context or not.
+                             If True, the renderer will share a context with other renderers. This is
+                             useful for rendering multiple renderers at the same time. If False, the
+                             renderer will create its own context. This is computationally expensive if
+                             there are many renderers.
+
+   :vartype use_shared_context: bool
+   :ivar save_mode: The save modes to use for
+                    saving the rendered images. See `MjCambrianRenderer.SaveMode` for options.
+                    Must be set if `save` is called without save modes passed directly.
+
+   :vartype save_mode: Optional[MjCambrianRendererSaveMode]
+
+
+.. py:class:: MjCambrianViewer(config)
+
+   Bases: :py:obj:`abc.ABC`
+
+
+   The base class for the viewer. This class should not be instantiated directly.
+
+   :Parameters: **config** (*MjCambrianRendererConfig*) -- The config to use for the viewer.
+
+
+.. py:class:: MjCambrianOffscreenViewer(config)
+
+   Bases: :py:obj:`MjCambrianViewer`
+
+
+   The offscreen viewer for rendering scenes.
+
+
+.. py:class:: MjCambrianOnscreenViewer(config)
+
+   Bases: :py:obj:`MjCambrianViewer`
+
+
+   The onscreen viewer for rendering scenes.
+
+
+.. py:class:: MjCambrianRenderer(config)
+
+   The renderer for rendering scenes. This is essentially a wrapper around the
+   mujoco viewer/renderer.
+
+   :Parameters: **config** (*MjCambrianRendererConfig*) -- The config to use for the renderer.
+
+   :ivar metadata: The metadata for the renderer. The render modes
+                   are stored here.
+
+   :vartype metadata: Dict[str, List[str]]
+
+

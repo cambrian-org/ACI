@@ -1,0 +1,136 @@
+cambrian.renderer
+=================
+
+.. py:module:: cambrian.renderer
+
+.. autoapi-nested-parse::
+
+   This module defines the Cambrian renderer.
+
+
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 1
+
+   /reference/api/cambrian/renderer/overlays/index
+   /reference/api/cambrian/renderer/render_utils/index
+   /reference/api/cambrian/renderer/renderer/index
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   cambrian.renderer.MjCambrianRenderer
+   cambrian.renderer.MjCambrianRendererConfig
+   cambrian.renderer.MjCambrianRendererSaveMode
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   cambrian.renderer.convert_depth_distances
+   cambrian.renderer.resize_with_aspect_fill
+
+
+Package Contents
+----------------
+
+.. py:function:: convert_depth_distances(model, depth)
+
+   Converts depth values from OpenGL to metric depth values using PyTorch.
+
+   :Parameters: * **model** (*mj.MjModel*) -- The model.
+                * **depth** (*torch.Tensor*) -- The depth values to convert.
+
+   :returns: *torch.Tensor* -- The converted depth values.
+
+   .. note::
+
+      This function is based on
+      [this code](https://github.com/google-deepmind/mujoco/blob/main/            python/mujoco/renderer.py).
+      It is adapted to use PyTorch instead of NumPy.
+
+
+.. py:function:: resize_with_aspect_fill(images, height, width)
+
+   Resize the image while maintaining the aspect ratio and
+   filling the rest with black.
+
+
+.. py:class:: MjCambrianRenderer(config)
+
+   The renderer for rendering scenes. This is essentially a wrapper around the
+   mujoco viewer/renderer.
+
+   :Parameters: **config** (*MjCambrianRendererConfig*) -- The config to use for the renderer.
+
+   :ivar metadata: The metadata for the renderer. The render modes
+                   are stored here.
+
+   :vartype metadata: Dict[str, List[str]]
+
+
+.. py:class:: MjCambrianRendererConfig
+
+   Bases: :py:obj:`hydra_config.HydraContainerConfig`
+
+
+   The config for the renderer. Used for type hinting.
+
+   A renderer corresponds to a single camera. The renderer can then view the scene in
+   different ways, like offscreen (rgb_array) or onscreen (human).
+
+   :ivar render_modes: The render modes to use for the renderer. See
+                       `MjCambrianRenderer.metadata["render.modes"]` for options.
+
+   :vartype render_modes: List[str]
+   :ivar width: The width of the rendered image. For onscreen renderers,
+                if this is set, the window cannot be resized. Must be set for offscreen
+                renderers.
+   :vartype width: Optional[int]
+   :ivar height: The height of the rendered image. For onscreen
+                 renderers, if this is set, the window cannot be resized. Must be set for
+                 offscreen renderers.
+
+   :vartype height: Optional[int]
+   :ivar fullscreen: Whether to render in fullscreen or not. If True,
+                     the width and height are ignored and the window is rendered in fullscreen.
+                     This is only valid for onscreen renderers.
+
+   :vartype fullscreen: Optional[bool]
+   :ivar scene: The scene to render.
+   :vartype scene: Type[mj.MjvScene]
+   :ivar scene_options: The options to use for rendering.
+   :vartype scene_options: mj.MjvOption
+   :ivar camera: The camera to use for rendering.
+
+   :vartype camera: mj.MjvCamera
+   :ivar use_shared_context: Whether to use a shared context or not.
+                             If True, the renderer will share a context with other renderers. This is
+                             useful for rendering multiple renderers at the same time. If False, the
+                             renderer will create its own context. This is computationally expensive if
+                             there are many renderers.
+
+   :vartype use_shared_context: bool
+   :ivar save_mode: The save modes to use for
+                    saving the rendered images. See `MjCambrianRenderer.SaveMode` for options.
+                    Must be set if `save` is called without save modes passed directly.
+
+   :vartype save_mode: Optional[MjCambrianRendererSaveMode]
+
+
+.. py:class:: MjCambrianRendererSaveMode(*args, **kwds)
+
+   Bases: :py:obj:`enum.Flag`
+
+
+   The save modes for saving rendered images.
+
+

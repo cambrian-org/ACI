@@ -1,0 +1,374 @@
+cambrian.envs.maze_env
+======================
+
+.. py:module:: cambrian.envs.maze_env
+
+.. autoapi-nested-parse::
+
+   Defines the MjCambrianMazeEnv class.
+
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   cambrian.envs.maze_env.MjCambrianMapEntity
+   cambrian.envs.maze_env.MjCambrianMazeConfig
+   cambrian.envs.maze_env.MjCambrianMazeEnvConfig
+   cambrian.envs.maze_env.MjCambrianMazeEnv
+   cambrian.envs.maze_env.MjCambrianMaze
+   cambrian.envs.maze_env.MjCambrianMazeStore
+
+
+Module Contents
+---------------
+
+.. py:class:: MjCambrianMapEntity(*args, **kwds)
+
+   Bases: :py:obj:`enum.Enum`
+
+
+   Enum representing different states in a grid.
+
+   :ivar RESET: Initial reset position of the agent. Can include agent IDs in
+                the format "R:<agent id>".
+   :vartype RESET: str
+   :ivar WALL: Represents a wall in the grid. Can include texture IDs in the
+               format "1:<texture id>".
+   :vartype WALL: str
+   :ivar EMPTY: Represents an empty space in the grid.
+
+   :vartype EMPTY: str
+
+
+   .. py:method:: parse(value)
+      :staticmethod:
+
+
+      Parse a value to handle special formats like "1:<texture id>".
+
+      :Parameters: **value** (*str*) -- The value to parse.
+
+      :returns: *Tuple[Self, str]* --
+
+                The parsed entity and the texture id if
+                    applicable.
+
+
+
+.. py:class:: MjCambrianMazeConfig
+
+   Bases: :py:obj:`hydra_config.HydraContainerConfig`
+
+
+   Defines a map config. Used for type hinting.
+
+   :ivar xml: The xml for the maze. This is the xml that will be
+              used to create the maze.
+   :vartype xml: MjCambrianXML
+   :ivar map: The map to use for the maze. It's a 2D array where
+              each element is a string and corresponds to a "pixel" in the map. See
+              `maze.py` for info on what different strings mean. This is actually a
+              List[List[str]], but we keep it as a string for readability when dumping
+              the config to a file. Will convert to list when creating the maze.
+
+   :vartype map: str
+   :ivar scale: The maze scaling for the continuous coordinates in the
+                MuJoCo simulation.
+   :vartype scale: float
+   :ivar height: The height of the walls in the MuJoCo simulation.
+   :vartype height: float
+   :ivar hflip: Whether to flip the maze or not. If True, the maze will be
+                flipped along the x-axis.
+   :vartype hflip: bool
+   :ivar vflip: Whether to flip the maze or not. If True, the maze will be
+                flipped along the y-axis.
+   :vartype vflip: bool
+   :ivar rotation: The rotation of the maze in degrees. The rotation is
+                   applied after the flip.
+
+   :vartype rotation: float
+   :ivar wall_texture_map: The mapping from texture id to
+                           texture names. Textures in the list are chosen at random. If the list is of
+                           length 1, only one texture will be used. A length >= 1 is required.
+                           The keyword "default" is required for walls denoted simply as 1 or W.
+                           Other walls are specified as 1/W:<texture id>.
+   :vartype wall_texture_map: Dict[str, List[str]]
+   :ivar agent_id_map: The mapping from agent id to agent
+                       names. Agents in the list are chosen at random. If the list is of length 1,
+                       only one agent will be used. A length >= 1 is required for each agent name.
+                       Effectively, this means you can set a reset position as R:<agent id> in the
+                       map and this map is used to assign to a group of agents. For instance,
+                       R:O in the map and including O: [agent1, agent2] in the agent_id_map will
+                       assign the reset position to either agent1 or agent2 at random. "default"
+                       is required for agents denoted simply as R.
+
+   :vartype agent_id_map: Dict[str, List[str]]
+   :ivar enabled: Whether the maze is enabled or not.
+
+   :vartype enabled: bool
+
+
+.. py:class:: MjCambrianMazeEnvConfig
+
+   Bases: :py:obj:`cambrian.envs.env.MjCambrianEnvConfig`
+
+
+   mazes (Dict[str, MjCambrianMazeEnvConfig]): The configs for the mazes. Each
+       maze will be loaded into the scene and the agent will be placed in a maze
+       at each reset.
+   maze_selection_fn (MjCambrianMazeSelectionFn): The function to use to select
+       the maze. The function will be called at each reset to select the maze
+       to use. See `MjCambrianMazeSelectionFn` and `maze.py` for more info.
+
+
+.. py:class:: MjCambrianMazeEnv(config, **kwargs)
+
+   Bases: :py:obj:`cambrian.envs.env.MjCambrianEnv`
+
+
+   A MjCambrianEnv defines a gymnasium environment that's based off mujoco.
+
+   NOTES:
+   - This is an overridden version of the MujocoEnv class. The two main differences is
+   that we allow for /reset multiple agents and use our own custom renderer. It also
+   reduces the need to create temporary xml files which MujocoEnv had to load. It's
+   essentially a copy of MujocoEnv with the two aforementioned major changes.
+
+   :Parameters: * **config** (*MjCambrianEnvConfig*) -- The config object.
+                * **name** (*Optional[str]*) -- The name of the environment. This is added as an overlay
+                  to the renderer.
+
+
+   .. py:method:: generate_xml()
+
+      Generates the xml for the environment.
+
+
+
+   .. py:method:: reset(*, seed = None, options = None)
+
+      Reset the environment.
+
+      Will reset all underlying components (the maze, the agents, etc.). The
+      simulation will then be stepped once to ensure that the observations are
+      up-to-date.
+
+      :returns: *Tuple[ObsType, InfoType]* --
+
+                The observations for each
+                    agent and the info dict for each agent.
+
+
+
+   .. py:property:: maze
+      :type: MjCambrianMaze
+
+
+      Returns the current maze.
+
+
+   .. py:property:: maze_store
+      :type: MjCambrianMazeStore
+
+
+      Returns the maze store.
+
+
+.. py:class:: MjCambrianMaze(config, name)
+
+   The maze class. Generates a maze from a given map and provides utility
+   functions for working with the maze.
+
+
+   .. py:method:: reset(spec, *, reset_occupied = True)
+
+      Resets the maze. Will reset the wall textures and reset the occupied
+      locations, if desired.
+
+
+
+   .. py:method:: compute_optimal_path(start, target, *, obstacles = [])
+
+      Computes the optimal path from the start position to the target.
+
+      Uses a BFS to find the shortest path.
+
+      :keyword obstacles: The obstacles in the maze. Each
+                          obstacle is a tuple of (row, col). Defaults to []. Avoids these
+                          positions when computing the path.
+      :kwtype obstacles: List[Tuple[int, int]]
+
+
+
+   .. py:method:: generate_reset_pos(agent, *, add_as_occupied = True)
+
+      Generates a random reset position for an agent.
+
+      :keyword add_as_occupied: Whether to add the chosen location to the
+                                occupied locations. Defaults to True.
+      :kwtype add_as_occupied: bool
+
+      :returns: *np.ndarray* -- The chosen position. Is of size (2,).
+
+
+
+   .. py:property:: config
+      :type: MjCambrianMazeEnvConfig
+
+
+      Returns the config.
+
+
+   .. py:property:: name
+      :type: str
+
+
+      Returns the name.
+
+
+   .. py:property:: map
+      :type: numpy.ndarray
+
+
+      Returns the map.
+
+
+   .. py:property:: map_length_scaled
+      :type: float
+
+
+      Returns the map length scaled.
+
+
+   .. py:property:: map_width_scaled
+      :type: float
+
+
+      Returns the map width scaled.
+
+
+   .. py:property:: max_dim
+      :type: float
+
+
+      Returns the max dimension.
+
+
+   .. py:property:: min_dim
+      :type: float
+
+
+      Returns the min dimension.
+
+
+   .. py:property:: ratio
+      :type: float
+
+
+      Returns the ratio of the length over width.
+
+
+   .. py:property:: x_map_center
+      :type: float
+
+
+      Returns the x map center.
+
+
+   .. py:property:: y_map_center
+      :type: float
+
+
+      Returns the y map center.
+
+
+   .. py:property:: lookat
+      :type: numpy.ndarray
+
+
+      Returns a point which aids in placement of a camera to visualize this
+      maze.
+
+
+   .. py:property:: reset_locations
+      :type: List[numpy.ndarray]
+
+
+      Returns the reset locations.
+
+
+.. py:class:: MjCambrianMazeStore(maze_configs, maze_selection_fn)
+
+   This is a simple class to store a collection of mazes.
+
+
+   .. py:method:: generate_xml()
+
+      Generates the xml for the current maze.
+
+
+
+   .. py:method:: reset(spec)
+
+      Resets all mazes.
+
+
+
+   .. py:property:: current_maze
+      :type: MjCambrianMaze
+
+
+      Returns the current maze.
+
+
+   .. py:property:: maze_list
+      :type: List[MjCambrianMaze]
+
+
+      Returns the list of mazes.
+
+
+   .. py:method:: select_maze(env)
+
+      This should be called by the environment to select a maze.
+
+
+
+   .. py:method:: select_maze_random(_)
+
+      Selects a maze at random.
+
+
+
+   .. py:method:: select_maze_schedule(env, *, schedule = 'linear', total_timesteps, n_envs, lam_0 = -2.0, lam_n = 2.0)
+
+      Selects a maze based on a schedule. The scheduled selections are based on
+      the order of the mazes in the list.
+
+      :keyword schedule: The schedule to use. One of "linear",
+                         "exponential", or "logistic". Defaults to "linear".
+      :kwtype schedule: Optional[str]
+      :keyword total_timesteps: The total number of timesteps in the training
+                                schedule. Unused if schedule is None. Required otherwise.
+      :kwtype total_timesteps: int
+      :keyword n_envs: The number of environments. Unused if schedule is None.
+                       Required otherwise.
+      :kwtype n_envs: int
+      :keyword lam_0: The lambda value at the start of the schedule.
+                      Unused if schedule is None.
+      :kwtype lam_0: Optional[float]
+      :keyword lam_n: The lambda value at the end of the schedule.
+                      Unused if schedule is None.
+      :kwtype lam_n: Optional[float]
+
+
+
+   .. py:method:: select_maze_cycle(env)
+
+      Selects a maze based on a cycle.
+
+
+

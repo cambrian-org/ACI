@@ -1,0 +1,48 @@
+cambrian.envs.step_fns
+======================
+
+.. py:module:: cambrian.envs.step_fns
+
+.. autoapi-nested-parse::
+
+   Step fns. These can be used to modify the observation and info dictionaries.
+
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   cambrian.envs.step_fns.respawn_agent
+   cambrian.envs.step_fns.step_respawn_agents_if_close_to_agents
+   cambrian.envs.step_fns.step_add_agent_qpos_to_info
+   cambrian.envs.step_fns.step_combined
+
+
+Module Contents
+---------------
+
+.. py:function:: respawn_agent(env, agent)
+
+   Respawn agent at given position.
+
+
+.. py:function:: step_respawn_agents_if_close_to_agents(env, obs, info, *, distance_threshold, for_agents = None, to_agents = None, from_agents = None)
+
+   Keywords Args:
+       for_agents: List of agent names to check for proximity.
+       to_agents: List of agent names to check distance to
+       from_agents: List of agent names to check distance from
+
+
+.. py:function:: step_add_agent_qpos_to_info(env, obs, info, *, for_agents = None)
+
+   Add agent qpos to observation.
+
+
+.. py:function:: step_combined(env, obs, info, **step_fns)
+
+   Combine multiple step functions.
+
+

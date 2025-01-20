@@ -1,0 +1,57 @@
+cambrian.envs.done_fns
+======================
+
+.. py:module:: cambrian.envs.done_fns
+
+.. autoapi-nested-parse::
+
+   Done fns. These can be used either with termination or truncation.
+
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   cambrian.envs.done_fns.done_never
+   cambrian.envs.done_fns.done_if_exceeds_max_episode_steps
+   cambrian.envs.done_fns.done_if_low_reward
+   cambrian.envs.done_fns.done_if_has_contacts
+   cambrian.envs.done_fns.done_if_close_to_agents
+   cambrian.envs.done_fns.done_combined
+
+
+Module Contents
+---------------
+
+.. py:function:: done_never(env, agent, info)
+
+   Never done.
+
+
+.. py:function:: done_if_exceeds_max_episode_steps(env, agent, info)
+
+   Done if episode step exceeds max episode steps.
+
+
+.. py:function:: done_if_low_reward(env, agent, info, *, threshold, disable = False)
+
+   Done if agent has low reward.
+
+
+.. py:function:: done_if_has_contacts(env, agent, info, *, for_agents = None, disable = False)
+
+   Done if agent has contacts.
+
+
+.. py:function:: done_if_close_to_agents(env, agent, info, *, to_agents = None, for_agents = None, distance_threshold, disable = False)
+
+   Done if agent is close to another agent.
+
+
+.. py:function:: done_combined(env, agent, info, **done_fns)
+
+   Combine multiple done functions.
+
+

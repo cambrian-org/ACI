@@ -1,0 +1,151 @@
+cambrian.eyes.multi_eye
+=======================
+
+.. py:module:: cambrian.eyes.multi_eye
+
+.. autoapi-nested-parse::
+
+   Defines a multi-eye system that procedurally generates multiple eyes and manages
+   them.
+
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   cambrian.eyes.multi_eye.MjCambrianMultiEyeConfig
+   cambrian.eyes.multi_eye.MjCambrianMultiEye
+
+
+Module Contents
+---------------
+
+.. py:class:: MjCambrianMultiEyeConfig
+
+   Bases: :py:obj:`cambrian.eyes.eye.MjCambrianEyeConfig`
+
+
+   Config for MjCambrianMultiEye.
+
+   Inherits from MjCambrianEyeConfig and adds attributes for procedural eye placement.
+
+   :ivar instance: The class instance to use
+                   when creating the eye. Takes the config and the name of the eye as
+                   arguments.
+   :vartype instance: Callable[[Self, str], MjCambrianEye]
+   :ivar eye_instance: The class instance to use
+                       when creating the single eye instances. Takes the config and the name of the
+                       eye as arguments.
+
+   :vartype eye_instance: Callable[[Self, str], MjCambrianEye]
+   :ivar lat_range: The x range of the eye. This is
+                    used to determine the placement of the eye on the agent. Specified in
+                    degrees. This is the latitudinal/vertical range of the evenly placed eye
+                    about the agent's bounding sphere.
+   :vartype lat_range: Optional[Tuple[float, float]]
+   :ivar lon_range: The y range of the eye. This is
+                    used to determine the placement of the eye on the agent. Specified in
+                    degrees. This is the longitudinal/horizontal range of the evenly placed eye
+                    about the agent's bounding sphere.
+   :vartype lon_range: Optional[Tuple[float, float]]
+   :ivar num_eyes: The num of eyes to generate.
+                   If this is specified, then the eyes will be generated on a spherical
+                   grid. The first element is the number of eyes to generate latitudinally and
+                   the second element is the number of eyes to generate longitudinally. The
+                   eyes will be named sequentially starting from `eye_0`. Each eye will default
+                   to use the first eye config in the `eyes` attribute. `eyes` must have a
+                   length of 1 if this is specified. Each eye is named `eye_{lat}_{lon}` where
+                   `lat` is the latitude index and `lon` is the longitude index.
+
+   :vartype num_eyes: Optional[Tuple[int, int]]
+   :ivar flatten_observation: Whether to flatten the observation space
+                              of the multi-eye system. If True, the observation space will be a Box space
+                              with the shape `(num_eyes * eye_observation_space,)`. If False, the
+                              observation space will be a Dict space with the keys as the eye names and
+                              the values as the eye observation spaces. Defaults to False.
+
+   :vartype flatten_observation: Optional[bool]
+
+
+.. py:class:: MjCambrianMultiEye(config, name, disable_render = True)
+
+   Bases: :py:obj:`cambrian.eyes.eye.MjCambrianEye`
+
+
+   Defines a multi-eye system that procedurally generates multiple eyes and manages
+   them.
+
+   Inherits from MjCambrianEye but manages multiple eyes.
+
+   :Parameters: * **config** (*MjCambrianMultiEyeConfig*) -- Configuration for the multi-eye system.
+                * **name** (*str*) -- Base name for the eyes.
+
+
+   .. py:method:: generate_xml(parent_xml, geom, parent_body_name)
+
+      Generate the XML for all eyes.
+
+
+
+   .. py:method:: reset(*args)
+
+      Reset all eyes.
+
+
+
+   .. py:method:: step(obs = None)
+
+      Step all eyes and collect observations.
+
+
+
+   .. py:method:: render()
+
+      This is a debug method which renders the eye's as a composite image.
+
+      Will appear as a compound eye. For example, if we have a 3x3 grid of eyes:
+          TL T TR
+          ML M MR
+          BL B BR
+
+      Each eye has a red border around it.
+
+
+
+   .. py:property:: observation_space
+      :type: gymnasium.spaces.Space
+
+
+      Constructs the observation space for the multi-eye.
+
+
+   .. py:property:: prev_obs
+      :type: cambrian.utils.types.ObsType
+
+
+      The last observations from all eyes.
+
+
+   .. py:property:: eyes
+      :type: Dict[str, cambrian.eyes.eye.MjCambrianEye]
+
+
+      Returns the dictionary of eyes.
+
+
+   .. py:property:: name
+      :type: str
+
+
+      Returns the base name of the multi-eye system.
+
+
+   .. py:property:: num_eyes
+      :type: int
+
+
+      Returns the number of eyes.
+
+

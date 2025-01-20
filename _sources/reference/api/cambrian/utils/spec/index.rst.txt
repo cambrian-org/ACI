@@ -1,0 +1,11 @@
+cambrian.utils.spec
+===================
+
+.. py:module:: cambrian.utils.spec
+
+.. autoapi-nested-parse::
+
+   Wrapper for the Mujoco MjModel and MjData classes.
+
+
+

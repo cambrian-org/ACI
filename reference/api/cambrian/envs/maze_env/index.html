@@ -1,0 +1,835 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../../../../../">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-TB8Y1XJVV1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-TB8Y1XJVV1');
+    </script>
+    <link rel="index" title="Index" href="../../../../../genindex.html" /><link rel="search" title="Search" href="../../../../../search.html" /><link rel="next" title="cambrian.envs.reward_fns" href="../reward_fns/index.html" /><link rel="prev" title="cambrian.envs.env" href="../env/index.html" />
+
+    <link rel="shortcut icon" href="../../../../../_static/eye.png"/><!-- Generated with Sphinx 8.1.3 and Furo 2024.08.06 -->
+        <title>cambrian.envs.maze_env - cambrian 0.0.post1.dev3+gc8c8ed9 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../../_static/pygments.css?v=d75fae25" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/styles/furo.css?v=354aac6f" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/graphviz.css?v=4ae1632d" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/styles/furo-extensions.css?v=302659d7" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/css/custom.css?v=ae43ac89" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f0f0f0;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+<div class="announcement">
+  <aside class="announcement-content">
+     
+        <a style="text-decoration: none; color: white;"
+           href="https://www.media.mit.edu/groups/camera-culture/overview/">
+           <img src="/cc-hardware/_static/cc-transparent.png"
+                style="
+                    vertical-align: middle;
+                    display: inline;
+                    padding-right: 7.5px;
+                    height: 20px;
+                "/>
+           Checkout Camera Culture!
+        </a>
+     
+  </aside>
+</div>
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../../../../../index.html"><div class="brand">cambrian 0.0.post1.dev3+gc8c8ed9 documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../../../../../index.html">
+  
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo only-light" src="../../../../../_static/eye.png" alt="Light Logo"/>
+    <img class="sidebar-logo only-dark" src="../../../../../_static/eye.png" alt="Dark Logo"/>
+  </div>
+  
+  
+</a><form class="sidebar-search-container" method="get" action="../../../../../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../../../index.html">Home</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../../examples/index.html">Examples</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Examples</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../../examples/detection.html">Detection Task</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../../examples/navigation.html">Navigation Task</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../../examples/tracking.html">Tracking Task</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../../usage/index.html">Nuts and Bolts</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Nuts and Bolts</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../../usage/configuration.html">Configuring an Experiment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../../usage/training.html">Training an Agent</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../../usage/visualizing.html">Visualizing the Env</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../../usage/docker.html">Using Docker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../../usage/pitfalls.html">Pitfalls</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current has-children"><a class="reference internal" href="../../../../index.html">API Reference</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of API Reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2 current has-children"><a class="reference internal" href="../index.html">cambrian.envs</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of cambrian.envs</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../done_fns/index.html">cambrian.envs.done_fns</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../env/index.html">cambrian.envs.env</a></li>
+<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">cambrian.envs.maze_env</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reward_fns/index.html">cambrian.envs.reward_fns</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../step_fns/index.html">cambrian.envs.step_fns</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../agents/index.html">cambrian.agents</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle navigation of cambrian.agents</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../agents/agent/index.html">cambrian.agents.agent</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../agents/object/index.html">cambrian.agents.object</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../agents/point/index.html">cambrian.agents.point</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../eyes/index.html">cambrian.eyes</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle navigation of cambrian.eyes</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../eyes/eye/index.html">cambrian.eyes.eye</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../eyes/multi_eye/index.html">cambrian.eyes.multi_eye</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../eyes/optics/index.html">cambrian.eyes.optics</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../ml/index.html">cambrian.ml</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle navigation of cambrian.ml</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../ml/callbacks/index.html">cambrian.ml.callbacks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../ml/constraint_fns/index.html">cambrian.ml.constraint_fns</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../ml/evo/index.html">cambrian.ml.evo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../ml/features_extractors/index.html">cambrian.ml.features_extractors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../ml/fitness_fns/index.html">cambrian.ml.fitness_fns</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../ml/model/index.html">cambrian.ml.model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../ml/trainer/index.html">cambrian.ml.trainer</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../renderer/index.html">cambrian.renderer</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle navigation of cambrian.renderer</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../renderer/overlays/index.html">cambrian.renderer.overlays</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../renderer/render_utils/index.html">cambrian.renderer.render_utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../renderer/renderer/index.html">cambrian.renderer.renderer</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../utils/index.html">cambrian.utils</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><div class="visually-hidden">Toggle navigation of cambrian.utils</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../utils/cambrian_xml/index.html">cambrian.utils.cambrian_xml</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../utils/logger/index.html">cambrian.utils.logger</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../utils/spec/index.html">cambrian.utils.spec</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../utils/types/index.html">cambrian.utils.types</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../utils/wrappers/index.html">cambrian.utils.wrappers</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../config/index.html">cambrian.config</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../contributing.html">Contributing</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">External Links</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/camera-culture/ACI">Github</a></li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="view-this-page">
+  <a class="muted-link" href="../../../../../_sources/reference/api/cambrian/envs/maze_env/index.rst.txt" title="View this page">
+    <svg><use href="#svg-eye"></use></svg>
+    <span class="visually-hidden">View this page</span>
+  </a>
+</div>
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <section id="module-cambrian.envs.maze_env">
+<span id="cambrian-envs-maze-env"></span><h1>cambrian.envs.maze_env<a class="headerlink" href="#module-cambrian.envs.maze_env" title="Link to this heading">¶</a></h1>
+<p>Defines the MjCambrianMazeEnv class.</p>
+<section id="classes">
+<h2>Classes<a class="headerlink" href="#classes" title="Link to this heading">¶</a></h2>
+<div class="table-wrapper autosummary longtable docutils container">
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cambrian.envs.maze_env.MjCambrianMapEntity" title="cambrian.envs.maze_env.MjCambrianMapEntity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MjCambrianMapEntity</span></code></a></p></td>
+<td><p>Enum representing different states in a grid.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cambrian.envs.maze_env.MjCambrianMazeConfig" title="cambrian.envs.maze_env.MjCambrianMazeConfig"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MjCambrianMazeConfig</span></code></a></p></td>
+<td><p>Defines a map config. Used for type hinting.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cambrian.envs.maze_env.MjCambrianMazeEnvConfig" title="cambrian.envs.maze_env.MjCambrianMazeEnvConfig"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MjCambrianMazeEnvConfig</span></code></a></p></td>
+<td><p>mazes (Dict[str, MjCambrianMazeEnvConfig]): The configs for the mazes. Each</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cambrian.envs.maze_env.MjCambrianMazeEnv" title="cambrian.envs.maze_env.MjCambrianMazeEnv"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MjCambrianMazeEnv</span></code></a></p></td>
+<td><p>A MjCambrianEnv defines a gymnasium environment that's based off mujoco.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cambrian.envs.maze_env.MjCambrianMaze" title="cambrian.envs.maze_env.MjCambrianMaze"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MjCambrianMaze</span></code></a></p></td>
+<td><p>The maze class. Generates a maze from a given map and provides utility</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cambrian.envs.maze_env.MjCambrianMazeStore" title="cambrian.envs.maze_env.MjCambrianMazeStore"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MjCambrianMazeStore</span></code></a></p></td>
+<td><p>This is a simple class to store a collection of mazes.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="cambrian.envs.maze_env.MjCambrianMapEntity">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MjCambrianMapEntity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwds</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/cambrian/envs/maze_env.html#MjCambrianMapEntity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cambrian.envs.maze_env.MjCambrianMapEntity" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">enum.Enum</span></code></p>
+<p>Enum representing different states in a grid.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Variables<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>RESET</strong> (<em>str</em>) – Initial reset position of the agent. Can include agent IDs in
+the format “R:&lt;agent id&gt;”.</p></li>
+<li><p><strong>WALL</strong> (<em>str</em>) – Represents a wall in the grid. Can include texture IDs in the
+format “1:&lt;texture id&gt;”.</p></li>
+<li><p><strong>EMPTY</strong> (<em>str</em>) – Represents an empty space in the grid.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="cambrian.envs.maze_env.MjCambrianMapEntity.parse">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">parse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/cambrian/envs/maze_env.html#MjCambrianMapEntity.parse"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cambrian.envs.maze_env.MjCambrianMapEntity.parse" title="Link to this definition">¶</a></dt>
+<dd><p>Parse a value to handle special formats like “1:&lt;texture id&gt;”.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>value</strong> (<em>str</em>) – The value to parse.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><p><em>Tuple[Self, str]</em> –</p>
+<dl class="simple">
+<dt>The parsed entity and the texture id if</dt><dd><p>applicable.</p>
+</dd>
+</dl>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="cambrian.envs.maze_env.MjCambrianMazeConfig">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MjCambrianMazeConfig</span></span><a class="reference internal" href="../../../../../_modules/cambrian/envs/maze_env.html#MjCambrianMazeConfig"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cambrian.envs.maze_env.MjCambrianMazeConfig" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">hydra_config.HydraContainerConfig</span></code></p>
+<p>Defines a map config. Used for type hinting.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Variables<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>xml</strong> (<a class="reference internal" href="../../utils/cambrian_xml/index.html#cambrian.utils.cambrian_xml.MjCambrianXML" title="cambrian.utils.cambrian_xml.MjCambrianXML"><em>MjCambrianXML</em></a>) – The xml for the maze. This is the xml that will be
+used to create the maze.</p></li>
+<li><p><strong>map</strong> (<em>str</em>) – The map to use for the maze. It’s a 2D array where
+each element is a string and corresponds to a “pixel” in the map. See
+<cite>maze.py</cite> for info on what different strings mean. This is actually a
+List[List[str]], but we keep it as a string for readability when dumping
+the config to a file. Will convert to list when creating the maze.</p></li>
+<li><p><strong>scale</strong> (<em>float</em>) – The maze scaling for the continuous coordinates in the
+MuJoCo simulation.</p></li>
+<li><p><strong>height</strong> (<em>float</em>) – The height of the walls in the MuJoCo simulation.</p></li>
+<li><p><strong>hflip</strong> (<em>bool</em>) – Whether to flip the maze or not. If True, the maze will be
+flipped along the x-axis.</p></li>
+<li><p><strong>vflip</strong> (<em>bool</em>) – Whether to flip the maze or not. If True, the maze will be
+flipped along the y-axis.</p></li>
+<li><p><strong>rotation</strong> (<em>float</em>) – The rotation of the maze in degrees. The rotation is
+applied after the flip.</p></li>
+<li><p><strong>wall_texture_map</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>List</em><em>[</em><em>str</em><em>]</em><em>]</em>) – The mapping from texture id to
+texture names. Textures in the list are chosen at random. If the list is of
+length 1, only one texture will be used. A length &gt;= 1 is required.
+The keyword “default” is required for walls denoted simply as 1 or W.
+Other walls are specified as 1/W:&lt;texture id&gt;.</p></li>
+<li><p><strong>agent_id_map</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>List</em><em>[</em><em>str</em><em>]</em><em>]</em>) – The mapping from agent id to agent
+names. Agents in the list are chosen at random. If the list is of length 1,
+only one agent will be used. A length &gt;= 1 is required for each agent name.
+Effectively, this means you can set a reset position as R:&lt;agent id&gt; in the
+map and this map is used to assign to a group of agents. For instance,
+R:O in the map and including O: [agent1, agent2] in the agent_id_map will
+assign the reset position to either agent1 or agent2 at random. “default”
+is required for agents denoted simply as R.</p></li>
+<li><p><strong>enabled</strong> (<em>bool</em>) – Whether the maze is enabled or not.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="cambrian.envs.maze_env.MjCambrianMazeEnvConfig">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MjCambrianMazeEnvConfig</span></span><a class="reference internal" href="../../../../../_modules/cambrian/envs/maze_env.html#MjCambrianMazeEnvConfig"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cambrian.envs.maze_env.MjCambrianMazeEnvConfig" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../env/index.html#cambrian.envs.env.MjCambrianEnvConfig" title="cambrian.envs.env.MjCambrianEnvConfig"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cambrian.envs.env.MjCambrianEnvConfig</span></code></a></p>
+<dl class="simple">
+<dt>mazes (Dict[str, MjCambrianMazeEnvConfig]): The configs for the mazes. Each</dt><dd><p>maze will be loaded into the scene and the agent will be placed in a maze
+at each reset.</p>
+</dd>
+<dt>maze_selection_fn (MjCambrianMazeSelectionFn): The function to use to select</dt><dd><p>the maze. The function will be called at each reset to select the maze
+to use. See <cite>MjCambrianMazeSelectionFn</cite> and <cite>maze.py</cite> for more info.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="cambrian.envs.maze_env.MjCambrianMazeEnv">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MjCambrianMazeEnv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/cambrian/envs/maze_env.html#MjCambrianMazeEnv"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cambrian.envs.maze_env.MjCambrianMazeEnv" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../env/index.html#cambrian.envs.env.MjCambrianEnv" title="cambrian.envs.env.MjCambrianEnv"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cambrian.envs.env.MjCambrianEnv</span></code></a></p>
+<p>A MjCambrianEnv defines a gymnasium environment that’s based off mujoco.</p>
+<p>NOTES:
+- This is an overridden version of the MujocoEnv class. The two main differences is
+that we allow for /reset multiple agents and use our own custom renderer. It also
+reduces the need to create temporary xml files which MujocoEnv had to load. It’s
+essentially a copy of MujocoEnv with the two aforementioned major changes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>config</strong> (<em>MjCambrianEnvConfig</em>) – The config object.</p></li>
+<li><p><strong>name</strong> (<em>Optional[str]</em>) – The name of the environment. This is added as an overlay
+to the renderer.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="cambrian.envs.maze_env.MjCambrianMazeEnv.generate_xml">
+<span class="sig-name descname"><span class="pre">generate_xml</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/cambrian/envs/maze_env.html#MjCambrianMazeEnv.generate_xml"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cambrian.envs.maze_env.MjCambrianMazeEnv.generate_xml" title="Link to this definition">¶</a></dt>
+<dd><p>Generates the xml for the environment.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cambrian.envs.maze_env.MjCambrianMazeEnv.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/cambrian/envs/maze_env.html#MjCambrianMazeEnv.reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cambrian.envs.maze_env.MjCambrianMazeEnv.reset" title="Link to this definition">¶</a></dt>
+<dd><p>Reset the environment.</p>
+<p>Will reset all underlying components (the maze, the agents, etc.). The
+simulation will then be stepped once to ensure that the observations are
+up-to-date.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><p><em>Tuple[ObsType, InfoType]</em> –</p>
+<dl class="simple">
+<dt>The observations for each</dt><dd><p>agent and the info dict for each agent.</p>
+</dd>
+</dl>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cambrian.envs.maze_env.MjCambrianMazeEnv.maze">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">maze</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#cambrian.envs.maze_env.MjCambrianMaze" title="cambrian.envs.maze_env.MjCambrianMaze"><span class="pre">MjCambrianMaze</span></a></em><a class="reference internal" href="../../../../../_modules/cambrian/envs/maze_env.html#MjCambrianMazeEnv.maze"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cambrian.envs.maze_env.MjCambrianMazeEnv.maze" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the current maze.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cambrian.envs.maze_env.MjCambrianMazeEnv.maze_store">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">maze_store</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#cambrian.envs.maze_env.MjCambrianMazeStore" title="cambrian.envs.maze_env.MjCambrianMazeStore"><span class="pre">MjCambrianMazeStore</span></a></em><a class="reference internal" href="../../../../../_modules/cambrian/envs/maze_env.html#MjCambrianMazeEnv.maze_store"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cambrian.envs.maze_env.MjCambrianMazeEnv.maze_store" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the maze store.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="cambrian.envs.maze_env.MjCambrianMaze">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MjCambrianMaze</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/cambrian/envs/maze_env.html#MjCambrianMaze"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cambrian.envs.maze_env.MjCambrianMaze" title="Link to this definition">¶</a></dt>
+<dd><p>The maze class. Generates a maze from a given map and provides utility
+functions for working with the maze.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="cambrian.envs.maze_env.MjCambrianMaze.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spec</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reset_occupied</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/cambrian/envs/maze_env.html#MjCambrianMaze.reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cambrian.envs.maze_env.MjCambrianMaze.reset" title="Link to this definition">¶</a></dt>
+<dd><p>Resets the maze. Will reset the wall textures and reset the occupied
+locations, if desired.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cambrian.envs.maze_env.MjCambrianMaze.compute_optimal_path">
+<span class="sig-name descname"><span class="pre">compute_optimal_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">obstacles</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/cambrian/envs/maze_env.html#MjCambrianMaze.compute_optimal_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cambrian.envs.maze_env.MjCambrianMaze.compute_optimal_path" title="Link to this definition">¶</a></dt>
+<dd><p>Computes the optimal path from the start position to the target.</p>
+<p>Uses a BFS to find the shortest path.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Keyword Arguments<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>obstacles</strong> (<em>List</em><em>[</em><em>Tuple</em><em>[</em><em>int</em><em>, </em><em>int</em><em>]</em><em>]</em>) – The obstacles in the maze. Each
+obstacle is a tuple of (row, col). Defaults to []. Avoids these
+positions when computing the path.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cambrian.envs.maze_env.MjCambrianMaze.generate_reset_pos">
+<span class="sig-name descname"><span class="pre">generate_reset_pos</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">agent</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add_as_occupied</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/cambrian/envs/maze_env.html#MjCambrianMaze.generate_reset_pos"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cambrian.envs.maze_env.MjCambrianMaze.generate_reset_pos" title="Link to this definition">¶</a></dt>
+<dd><p>Generates a random reset position for an agent.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Keyword Arguments<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>add_as_occupied</strong> (<em>bool</em>) – Whether to add the chosen location to the
+occupied locations. Defaults to True.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><em>np.ndarray</em> – The chosen position. Is of size (2,).</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cambrian.envs.maze_env.MjCambrianMaze.config">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#cambrian.envs.maze_env.MjCambrianMazeEnvConfig" title="cambrian.envs.maze_env.MjCambrianMazeEnvConfig"><span class="pre">MjCambrianMazeEnvConfig</span></a></em><a class="reference internal" href="../../../../../_modules/cambrian/envs/maze_env.html#MjCambrianMaze.config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cambrian.envs.maze_env.MjCambrianMaze.config" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the config.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cambrian.envs.maze_env.MjCambrianMaze.name">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="reference internal" href="../../../../../_modules/cambrian/envs/maze_env.html#MjCambrianMaze.name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cambrian.envs.maze_env.MjCambrianMaze.name" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the name.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cambrian.envs.maze_env.MjCambrianMaze.map">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">map</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span></em><a class="reference internal" href="../../../../../_modules/cambrian/envs/maze_env.html#MjCambrianMaze.map"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cambrian.envs.maze_env.MjCambrianMaze.map" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the map.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cambrian.envs.maze_env.MjCambrianMaze.map_length_scaled">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">map_length_scaled</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="reference internal" href="../../../../../_modules/cambrian/envs/maze_env.html#MjCambrianMaze.map_length_scaled"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cambrian.envs.maze_env.MjCambrianMaze.map_length_scaled" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the map length scaled.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cambrian.envs.maze_env.MjCambrianMaze.map_width_scaled">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">map_width_scaled</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="reference internal" href="../../../../../_modules/cambrian/envs/maze_env.html#MjCambrianMaze.map_width_scaled"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cambrian.envs.maze_env.MjCambrianMaze.map_width_scaled" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the map width scaled.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cambrian.envs.maze_env.MjCambrianMaze.max_dim">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">max_dim</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="reference internal" href="../../../../../_modules/cambrian/envs/maze_env.html#MjCambrianMaze.max_dim"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cambrian.envs.maze_env.MjCambrianMaze.max_dim" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the max dimension.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cambrian.envs.maze_env.MjCambrianMaze.min_dim">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">min_dim</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="reference internal" href="../../../../../_modules/cambrian/envs/maze_env.html#MjCambrianMaze.min_dim"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cambrian.envs.maze_env.MjCambrianMaze.min_dim" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the min dimension.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cambrian.envs.maze_env.MjCambrianMaze.ratio">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ratio</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="reference internal" href="../../../../../_modules/cambrian/envs/maze_env.html#MjCambrianMaze.ratio"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cambrian.envs.maze_env.MjCambrianMaze.ratio" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the ratio of the length over width.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cambrian.envs.maze_env.MjCambrianMaze.x_map_center">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">x_map_center</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="reference internal" href="../../../../../_modules/cambrian/envs/maze_env.html#MjCambrianMaze.x_map_center"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cambrian.envs.maze_env.MjCambrianMaze.x_map_center" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the x map center.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cambrian.envs.maze_env.MjCambrianMaze.y_map_center">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">y_map_center</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="reference internal" href="../../../../../_modules/cambrian/envs/maze_env.html#MjCambrianMaze.y_map_center"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cambrian.envs.maze_env.MjCambrianMaze.y_map_center" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the y map center.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cambrian.envs.maze_env.MjCambrianMaze.lookat">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">lookat</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span></em><a class="reference internal" href="../../../../../_modules/cambrian/envs/maze_env.html#MjCambrianMaze.lookat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cambrian.envs.maze_env.MjCambrianMaze.lookat" title="Link to this definition">¶</a></dt>
+<dd><p>Returns a point which aids in placement of a camera to visualize this
+maze.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cambrian.envs.maze_env.MjCambrianMaze.reset_locations">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">reset_locations</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></em><a class="reference internal" href="../../../../../_modules/cambrian/envs/maze_env.html#MjCambrianMaze.reset_locations"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cambrian.envs.maze_env.MjCambrianMaze.reset_locations" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the reset locations.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="cambrian.envs.maze_env.MjCambrianMazeStore">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MjCambrianMazeStore</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">maze_configs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maze_selection_fn</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/cambrian/envs/maze_env.html#MjCambrianMazeStore"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cambrian.envs.maze_env.MjCambrianMazeStore" title="Link to this definition">¶</a></dt>
+<dd><p>This is a simple class to store a collection of mazes.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="cambrian.envs.maze_env.MjCambrianMazeStore.generate_xml">
+<span class="sig-name descname"><span class="pre">generate_xml</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/cambrian/envs/maze_env.html#MjCambrianMazeStore.generate_xml"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cambrian.envs.maze_env.MjCambrianMazeStore.generate_xml" title="Link to this definition">¶</a></dt>
+<dd><p>Generates the xml for the current maze.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cambrian.envs.maze_env.MjCambrianMazeStore.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spec</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/cambrian/envs/maze_env.html#MjCambrianMazeStore.reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cambrian.envs.maze_env.MjCambrianMazeStore.reset" title="Link to this definition">¶</a></dt>
+<dd><p>Resets all mazes.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cambrian.envs.maze_env.MjCambrianMazeStore.current_maze">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">current_maze</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#cambrian.envs.maze_env.MjCambrianMaze" title="cambrian.envs.maze_env.MjCambrianMaze"><span class="pre">MjCambrianMaze</span></a></em><a class="reference internal" href="../../../../../_modules/cambrian/envs/maze_env.html#MjCambrianMazeStore.current_maze"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cambrian.envs.maze_env.MjCambrianMazeStore.current_maze" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the current maze.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cambrian.envs.maze_env.MjCambrianMazeStore.maze_list">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">maze_list</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#cambrian.envs.maze_env.MjCambrianMaze" title="cambrian.envs.maze_env.MjCambrianMaze"><span class="pre">MjCambrianMaze</span></a><span class="p"><span class="pre">]</span></span></em><a class="reference internal" href="../../../../../_modules/cambrian/envs/maze_env.html#MjCambrianMazeStore.maze_list"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cambrian.envs.maze_env.MjCambrianMazeStore.maze_list" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the list of mazes.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cambrian.envs.maze_env.MjCambrianMazeStore.select_maze">
+<span class="sig-name descname"><span class="pre">select_maze</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">env</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/cambrian/envs/maze_env.html#MjCambrianMazeStore.select_maze"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cambrian.envs.maze_env.MjCambrianMazeStore.select_maze" title="Link to this definition">¶</a></dt>
+<dd><p>This should be called by the environment to select a maze.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cambrian.envs.maze_env.MjCambrianMazeStore.select_maze_random">
+<span class="sig-name descname"><span class="pre">select_maze_random</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/cambrian/envs/maze_env.html#MjCambrianMazeStore.select_maze_random"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cambrian.envs.maze_env.MjCambrianMazeStore.select_maze_random" title="Link to this definition">¶</a></dt>
+<dd><p>Selects a maze at random.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cambrian.envs.maze_env.MjCambrianMazeStore.select_maze_schedule">
+<span class="sig-name descname"><span class="pre">select_maze_schedule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">env</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">schedule</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'linear'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">total_timesteps</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_envs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lam_0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-2.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lam_n</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/cambrian/envs/maze_env.html#MjCambrianMazeStore.select_maze_schedule"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cambrian.envs.maze_env.MjCambrianMazeStore.select_maze_schedule" title="Link to this definition">¶</a></dt>
+<dd><p>Selects a maze based on a schedule. The scheduled selections are based on
+the order of the mazes in the list.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Keyword Arguments<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>schedule</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – The schedule to use. One of “linear”,
+“exponential”, or “logistic”. Defaults to “linear”.</p></li>
+<li><p><strong>total_timesteps</strong> (<em>int</em>) – The total number of timesteps in the training
+schedule. Unused if schedule is None. Required otherwise.</p></li>
+<li><p><strong>n_envs</strong> (<em>int</em>) – The number of environments. Unused if schedule is None.
+Required otherwise.</p></li>
+<li><p><strong>lam_0</strong> (<em>Optional</em><em>[</em><em>float</em><em>]</em>) – The lambda value at the start of the schedule.
+Unused if schedule is None.</p></li>
+<li><p><strong>lam_n</strong> (<em>Optional</em><em>[</em><em>float</em><em>]</em>) – The lambda value at the end of the schedule.
+Unused if schedule is None.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cambrian.envs.maze_env.MjCambrianMazeStore.select_maze_cycle">
+<span class="sig-name descname"><span class="pre">select_maze_cycle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">env</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/cambrian/envs/maze_env.html#MjCambrianMazeStore.select_maze_cycle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cambrian.envs.maze_env.MjCambrianMazeStore.select_maze_cycle" title="Link to this definition">¶</a></dt>
+<dd><p>Selects a maze based on a cycle.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="../reward_fns/index.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">cambrian.envs.reward_fns</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="../env/index.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">cambrian.envs.env</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2025, Camera Culture, MIT Media Lab
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">cambrian.envs.maze_env</a><ul>
+<li><a class="reference internal" href="#classes">Classes</a></li>
+<li><a class="reference internal" href="#module-contents">Module Contents</a><ul>
+<li><a class="reference internal" href="#cambrian.envs.maze_env.MjCambrianMapEntity"><code class="docutils literal notranslate"><span class="pre">MjCambrianMapEntity</span></code></a><ul>
+<li><a class="reference internal" href="#cambrian.envs.maze_env.MjCambrianMapEntity.parse"><code class="docutils literal notranslate"><span class="pre">MjCambrianMapEntity.parse()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#cambrian.envs.maze_env.MjCambrianMazeConfig"><code class="docutils literal notranslate"><span class="pre">MjCambrianMazeConfig</span></code></a></li>
+<li><a class="reference internal" href="#cambrian.envs.maze_env.MjCambrianMazeEnvConfig"><code class="docutils literal notranslate"><span class="pre">MjCambrianMazeEnvConfig</span></code></a></li>
+<li><a class="reference internal" href="#cambrian.envs.maze_env.MjCambrianMazeEnv"><code class="docutils literal notranslate"><span class="pre">MjCambrianMazeEnv</span></code></a><ul>
+<li><a class="reference internal" href="#cambrian.envs.maze_env.MjCambrianMazeEnv.generate_xml"><code class="docutils literal notranslate"><span class="pre">MjCambrianMazeEnv.generate_xml()</span></code></a></li>
+<li><a class="reference internal" href="#cambrian.envs.maze_env.MjCambrianMazeEnv.reset"><code class="docutils literal notranslate"><span class="pre">MjCambrianMazeEnv.reset()</span></code></a></li>
+<li><a class="reference internal" href="#cambrian.envs.maze_env.MjCambrianMazeEnv.maze"><code class="docutils literal notranslate"><span class="pre">MjCambrianMazeEnv.maze</span></code></a></li>
+<li><a class="reference internal" href="#cambrian.envs.maze_env.MjCambrianMazeEnv.maze_store"><code class="docutils literal notranslate"><span class="pre">MjCambrianMazeEnv.maze_store</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#cambrian.envs.maze_env.MjCambrianMaze"><code class="docutils literal notranslate"><span class="pre">MjCambrianMaze</span></code></a><ul>
+<li><a class="reference internal" href="#cambrian.envs.maze_env.MjCambrianMaze.reset"><code class="docutils literal notranslate"><span class="pre">MjCambrianMaze.reset()</span></code></a></li>
+<li><a class="reference internal" href="#cambrian.envs.maze_env.MjCambrianMaze.compute_optimal_path"><code class="docutils literal notranslate"><span class="pre">MjCambrianMaze.compute_optimal_path()</span></code></a></li>
+<li><a class="reference internal" href="#cambrian.envs.maze_env.MjCambrianMaze.generate_reset_pos"><code class="docutils literal notranslate"><span class="pre">MjCambrianMaze.generate_reset_pos()</span></code></a></li>
+<li><a class="reference internal" href="#cambrian.envs.maze_env.MjCambrianMaze.config"><code class="docutils literal notranslate"><span class="pre">MjCambrianMaze.config</span></code></a></li>
+<li><a class="reference internal" href="#cambrian.envs.maze_env.MjCambrianMaze.name"><code class="docutils literal notranslate"><span class="pre">MjCambrianMaze.name</span></code></a></li>
+<li><a class="reference internal" href="#cambrian.envs.maze_env.MjCambrianMaze.map"><code class="docutils literal notranslate"><span class="pre">MjCambrianMaze.map</span></code></a></li>
+<li><a class="reference internal" href="#cambrian.envs.maze_env.MjCambrianMaze.map_length_scaled"><code class="docutils literal notranslate"><span class="pre">MjCambrianMaze.map_length_scaled</span></code></a></li>
+<li><a class="reference internal" href="#cambrian.envs.maze_env.MjCambrianMaze.map_width_scaled"><code class="docutils literal notranslate"><span class="pre">MjCambrianMaze.map_width_scaled</span></code></a></li>
+<li><a class="reference internal" href="#cambrian.envs.maze_env.MjCambrianMaze.max_dim"><code class="docutils literal notranslate"><span class="pre">MjCambrianMaze.max_dim</span></code></a></li>
+<li><a class="reference internal" href="#cambrian.envs.maze_env.MjCambrianMaze.min_dim"><code class="docutils literal notranslate"><span class="pre">MjCambrianMaze.min_dim</span></code></a></li>
+<li><a class="reference internal" href="#cambrian.envs.maze_env.MjCambrianMaze.ratio"><code class="docutils literal notranslate"><span class="pre">MjCambrianMaze.ratio</span></code></a></li>
+<li><a class="reference internal" href="#cambrian.envs.maze_env.MjCambrianMaze.x_map_center"><code class="docutils literal notranslate"><span class="pre">MjCambrianMaze.x_map_center</span></code></a></li>
+<li><a class="reference internal" href="#cambrian.envs.maze_env.MjCambrianMaze.y_map_center"><code class="docutils literal notranslate"><span class="pre">MjCambrianMaze.y_map_center</span></code></a></li>
+<li><a class="reference internal" href="#cambrian.envs.maze_env.MjCambrianMaze.lookat"><code class="docutils literal notranslate"><span class="pre">MjCambrianMaze.lookat</span></code></a></li>
+<li><a class="reference internal" href="#cambrian.envs.maze_env.MjCambrianMaze.reset_locations"><code class="docutils literal notranslate"><span class="pre">MjCambrianMaze.reset_locations</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#cambrian.envs.maze_env.MjCambrianMazeStore"><code class="docutils literal notranslate"><span class="pre">MjCambrianMazeStore</span></code></a><ul>
+<li><a class="reference internal" href="#cambrian.envs.maze_env.MjCambrianMazeStore.generate_xml"><code class="docutils literal notranslate"><span class="pre">MjCambrianMazeStore.generate_xml()</span></code></a></li>
+<li><a class="reference internal" href="#cambrian.envs.maze_env.MjCambrianMazeStore.reset"><code class="docutils literal notranslate"><span class="pre">MjCambrianMazeStore.reset()</span></code></a></li>
+<li><a class="reference internal" href="#cambrian.envs.maze_env.MjCambrianMazeStore.current_maze"><code class="docutils literal notranslate"><span class="pre">MjCambrianMazeStore.current_maze</span></code></a></li>
+<li><a class="reference internal" href="#cambrian.envs.maze_env.MjCambrianMazeStore.maze_list"><code class="docutils literal notranslate"><span class="pre">MjCambrianMazeStore.maze_list</span></code></a></li>
+<li><a class="reference internal" href="#cambrian.envs.maze_env.MjCambrianMazeStore.select_maze"><code class="docutils literal notranslate"><span class="pre">MjCambrianMazeStore.select_maze()</span></code></a></li>
+<li><a class="reference internal" href="#cambrian.envs.maze_env.MjCambrianMazeStore.select_maze_random"><code class="docutils literal notranslate"><span class="pre">MjCambrianMazeStore.select_maze_random()</span></code></a></li>
+<li><a class="reference internal" href="#cambrian.envs.maze_env.MjCambrianMazeStore.select_maze_schedule"><code class="docutils literal notranslate"><span class="pre">MjCambrianMazeStore.select_maze_schedule()</span></code></a></li>
+<li><a class="reference internal" href="#cambrian.envs.maze_env.MjCambrianMazeStore.select_maze_cycle"><code class="docutils literal notranslate"><span class="pre">MjCambrianMazeStore.select_maze_cycle()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="../../../../../_static/documentation_options.js?v=e37ea94c"></script>
+    <script src="../../../../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../../_static/scripts/furo.js?v=5fa4622c"></script>
+    <script src="../../../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../../../_static/copybutton.js?v=f281be69"></script>
+    </body>
+</html>

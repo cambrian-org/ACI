@@ -1,0 +1,594 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-TB8Y1XJVV1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-TB8Y1XJVV1');
+    </script>
+    <link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Visualizing the Env" href="visualizing.html" /><link rel="prev" title="Configuring an Experiment" href="configuration.html" />
+
+    <link rel="shortcut icon" href="../_static/eye.png"/><!-- Generated with Sphinx 8.1.3 and Furo 2024.08.06 -->
+        <title>Training an Agent - cambrian 0.0.post1.dev3+gc8c8ed9 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d75fae25" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=354aac6f" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=302659d7" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=ae43ac89" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f0f0f0;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+<div class="announcement">
+  <aside class="announcement-content">
+     
+        <a style="text-decoration: none; color: white;"
+           href="https://www.media.mit.edu/groups/camera-culture/overview/">
+           <img src="/cc-hardware/_static/cc-transparent.png"
+                style="
+                    vertical-align: middle;
+                    display: inline;
+                    padding-right: 7.5px;
+                    height: 20px;
+                "/>
+           Checkout Camera Culture!
+        </a>
+     
+  </aside>
+</div>
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../index.html"><div class="brand">cambrian 0.0.post1.dev3+gc8c8ed9 documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
+  
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo only-light" src="../_static/eye.png" alt="Light Logo"/>
+    <img class="sidebar-logo only-dark" src="../_static/eye.png" alt="Dark Logo"/>
+  </div>
+  
+  
+</a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Home</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../examples/index.html">Examples</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Examples</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../examples/detection.html">Detection Task</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/navigation.html">Navigation Task</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/tracking.html">Tracking Task</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current has-children"><a class="reference internal" href="index.html">Nuts and Bolts</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Nuts and Bolts</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="configuration.html">Configuring an Experiment</a></li>
+<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Training an Agent</a></li>
+<li class="toctree-l2"><a class="reference internal" href="visualizing.html">Visualizing the Env</a></li>
+<li class="toctree-l2"><a class="reference internal" href="docker.html">Using Docker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pitfalls.html">Pitfalls</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../reference/index.html">API Reference</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of API Reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../reference/api/cambrian/envs/index.html">cambrian.envs</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of cambrian.envs</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../reference/api/cambrian/envs/done_fns/index.html">cambrian.envs.done_fns</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/api/cambrian/envs/env/index.html">cambrian.envs.env</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/api/cambrian/envs/maze_env/index.html">cambrian.envs.maze_env</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/api/cambrian/envs/reward_fns/index.html">cambrian.envs.reward_fns</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/api/cambrian/envs/step_fns/index.html">cambrian.envs.step_fns</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../reference/api/cambrian/agents/index.html">cambrian.agents</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle navigation of cambrian.agents</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../reference/api/cambrian/agents/agent/index.html">cambrian.agents.agent</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/api/cambrian/agents/object/index.html">cambrian.agents.object</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/api/cambrian/agents/point/index.html">cambrian.agents.point</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../reference/api/cambrian/eyes/index.html">cambrian.eyes</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle navigation of cambrian.eyes</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../reference/api/cambrian/eyes/eye/index.html">cambrian.eyes.eye</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/api/cambrian/eyes/multi_eye/index.html">cambrian.eyes.multi_eye</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/api/cambrian/eyes/optics/index.html">cambrian.eyes.optics</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../reference/api/cambrian/ml/index.html">cambrian.ml</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle navigation of cambrian.ml</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../reference/api/cambrian/ml/callbacks/index.html">cambrian.ml.callbacks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/api/cambrian/ml/constraint_fns/index.html">cambrian.ml.constraint_fns</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/api/cambrian/ml/evo/index.html">cambrian.ml.evo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/api/cambrian/ml/features_extractors/index.html">cambrian.ml.features_extractors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/api/cambrian/ml/fitness_fns/index.html">cambrian.ml.fitness_fns</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/api/cambrian/ml/model/index.html">cambrian.ml.model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/api/cambrian/ml/trainer/index.html">cambrian.ml.trainer</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../reference/api/cambrian/renderer/index.html">cambrian.renderer</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle navigation of cambrian.renderer</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../reference/api/cambrian/renderer/overlays/index.html">cambrian.renderer.overlays</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/api/cambrian/renderer/render_utils/index.html">cambrian.renderer.render_utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/api/cambrian/renderer/renderer/index.html">cambrian.renderer.renderer</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../reference/api/cambrian/utils/index.html">cambrian.utils</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><div class="visually-hidden">Toggle navigation of cambrian.utils</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../reference/api/cambrian/utils/cambrian_xml/index.html">cambrian.utils.cambrian_xml</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/api/cambrian/utils/logger/index.html">cambrian.utils.logger</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/api/cambrian/utils/spec/index.html">cambrian.utils.spec</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/api/cambrian/utils/types/index.html">cambrian.utils.types</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/api/cambrian/utils/wrappers/index.html">cambrian.utils.wrappers</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/api/cambrian/config/index.html">cambrian.config</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">External Links</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/camera-culture/ACI">Github</a></li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="view-this-page">
+  <a class="muted-link" href="../_sources/usage/training.md.txt" title="View this page">
+    <svg><use href="#svg-eye"></use></svg>
+    <span class="visually-hidden">View this page</span>
+  </a>
+</div>
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <section class="tex2jax_ignore mathjax_ignore" id="training-an-agent">
+<h1>Training an Agent<a class="headerlink" href="#training-an-agent" title="Link to this heading">¶</a></h1>
+<p><a class="reference external" href="https://hydra.cc/">Hydra</a> is powerful in the sense that it provides different methods for sweeping parameters and launching jobs. Common use cases are doing a grid search over hyperparameters while launching these jobs on a cluster or running locally.</p>
+<section id="running-a-single-training-loop">
+<h2>Running a single training loop<a class="headerlink" href="#running-a-single-training-loop" title="Link to this heading">¶</a></h2>
+<p>To run locally, you can use the <code class="docutils literal notranslate"><span class="pre">run.sh</span></code> script. For example, you can run:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>bash<span class="w"> </span>scripts/run.sh<span class="w"> </span>cambrian/main.py<span class="w"> </span>--train<span class="w"> </span><span class="nv">exp</span><span class="o">=</span>&lt;EXPERIMENT&gt;
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">run.sh</span></code> isn’t actually necessary, it just sets some default environment variables and is helpful as it’s the same entrypoint for running on a cluster. You can also run the above command directly with <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">cambrian/main.py</span> <span class="pre">...</span></code>.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>When invoked with bash, <code class="docutils literal notranslate"><span class="pre">run.sh</span></code> script will default to setting <code class="docutils literal notranslate"><span class="pre">MUJOCO_GL=egl</span></code>. Training should always be done with <code class="docutils literal notranslate"><span class="pre">MUJOCO_GL=egl</span></code> cause that runs with a headless implementation of OpenGL and is significantly faster.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can also run <code class="docutils literal notranslate"><span class="pre">--eval</span></code> instead of <code class="docutils literal notranslate"><span class="pre">--train</span></code> to run evaluation to visualize the env. Set the <code class="docutils literal notranslate"><span class="pre">render_modes</span></code> to include <code class="docutils literal notranslate"><span class="pre">'human'</span></code> to visualize the env. It will also automatically save the video to <code class="docutils literal notranslate"><span class="pre">logs/&lt;date&gt;/&lt;exp&gt;/eval.*</span></code>. Use <code class="docutils literal notranslate"><span class="pre">-h</span></code> to see options.</p>
+</div>
+<section id="running-on-a-cluster">
+<h3>Running on a cluster<a class="headerlink" href="#running-on-a-cluster" title="Link to this heading">¶</a></h3>
+<p>We have provided scripts to run on three clusters: <a class="reference external" href="https://supercloud.mit.edu">SuperCloud</a>, <a class="reference external" href="https://mcgovern.mit.edu/tile/openmind-computing-cluster/">OpenMind</a>, and <a class="reference external" href="https://euler-cluster.readthedocs.io/en/latest/">Euler</a>. Coupled with these scripts are the <a class="reference external" href="https://hydra.cc/docs/plugins/submitit_launcher/">Slurm-based launcher configuration</a>, located at <code class="docutils literal notranslate"><span class="pre">configs/hydra/launcher/</span></code>. When running on a cluster, a daemon job will always be launched to monitor the training process; this is a requirement of hydra and will simply block until the training is complete.</p>
+<p>To run, you can still use the <code class="docutils literal notranslate"><span class="pre">run.sh</span></code> script, which has some default Slurm configs set.</p>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">run.sh</span><a class="headerlink" href="#id2" title="Link to this code">¶</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+<span class="c1">#SBATCH --nodes=1</span>
+<span class="c1">#SBATCH --cpus-per-task=1</span>
+<span class="c1">#SBATCH --ntasks-per-node=1</span>
+<span class="c1">#SBATCH --time=4-00:00:00</span>
+<span class="c1">#SBATCH --job-name cambrian</span>
+<span class="c1">#SBATCH --output=out/R-%x.%j_%a.out</span>
+<span class="c1">#SBATCH --error=out/R-%x.%j_%a.err</span>
+
+<span class="o">[</span><span class="w"> </span><span class="nv">$#</span><span class="w"> </span>-eq<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">(</span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Please provide the script&quot;</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="m">0</span><span class="o">)</span>
+<span class="nv">SCRIPT</span><span class="o">=</span><span class="nv">$1</span>
+<span class="nb">shift</span>
+
+<span class="c1"># Set mujoco gl depending on system</span>
+<span class="c1"># Mac will be cgl</span>
+<span class="c1"># all else will be egl</span>
+<span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$OSTYPE</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;darwin&quot;</span>*<span class="w"> </span><span class="o">]]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span><span class="nv">MUJOCO_GL</span><span class="o">=</span><span class="si">${</span><span class="nv">MUJOCO_GL</span><span class="k">:-</span><span class="nv">cgl</span><span class="si">}</span>
+<span class="k">else</span>
+<span class="w">    </span><span class="nv">MUJOCO_GL</span><span class="o">=</span><span class="si">${</span><span class="nv">MUJOCO_GL</span><span class="k">:-</span><span class="nv">egl</span><span class="si">}</span>
+<span class="k">fi</span>
+
+<span class="nv">cmd</span><span class="o">=</span><span class="s2">&quot;MUJOCO_GL=</span><span class="si">${</span><span class="nv">MUJOCO_GL</span><span class="si">}</span><span class="s2"> python </span><span class="nv">$SCRIPT</span><span class="s2"> </span><span class="nv">$@</span><span class="s2">&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Running command: </span><span class="nv">$cmd</span><span class="s2">&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>tee<span class="w"> </span>/dev/stderr
+<span class="nb">eval</span><span class="w"> </span><span class="nv">$cmd</span>
+</pre></div>
+</div>
+</div>
+<p>For example, you can run:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Note the `sbatch` command is used to submit the job to the cluster using Slurm.</span>
+<span class="c1"># You can change `supercloud` to `openmind`, `euler`, or a custom launcher depending on the cluster.</span>
+sbatch<span class="w"> </span>scripts/run.sh<span class="w"> </span>cambrian/main.py<span class="w"> </span>--train<span class="w"> </span>hydra/launcher<span class="o">=</span>supercloud<span class="w"> </span><span class="nv">exp</span><span class="o">=</span>&lt;EXPERIMENT&gt;
+</pre></div>
+</div>
+<p>You can then add additional Slurm configuration variables directly to the above command. For example, to set the partition and qos, you can run the following. Note that this only sets the qos/partition on the daemon job, not the training job. The second command demonstrates how to set the partition and qos for the training job within the launcher config.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Set the partition and qos for the daemon job</span>
+sbatch<span class="w"> </span>scripts/run.sh<span class="w"> </span>--partition<span class="o">=</span>&lt;PARTITION&gt;<span class="w"> </span>--qos<span class="o">=</span>&lt;QOS&gt;<span class="w"> </span>cambrian/main.py<span class="w"> </span>--train<span class="w"> </span>hydra/launcher<span class="o">=</span>supercloud<span class="w"> </span><span class="nv">exp</span><span class="o">=</span>&lt;EXPERIMENT&gt;
+
+<span class="c1"># Set the partition and qos for the training job</span>
+sbatch<span class="w"> </span>scripts/run.sh<span class="w"> </span>cambrian/main.py<span class="w"> </span>--train<span class="w"> </span>hydra/launcher<span class="o">=</span>supercloud<span class="w"> </span><span class="nv">exp</span><span class="o">=</span>&lt;EXPERIMENT&gt;<span class="w"> </span>hydra.launcher.partition<span class="o">=</span>&lt;PARTITION&gt;<span class="w"> </span>hydra.launcher.qos<span class="o">=</span>&lt;QOS&gt;
+</pre></div>
+</div>
+<div class="admonition-todo admonition" id="id1">
+<p class="admonition-title">Todo</p>
+<p>We plan to add AWS support in the future.</p>
+</div>
+</section>
+<section id="continue-training-from-a-checkpoint">
+<h3>Continue training from a checkpoint<a class="headerlink" href="#continue-training-from-a-checkpoint" title="Link to this heading">¶</a></h3>
+<p>During each training, a <code class="docutils literal notranslate"><span class="pre">best_model.zip</span></code> is saved in the log directory. To load this model and continue training, you can override <code class="docutils literal notranslate"><span class="pre">trainer/model=loaded_model</span></code>. By default, the loader will look at <code class="docutils literal notranslate"><span class="pre">trainer.model.path</span></code> to find the model to load. This will default to <code class="docutils literal notranslate"><span class="pre">{expdir}/best_model</span></code>, so if the day has changed or you’ve moved the model, you may need to update this path.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>bash<span class="w"> </span>scripts/run.sh<span class="w"> </span>cambrian/main.py<span class="w"> </span>--train<span class="w"> </span><span class="nv">exp</span><span class="o">=</span>&lt;EXPERIMENT&gt;<span class="w"> </span>trainer/model<span class="o">=</span>loaded_model<span class="w"> </span>trainer.model.path<span class="o">=</span>&lt;MODEL_PATH&gt;
+</pre></div>
+</div>
+</section>
+</section>
+<section id="running-evolution">
+<h2>Running evolution<a class="headerlink" href="#running-evolution" title="Link to this heading">¶</a></h2>
+<p>In the above examples, we are simply running a single training loop. If you want to run an evolutionary experiment, you can set <code class="docutils literal notranslate"><span class="pre">evo=evo</span></code>. For example, you can run:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>bash<span class="w"> </span>scripts/run.sh<span class="w"> </span>cambrian/main.py<span class="w"> </span>--train<span class="w"> </span><span class="nv">exp</span><span class="o">=</span>&lt;EXPERIMENT&gt;<span class="w"> </span><span class="nv">evo</span><span class="o">=</span>evo<span class="w"> </span>--multirun
+</pre></div>
+</div>
+<p>The evolution loop utilizes the <a class="reference external" href="https://hydra.cc/docs/plugins/nevergrad_sweeper/"><code class="docutils literal notranslate"><span class="pre">nevergrad</span></code> sweeper</a>, and it’s configs are located at <code class="docutils literal notranslate"><span class="pre">configs/hydra/sweeper/</span></code>. You can replace <code class="docutils literal notranslate"><span class="pre">bash</span></code> with <code class="docutils literal notranslate"><span class="pre">sbatch</span></code> to run on a cluster.</p>
+<p>In total, you should see <code class="docutils literal notranslate"><span class="pre">min(hydra.sweeper.optim.num_workers,</span> <span class="pre">hydra.launcher.array_parallelism)</span> <span class="pre">+</span> <span class="pre">1</span></code> jobs. The <code class="docutils literal notranslate"><span class="pre">+</span> <span class="pre">1</span></code> is for the daemon job that monitors the training process. See the <a class="reference external" href="https://github.com/camera-culture/ACI/blob/main/configs/hydra/sweeper/evolution_nevergrad.yaml"><code class="docutils literal notranslate"><span class="pre">evolution_nevergrad.yaml</span></code></a> and <a class="reference external" href="https://github.com/camera-culture/ACI/blob/main/configs/hydra/launcher/slurm.yaml"><code class="docutils literal notranslate"><span class="pre">slurm.yaml</span></code></a> for more info.</p>
+<p>Running on a cluster can aid in parallelizing the training process. And note the
+<code class="docutils literal notranslate"><span class="pre">--multirun</span></code> flag (can also be <code class="docutils literal notranslate"><span class="pre">-m</span></code>) is required to run a sweep.</p>
+<section id="adding-parameters-to-optimize">
+<h3>Adding parameters to optimize<a class="headerlink" href="#adding-parameters-to-optimize" title="Link to this heading">¶</a></h3>
+<p>Nevergrad requires there to be optimization parameters to sweep over; see <a class="reference external" href="https://hydra.cc/docs/plugins/nevergrad_sweeper/#defining-the-parameters">the docs</a> for more details. In our framework, we’ve provided a few examples of how to set up the parameters. To use those, for example, you can run the following:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>bash<span class="w"> </span>scripts/run.sh<span class="w"> </span>cambrian/main.py<span class="w"> </span>--train<span class="w"> </span><span class="nv">exp</span><span class="o">=</span>&lt;EXPERIMENT&gt;<span class="w"> </span><span class="nv">evo</span><span class="o">=</span>evo<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>+exp/mutations<span class="o">=[</span>res,num_eyes,lon_range<span class="o">]</span><span class="w"> </span>-m
+</pre></div>
+</div>
+<p>This will enable the resolution, number of eyes, and placement range mutations. Alternatively, you can just specify the grouping.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>bash<span class="w"> </span>scripts/run.sh<span class="w"> </span>cambrian/main.py<span class="w"> </span>--train<span class="w"> </span><span class="nv">exp</span><span class="o">=</span>&lt;EXPERIMENT&gt;<span class="w"> </span><span class="nv">evo</span><span class="o">=</span>evo<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>+exp/mutations/groupings/numeyes1_res0_lon1<span class="w"> </span>-m
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Note the <code class="docutils literal notranslate"><span class="pre">+</span></code> before the <code class="docutils literal notranslate"><span class="pre">exp/mutations</span></code> parameter. This is required to add to the existing list of mutations as hydra will complain that the key doesn’t exist before adding.</p>
+</div>
+</section>
+<section id="resuming-a-failed-evolution">
+<h3>Resuming a failed evolution<a class="headerlink" href="#resuming-a-failed-evolution" title="Link to this heading">¶</a></h3>
+<p>To resume a failed sweep for the nevergrad sweeper, you simply need to rerun your
+experiment. The nevergrad resuming logic is handled in hydra and enabled via the
+<code class="docutils literal notranslate"><span class="pre">optim.load_if_exists</span></code> parameter in the config. This will load the optimizer state
+from the last checkpoint and continue the optimization.</p>
+<p>Keep in mind that the default path nevergrad will look for a optimizer pickle to load
+is at <code class="docutils literal notranslate"><span class="pre">&lt;logdir&gt;/nevergrad.pkl</span></code>. If you’re resuming an evolutionary run launched on a
+different day, you may need to either:</p>
+<ol class="arabic simple">
+<li><p>Copy the failed evolutionary logdir to a new log directory matching the logdir
+pattern for that day (recommended).</p></li>
+<li><p>Change the logdir to the previous day (i.e. <code class="docutils literal notranslate"><span class="pre">...</span> <span class="pre">logdir=logs/&lt;old</span> <span class="pre">date&gt;/${expname}</span></code>).</p></li>
+<li><p>Change the optimizer path in the config to point to the correct path.</p></li>
+</ol>
+</section>
+</section>
+<section id="running-a-training-sweep">
+<h2>Running a training sweep<a class="headerlink" href="#running-a-training-sweep" title="Link to this heading">¶</a></h2>
+<p>By default, evolution uses nevergrad for optimization. But it may be useful to run a
+simple grid search of different parameters. This can be done via Hydra’s basic sweeper
+functionality. To run a sweep, which trains each agent with a different set of
+parameters, you can run the following:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># If running on a slurm-enabled cluster</span>
+sbatch<span class="w"> </span>scripts/run.sh<span class="w"> </span>cambrian/main.py<span class="w"> </span>--train<span class="w"> </span>hydra/launcher<span class="o">=</span>&lt;CLUSTER&gt;<span class="w"> </span><span class="nv">exp</span><span class="o">=</span>&lt;EXPERIMENT&gt;<span class="w"> </span>&lt;SWEEP_PARAMS&gt;<span class="w"> </span>--multirun
+<span class="c1"># If running locally</span>
+bash<span class="w"> </span>scripts/run.sh<span class="w"> </span>cambrian/main.py<span class="w"> </span>--train<span class="w"> </span><span class="nv">exp</span><span class="o">=</span>&lt;EXPERIMENT&gt;<span class="w"> </span>&lt;SWEEP_PARAMS&gt;<span class="w"> </span>--multirun
+</pre></div>
+</div>
+<p>Running on a cluster can aid in parallelizing the training process. And note the
+<code class="docutils literal notranslate"><span class="pre">--multirun</span></code> flag (can also be <code class="docutils literal notranslate"><span class="pre">-m</span></code>) is required to run a sweep.</p>
+<section id="adding-sweep-parameters">
+<h3>Adding sweep parameters<a class="headerlink" href="#adding-sweep-parameters" title="Link to this heading">¶</a></h3>
+<p>The simplest way to specify sweep params is via a comma separated list, e.g.
+<code class="docutils literal notranslate"><span class="pre">...</span> <span class="pre">param1=1,2,3</span> <span class="pre">param2='[1,2],[3,4]'</span></code>. The previous example will run six total runs,
+iterating through all the permutations of the grid search. Please refer to
+<a class="reference external" href="https://hydra.cc/docs/1.0/tutorials/basic/running_your_app/multi-run/#internaldocs-banner">Hydra’s sweeper documentation</a>
+for more detailed information and specific override syntax support. To use
+interpolations within the sweep, you must specify each interpolation prefixed with <code class="docutils literal notranslate"><span class="pre">\$</span></code>,
+as in <code class="docutils literal notranslate"><span class="pre">expname=&lt;EXPNAME&gt;_\${param1}_\${param2}</span></code>.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>By default, sweeps will write to the same <code class="docutils literal notranslate"><span class="pre">logs</span></code> directory since they all share
+the same experiment name. Ensure you set <code class="docutils literal notranslate"><span class="pre">expname</span></code> to a value which utilizes a sweep
+parameter to differentiate between runs, e.g.
+<code class="docutils literal notranslate"><span class="pre">expname=&lt;EXPNAME&gt;_\${param1}_\${param2}</span></code>.</p>
+<p>Alternatively, you can add <code class="docutils literal notranslate"><span class="pre">overlay=sweep</span></code> to the command to automatically add the
+sweep parameters to the experiment name.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The basic sweeper will sweep through <em>all</em> permutations of the parameters. This can
+be very slow for large sweeps. For more advanced sweeps, consider using optimization
+via <code class="docutils literal notranslate"><span class="pre">evo=evo</span></code> (<a class="reference internal" href="#running-evolution">see above</a>).</p>
+</div>
+</section>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="visualizing.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">Visualizing the Env</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="configuration.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Configuring an Experiment</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2025, Camera Culture, MIT Media Lab
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Training an Agent</a><ul>
+<li><a class="reference internal" href="#running-a-single-training-loop">Running a single training loop</a><ul>
+<li><a class="reference internal" href="#running-on-a-cluster">Running on a cluster</a></li>
+<li><a class="reference internal" href="#continue-training-from-a-checkpoint">Continue training from a checkpoint</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#running-evolution">Running evolution</a><ul>
+<li><a class="reference internal" href="#adding-parameters-to-optimize">Adding parameters to optimize</a></li>
+<li><a class="reference internal" href="#resuming-a-failed-evolution">Resuming a failed evolution</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#running-a-training-sweep">Running a training sweep</a><ul>
+<li><a class="reference internal" href="#adding-sweep-parameters">Adding sweep parameters</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="../_static/documentation_options.js?v=e37ea94c"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/scripts/furo.js?v=5fa4622c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    </body>
+</html>

@@ -1,0 +1,97 @@
+cambrian.renderer.overlays
+==========================
+
+.. py:module:: cambrian.renderer.overlays
+
+.. autoapi-nested-parse::
+
+   Defines utilities for overlays in the Mujoco viewer.
+
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   cambrian.renderer.overlays.MjCambrianCursor
+   cambrian.renderer.overlays.MjCambrianViewerOverlay
+   cambrian.renderer.overlays.MjCambrianTextViewerOverlay
+   cambrian.renderer.overlays.MjCambrianImageViewerOverlay
+   cambrian.renderer.overlays.MjCambrianSiteViewerOverlay
+
+
+Module Contents
+---------------
+
+.. py:class:: MjCambrianCursor
+
+   This class is used to define a cursor for the overlay.
+
+
+.. py:class:: MjCambrianViewerOverlay(obj, cursor = None)
+
+   This class is used to add an overlay to the viewer.
+
+   .. note::
+
+      This is applied only to the passed scene, so other scenes (i.e. ones for the
+      eyes) will not be affected.
+
+
+   .. py:method:: draw_before_render(scene)
+
+      Called before rendering the scene.
+
+
+
+   .. py:method:: draw_after_render(mjr_context, viewport)
+
+      Called after rendering the scene.
+
+
+
+.. py:class:: MjCambrianTextViewerOverlay(obj, cursor = None)
+
+   Bases: :py:obj:`MjCambrianViewerOverlay`
+
+
+   This class is used to add text to the viewer.
+
+
+   .. py:method:: draw_after_render(mjr_context, viewport)
+
+      Called after rendering the scene.
+
+
+
+.. py:class:: MjCambrianImageViewerOverlay(obj, cursor = None)
+
+   Bases: :py:obj:`MjCambrianViewerOverlay`
+
+
+   This class is used to add an image to the viewer.
+
+
+   .. py:method:: draw_after_render(mjr_context, viewport)
+
+      Called after rendering the scene.
+
+
+
+.. py:class:: MjCambrianSiteViewerOverlay(pos, rgba, size, geom_kwargs = dict(emission=0.25))
+
+   Bases: :py:obj:`MjCambrianViewerOverlay`
+
+
+   This class is used to add a site to the viewer.
+
+   .. todo:: Make this an image overlay where the pos is converted to pixel coordinates.
+
+
+   .. py:method:: draw_before_render(scene)
+
+      Called before rendering the scene.
+
+
+

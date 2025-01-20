@@ -1,0 +1,346 @@
+cambrian.agents
+===============
+
+.. py:module:: cambrian.agents
+
+.. autoapi-nested-parse::
+
+   This module defines the Cambrian agents.
+
+
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 1
+
+   /reference/api/cambrian/agents/agent/index
+   /reference/api/cambrian/agents/object/index
+   /reference/api/cambrian/agents/point/index
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   cambrian.agents.MjCambrianAgent
+   cambrian.agents.MjCambrianAgent2D
+   cambrian.agents.MjCambrianAgentConfig
+   cambrian.agents.MjCambrianAgentObject
+   cambrian.agents.MjCambrianAgentPoint
+
+
+Package Contents
+----------------
+
+.. py:class:: MjCambrianAgent(config, name)
+
+   The agent class is defined as a physics object with eyes.
+
+   This object serves as an agent in a multi-agent mujoco environment. Therefore,
+   it must have a uniquely identifiable name.
+
+   In our context, an agent has at any number of eyes and a body which an eye can be
+   attached to. This class abstracts away the inner workings of the mujoco model itself
+   to the xml generation/loading. It uses existing xml files that only define the
+   agents, with which are going to be accumulating into one large xml file that will
+   be loaded into mujoco.
+
+   To support specific agent types, you should define subclasses that include agent
+   specific configs (i.e. model_path, num_joints).
+
+   :Parameters: * **config** (*MjCambrianAgentConfig*) -- The configuration for the agent.
+                * **name** (*str*) -- The name of the agent. This is used to identify the agent in the
+                  environment.
+
+
+   .. py:method:: generate_xml()
+
+      Generates the xml for the agent. Will generate the xml from the model file
+      and then add eyes to it.
+
+
+
+   .. py:method:: apply_action(actions)
+
+      Applies the action to the agent. This probably happens before step
+      so that the observations reflect the state of the agent after the new action
+      is applied.
+
+      It is assumed that the actions are normalized between -1 and 1.
+
+
+
+   .. py:method:: get_action_privileged(env)
+      :abstractmethod:
+
+
+      This is a deviation from the standard gym API. This method is similar to
+      step, but it has "privileged" access to information such as the environment.
+      This method can be overridden by agents which are not trainable and need to
+      implement custom step logic.
+
+      :Parameters: **env** (*MjCambrianEnv*) -- The environment that the agent is in. This can be
+                   used to get information about the environment.
+
+      :returns: *List[float]* -- The action to take.
+
+
+
+   .. py:method:: reset(spec)
+
+      Sets up the agent in the environment. Uses the model/data to update
+      positions during the simulation.
+
+
+
+   .. py:method:: step()
+
+      Steps the eyes and returns the observation.
+
+
+
+   .. py:method:: render()
+
+      Renders the eyes and returns the debug image.
+
+      We don't know where the eyes are placed, so for simplicity, we'll just return
+      the first eye's render.
+
+
+
+   .. py:property:: has_contacts
+      :type: bool
+
+
+      Returns whether or not the agent has contacts.
+
+      Walks through all the contacts in the environment and checks if any of them
+      involve this agent.
+
+
+   .. py:property:: observation_space
+      :type: gymnasium.spaces.Space
+
+
+      The observation space is defined on an agent basis. the `env` should combine
+      the observation spaces such that it's supported by stable_baselines3/pettingzoo.
+
+      The agent has three observation spaces:
+          - {eye.name}: The eyes observations
+          - action: The last action that was applied to the agent
+          - contacts: Whether the agent has contacts or not
+
+
+   .. py:property:: action_space
+      :type: gymnasium.spaces.Space
+
+
+      The action space is simply the controllable actuators of the agent.
+
+
+   .. py:property:: qpos
+      :type: numpy.ndarray
+
+
+      Gets the qpos of the agent. The qpos is the state of the joints defined
+      in the agent's xml. This method is used to get the state of the qpos. It's
+      actually a masked array where the entries are masked if the qpos adr is not
+      associated with the agent. This allows the return value to be indexed
+      and edited as if it were the full qpos array.
+
+
+   .. py:property:: pos
+      :type: numpy.ndarray
+
+
+      Returns the position of the agent in the environment.
+
+      .. note::
+
+         the returned value, if edited, doesn't not directly impact the simulation.
+         To set the position of the agent, use the `pos` setter.
+
+
+   .. py:property:: init_pos
+      :type: Tuple[float | None, float | None, float | None]
+
+
+      Returns the initial position of the agent in the environment.
+
+
+   .. py:property:: quat
+      :type: numpy.ndarray
+
+
+      `wxyz`.
+
+      .. note::
+
+         The returned value, if edited, doesn't not directly impact the simulation.
+         To set the quaternion of the agent, use the `quat` setter.
+
+      :type: Returns the quaternion of the agent in the environment. Fmt
+
+
+   .. py:property:: trainable
+      :type: bool
+
+
+      Returns whether the agent is trainable or not.
+
+
+   .. py:property:: num_eyes
+      :type: int
+
+
+      Returns the number of eyes on the agent.
+
+
+.. py:class:: MjCambrianAgent2D(config, name)
+
+   Bases: :py:obj:`MjCambrianAgent`
+
+
+   Assumes the agent is moving on 2D plane and has a yaw hinge joint which is used
+   to adjust orientation of the agent.
+
+
+.. py:class:: MjCambrianAgentConfig
+
+   Bases: :py:obj:`hydra_config.HydraContainerConfig`
+
+
+   Defines the config for an agent. Used for type hinting.
+
+   :ivar instance: The class instance
+                   for the agent. This is used to create the agent. Takes the config, the
+                   name, and the index of the agent as arguments.
+
+   :vartype instance: Callable[[Self, str, int], "MjCambrianAgent"]
+   :ivar trainable: Whether the agent is trainable or not. If the agent is
+                    trainable, it's observations will be included in the observation space
+                    of the environment and the model's output actions will be applied to the
+                    agent. If the agent is not trainable, the agent's policy can be defined
+                    by overriding the `get_action_privileged` method.
+   :vartype trainable: bool
+   :ivar use_privileged_action: This is similar to `trainable`, but the agent's
+                                action and observation spaces is included in the environment's action
+                                and observation spaces, respectively. This is useful for agents that
+                                are trainable, but have some special logic that needs to be implemented
+                                in the `get_action_privileged` method. `trainable` takes precedence over
+                                this attribute, as in if `trainable` is False, this attribute is ignored.
+   :vartype use_privileged_action: bool
+   :ivar overlay_color: The color to
+                        use in the visualization of the agent.
+   :vartype overlay_color: Tuple[float, float, float, float]
+   :ivar overlay_size: The size of the overlay in the visualization of the agent.
+
+   :vartype overlay_size: float
+   :ivar xml: The xml for the agent. This is the xml that will be
+              used to create the agent. You should use ${parent:xml} to generate
+              named attributes. This will search upwards in the yaml file to find the
+              name of the agent.
+
+   :vartype xml: MjCambrianXMLConfig
+   :ivar body_name: The name of the body that defines the main body of the agent.
+   :vartype body_name: str
+   :ivar geom_name: The name of the geom that are used for eye placement.
+   :vartype geom_name: str
+   :ivar check_contacts: Whether to check contacts or not. If this is True, then
+                         the contacts will be checked in the environment.
+
+   :vartype check_contacts: bool
+   :ivar init_pos: The initial position of the agent. Specific
+                   indices of the position are set when not None. The length of the tuple
+                   should be <= 3. None's are filled in at the end if the length is less than
+                   3.
+   :vartype init_pos: Tuple[float | None]
+   :ivar init_quat: The initial quaternion of the agent. Specific
+                    indices of the quaternion are set when not None. The length of the tuple
+                    should be <= 4. None's are filled in at the end if the length is less than
+                    4.
+   :vartype init_quat: Tuple[float | None]
+   :ivar perturb_init_pos: Whether to perturb the initial pos of the agent or
+                           not. If this is True, then the initial pos of the agent will be randomly
+                           adjusted based on a normal distribution.
+
+   :vartype perturb_init_pos: bool
+   :ivar use_action_obs: Whether to use the action observation or not. NOTE: If
+                         the MjCambrianConstantActionWrapper is used, this is not reflected in the
+                         observation, as in the actions will vary in the observation.
+   :vartype use_action_obs: bool
+   :ivar use_contact_obs: Whether to use the contact observation or not. If this
+                          is True, then the contacts will be included in the observation space of the
+                          agent.
+
+   :vartype use_contact_obs: bool
+   :ivar eyes: The eyes on the agent. The keys are the
+               names of the eyes and the values are the configs for the eyes. The eyes will
+               be placed on the agent at the specified coordinates.
+
+   :vartype eyes: Dict[str, MjCambrianEyeConfig]
+
+
+.. py:class:: MjCambrianAgentObject(config, name)
+
+   Bases: :py:obj:`cambrian.agents.agent.MjCambrianAgent2D`
+
+
+   This is a class which defines an object agent. An object agent is
+   essentially a non-trainable agent. It's simply an object in the environment which
+   has no observations or actions.
+
+
+   .. py:method:: get_action_privileged(_)
+
+      This is a deviation from the standard gym API. This method is similar to
+      step, but it has "privileged" access to information such as the environment.
+      This method can be overridden by agents which are not trainable and need to
+      implement custom step logic.
+
+      :Parameters: **env** (*MjCambrianEnv*) -- The environment that the agent is in. This can be
+                   used to get information about the environment.
+
+      :returns: *List[float]* -- The action to take.
+
+
+
+.. py:class:: MjCambrianAgentPoint(config, name, *, kp = 0.75)
+
+   Bases: :py:obj:`cambrian.agents.agent.MjCambrianAgent2D`
+
+
+   This is a hardcoded class which implements the agent as actuated by a forward
+   velocity and a rotational position. In mujoco, to the best of my knowledge, all
+   translational joints are actuated in reference to the _global_ frame rather than
+   the local frame. This means a velocity actuator applied along the x-axis will move
+   the agent along the global x-axis rather than the local x-axis. Therefore, the
+   agent will have 3 actuators: two for x and y global velocities and one for
+   rotational position. From the perspective the calling class (i.e. MjCambrianEnv),
+   this agent has two actuators: a forward velocity and a rotational position. We will
+   calculate the global velocities and rotational position from these two "actuators".
+
+   .. todo::
+
+      Will create an issue on mujoco and see if it's possible to implement this in
+      xml. The issue right now is that mujoco doesn't support relative positions for
+      hinge joints, so we have to implement the heading joint as a velocity actuator
+      which is not ideal.
+
+
+   .. py:method:: apply_action(action)
+
+      Calls the appropriate apply action method based on the heading joint type.
+
+
+
+   .. py:property:: action_space
+      :type: gymnasium.spaces.Space
+
+
+      Overrides the base implementation to only have two elements.
+
+

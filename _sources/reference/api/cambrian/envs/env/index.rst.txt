@@ -1,0 +1,356 @@
+cambrian.envs.env
+=================
+
+.. py:module:: cambrian.envs.env
+
+.. autoapi-nested-parse::
+
+   Defines the MjCambrianEnv class.
+
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   cambrian.envs.env.MjCambrianEnvConfig
+   cambrian.envs.env.MjCambrianEnv
+
+
+Module Contents
+---------------
+
+.. py:class:: MjCambrianEnvConfig
+
+   Bases: :py:obj:`hydra_config.HydraContainerConfig`
+
+
+   Defines a config for the cambrian environment.
+
+   :ivar instance: The class method to use to
+                   instantiate the environment.
+
+   :vartype instance: Callable[[Self], "MjCambrianEnv"]
+   :ivar xml: The xml for the scene. This is the xml that will be
+              used to create the environment. See `MjCambrianXML` for more info.
+
+   :vartype xml: MjCambrianXMLConfig
+   :ivar step_fn: The step function to use. See the `MjCambrianStepFn`
+                  for more info. The step fn is called before the termination, truncation, and
+                  reward fns, and after the action has been applied to the agents. It takes
+                  the environment, the observations, the info dict, and any additional kwargs.
+                  Returns the updated observations and info dict.
+   :vartype step_fn: MjCambrianStepFn
+   :ivar termination_fn: The termination function to use. See
+                         the :class:`MjCambrianTerminationFn` for more info.
+   :vartype termination_fn: MjCambrianTerminationFn
+   :ivar truncation_fn: The truncation function to use. See the
+                        :class:`MjCambrianTruncationFn` for more info.
+   :vartype truncation_fn: MjCambrianTruncationFn
+   :ivar reward_fn: The reward function type to use. See the
+                    :class:`MjCambrianRewardFn` for more info.
+
+   :vartype reward_fn: MjCambrianRewardFn
+   :ivar frame_skip: The number of mujoco simulation steps per `gym.step()` call.
+   :vartype frame_skip: int
+   :ivar max_episode_steps: The maximum number of steps per episode.
+   :vartype max_episode_steps: int
+   :ivar n_eval_episodes: The number of episodes to evaluate for.
+
+   :vartype n_eval_episodes: int
+   :ivar add_overlays: Whether to add overlays or not.
+   :vartype add_overlays: bool
+   :ivar clear_overlays_on_reset: Whether to clear the overlays on reset or not.
+                                  Consequence of setting to False is that when drawing position overlays
+                                  and when mazes change between evaluations, the sites will be drawn on top
+                                  of each other which may not be desired. When record is False, the overlays
+                                  are always be cleared.
+   :vartype clear_overlays_on_reset: bool
+   :ivar debug_overlays_size: The size of the debug overlays. This is a
+                              percentage of the total renderer size. If 0, debug overlays are disabled.
+   :vartype debug_overlays_size: float
+   :ivar renderer: The default viewer config to
+                   use for the mujoco viewer. If unset, no renderer will be used. Should
+                   set to None if `render` will never be called. This may be useful to
+                   reduce the amount of vram consumed by non-rendering environments.
+
+   :vartype renderer: Optional[MjCambrianViewerConfig]
+   :ivar save_filename: The filename to save recordings to. This is more
+                        of a placeholder for external scripts to use, if desired.
+
+   :vartype save_filename: Optional[str]
+   :ivar agents: The configs for the agents.
+                 The key will be used as the default name for the agent, unless explicitly
+                 set in the agent config.
+
+   :vartype agents: List[MjCambrianAgentConfig]
+
+
+.. py:class:: MjCambrianEnv(config, name = None)
+
+   Bases: :py:obj:`pettingzoo.ParallelEnv`, :py:obj:`gymnasium.Env`
+
+
+   A MjCambrianEnv defines a gymnasium environment that's based off mujoco.
+
+   NOTES:
+   - This is an overridden version of the MujocoEnv class. The two main differences is
+   that we allow for /reset multiple agents and use our own custom renderer. It also
+   reduces the need to create temporary xml files which MujocoEnv had to load. It's
+   essentially a copy of MujocoEnv with the two aforementioned major changes.
+
+   :Parameters: * **config** (*MjCambrianEnvConfig*) -- The config object.
+                * **name** (*Optional[str]*) -- The name of the environment. This is added as an overlay
+                  to the renderer.
+
+
+   .. py:method:: generate_xml()
+
+      Generates the xml for the environment.
+
+      .. todo::
+
+          Can we update to use MjSpec?
+
+
+
+   .. py:method:: reset(*, seed = None, options = None)
+
+      Reset the environment.
+
+      Will reset all underlying components (the maze, the agents, etc.). The
+      simulation will then be stepped once to ensure that the observations are
+      up-to-date.
+
+      :returns: *Tuple[ObsType, InfoType]* --
+
+                The observations for each
+                    agent and the info dict for each agent.
+
+
+
+   .. py:method:: step(action)
+
+      Step the environment.
+
+      The dynamics is updated through the `_step_mujoco_simulation` method.
+
+      :Parameters: **action** (*Dict[str, Any]*) -- The action to take for each agent.
+                   The keys define the agent name, and the values define the action for
+                   that agent.
+
+      :returns: *Dict[str, Any]* -- The observations for each agent.
+                Dict[str, float]: The reward for each agent.
+                Dict[str, bool]: Whether each agent has terminated.
+                Dict[str, bool]: Whether each agent has truncated.
+                Dict[str, Dict[str, Any]]: The info dict for each agent.
+
+
+
+   .. py:method:: render()
+
+      Renders the environment.
+
+      :returns: *Dict[str, RenderFrame]* --
+
+                The rendered image for each render mode mapped to
+                    its corresponding str.
+
+      .. todo:: Make the cursor stuff clearer
+
+
+
+   .. py:property:: name
+      :type: str
+
+
+      Returns the name of the environment.
+
+
+   .. py:property:: xml
+      :type: cambrian.utils.cambrian_xml.MjCambrianXML
+
+
+      Returns the xml for the environment.
+
+
+   .. py:property:: agents
+      :type: Dict[str, cambrian.agents.agent.MjCambrianAgent]
+
+
+      Returns the agents in the environment.
+
+
+   .. py:property:: renderer
+      :type: cambrian.renderer.MjCambrianRenderer
+
+
+      Returns the renderer for the environment.
+
+
+   .. py:property:: spec
+      :type: cambrian.utils.spec.MjCambrianSpec
+
+
+      Returns the mujoco spec for the environment.
+
+
+   .. py:property:: model
+      :type: mujoco.MjModel
+
+
+      Returns the mujoco model for the environment.
+
+
+   .. py:property:: data
+      :type: mujoco.MjData
+
+
+      Returns the mujoco data for the environment.
+
+
+   .. py:property:: episode_step
+      :type: int
+
+
+      Returns the current episode step.
+
+
+   .. py:property:: num_timesteps
+      :type: int
+
+
+      Returns the number of timesteps.
+
+
+   .. py:property:: max_episode_steps
+      :type: int
+
+
+      Returns the max episode steps.
+
+
+   .. py:property:: overlays
+      :type: Dict[str, Any]
+
+
+      Returns the overlays.
+
+
+   .. py:property:: cumulative_reward
+      :type: float
+
+
+      Returns the cumulative reward.
+
+
+   .. py:property:: stashed_cumulative_reward
+      :type: float
+
+
+      Returns the previous cumulative reward.
+
+
+   .. py:property:: num_agents
+      :type: int
+
+
+      Returns the number of agents in the environment.
+
+      This is part of the PettingZoo API.
+
+
+   .. py:property:: possible_agents
+      :type: List[str]
+
+
+      Returns the possible agents in the environment.
+
+      This is part of the PettingZoo API.
+
+      Assumes that the possible agents are the same as the agents.
+
+
+   .. py:property:: observation_spaces
+      :type: gymnasium.spaces.Dict
+
+
+      Creates the observation spaces.
+
+      This is part of the PettingZoo API.
+
+      By default, this environment will support multi-agent
+      observations/actions/etc. This method will create _all_ the observation
+      spaces for the environment. But note that stable baselines3 only supports single
+      agent environments (i.e. non-nested spaces.Dict), so ensure you wrap this env
+      with a `wrappers.MjCambrianSingleagentEnvWrapper` if you want to use stable
+      baselines3.
+
+
+   .. py:property:: action_spaces
+      :type: gymnasium.spaces.Dict
+
+
+      Creates the action spaces.
+
+      This is part of the PettingZoo API.
+
+      By default, this environment will support multi-agent
+      observations/actions/etc. This method will create _all_ the action
+      spaces for the environment. But note that stable baselines3 only supports single
+      agent environments (i.e. non-nested spaces.Dict), so ensure you wrap this env
+      with a `wrappers.MjCambrianSingleagentEnvWrapper` if you want to use stable
+      baselines3.
+
+
+   .. py:method:: observation_space(agent)
+
+      Returns the observation space for the given agent.
+
+      This is part of the PettingZoo API.
+
+
+
+   .. py:method:: action_space(agent)
+
+      Returns the action space for the given agent.
+
+      This is part of the PettingZoo API.
+
+
+
+   .. py:method:: state()
+      :abstractmethod:
+
+
+      Returns the state of the environment.
+
+      This is part of the PettingZoo API.
+
+
+
+   .. py:method:: set_random_seed(seed)
+
+      Sets the seed for the environment.
+
+
+
+   .. py:method:: record(record = True, *, path = None)
+
+      Sets whether the environment is recording.
+
+
+
+   .. py:method:: save(path, *, save_pkl = False, **kwargs)
+
+      Saves the simulation output to the given path.
+
+
+
+   .. py:method:: close()
+
+      Closes the environment.
+
+
+

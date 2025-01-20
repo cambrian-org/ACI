@@ -1,0 +1,106 @@
+cambrian.ml.features_extractors
+===============================
+
+.. py:module:: cambrian.ml.features_extractors
+
+.. autoapi-nested-parse::
+
+   This module contains custom feature extractors for use in the models.
+
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   cambrian.ml.features_extractors.MjCambrianCombinedExtractor
+   cambrian.ml.features_extractors.PermutedFlattenExtractor
+   cambrian.ml.features_extractors.MjCambrianImageFeaturesExtractor
+   cambrian.ml.features_extractors.MjCambrianMLPExtractor
+   cambrian.ml.features_extractors.MjCambrianNatureCNNExtractor
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   cambrian.ml.features_extractors.is_image_space
+   cambrian.ml.features_extractors.maybe_transpose_space
+   cambrian.ml.features_extractors.maybe_transpose_obs
+
+
+Module Contents
+---------------
+
+.. py:function:: is_image_space(observation_space, check_channels = False, normalized_image = False)
+
+   This is an extension of the sb3 is_image_space to support both regular images
+   (HxWxC) and images with an additional dimension (NxHxWxC).
+
+
+.. py:function:: maybe_transpose_space(observation_space)
+
+   This is an extension of the sb3 maybe_transpose_space to support both regular
+   images (HxWxC) and images with an additional dimension (NxHxWxC). sb3 will call
+   maybe_transpose_space on the 3D case, but not the 4D.
+
+
+.. py:function:: maybe_transpose_obs(observation)
+
+   This is an extension of the sb3 maybe_transpose_obs to support both regular
+   images (HxWxC) and images with an additional dimension (NxHxWxC). sb3 will call
+   maybe_transpose_obs on the 3D case, but not the 4D.
+
+   .. note:: In this case, there is a batch dimension, so the observation is 5D.
+
+
+.. py:class:: MjCambrianCombinedExtractor(observation_space, *, normalized_image, image_extractor, share_image_extractor = False)
+
+   Bases: :py:obj:`stable_baselines3.common.torch_layers.BaseFeaturesExtractor`
+
+
+   Overwrite of the default feature extractor of Stable Baselines 3.
+
+
+.. py:class:: PermutedFlattenExtractor(observation_space)
+
+   Bases: :py:obj:`stable_baselines3.common.torch_layers.FlattenExtractor`
+
+
+   Feature extract that flatten the input.
+   Used as a placeholder when feature extraction is not needed.
+
+   :param observation_space: The observation space of the environment
+
+
+.. py:class:: MjCambrianImageFeaturesExtractor(observation_space, features_dim, activation)
+
+   Bases: :py:obj:`stable_baselines3.common.torch_layers.BaseFeaturesExtractor`
+
+
+   This is a feature extractor for images. Will implement an image queue for
+   temporal features. Should be inherited by other classes.
+
+
+.. py:class:: MjCambrianMLPExtractor(observation_space, features_dim, activation, architecture)
+
+   Bases: :py:obj:`MjCambrianImageFeaturesExtractor`
+
+
+   MLP feature extractor for small images. Essentially NatureCNN but with MLPs.
+
+
+.. py:class:: MjCambrianNatureCNNExtractor(observation_space, features_dim, activation)
+
+   Bases: :py:obj:`MjCambrianImageFeaturesExtractor`
+
+
+   Nature CNN feature extractor for images. This is the default feature extractor
+   for stable baseline3 images. The main differences between this and the original
+   is that this supports temporal features (i.e. image stacks) and dynamically
+   calculates the kernel sizes and strides. In sb3, the fixed kernel sizes and strides
+   restricted the image size to be > 36x36, which is a bd assumption here.
+
+

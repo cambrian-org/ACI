@@ -1,0 +1,73 @@
+cambrian.ml.trainer
+===================
+
+.. py:module:: cambrian.ml.trainer
+
+.. autoapi-nested-parse::
+
+   This module contains the trainer class for training and evaluating agents.
+
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   cambrian.ml.trainer.MjCambrianTrainerConfig
+   cambrian.ml.trainer.MjCambrianTrainer
+
+
+Module Contents
+---------------
+
+.. py:class:: MjCambrianTrainerConfig
+
+   Bases: :py:obj:`hydra_config.HydraContainerConfig`
+
+
+   Settings for the training process. Used for type hinting.
+
+   :ivar total_timesteps: The total number of timesteps to train for.
+   :vartype total_timesteps: int
+   :ivar max_episode_steps: The maximum number of steps per episode.
+   :vartype max_episode_steps: int
+   :ivar n_envs: The number of parallel environments to use for training.
+
+   :vartype n_envs: int
+   :ivar model: The model to use for
+                training.
+   :vartype model: Callable[[MjCambrianEnv], MjCambrianModel]
+   :ivar callbacks: The callbacks to use for training.
+   :vartype callbacks: Dict[str, BaseCallback]
+   :ivar wrappers: The wrappers to use for
+                   training. If None, will ignore.
+
+   :vartype wrappers: Dict[str, Callable[[VecEnv], VecEnv]] | None
+   :ivar prune_fn: The function to use to
+                   determine if an experiment should be pruned. If None, will ignore. If set,
+                   this function will be called prior to training to check whether the config
+                   is valid for training. This is the get around the fact that some sweepers
+                   will evaluate configs that are invalid for training, which is a waste
+                   computationally. The train method will return -inf if this function returns
+                   True. NOTE: for nevergrad, it is recommended to use cheap_constraints.
+   :vartype prune_fn: Optional[Callable[[MjCambrianConfig], bool]]
+   :ivar fitness_fn: The function to use to
+                     calculate the fitness of the agent after training.
+
+   :vartype fitness_fn: Callable[[MjCambrianConfig, float]]
+
+
+.. py:class:: MjCambrianTrainer(config)
+
+   This is the trainer class for running training and evaluation.
+
+   :Parameters: **config** (*MjCambrianConfig*) -- The config to use for training and evaluation.
+
+
+   .. py:method:: train()
+
+      Train the agent.
+
+
+

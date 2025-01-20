@@ -1,0 +1,179 @@
+cambrian.utils.wrappers
+=======================
+
+.. py:module:: cambrian.utils.wrappers
+
+.. autoapi-nested-parse::
+
+   Wrappers for the MjCambrianEnv. Used during training.
+
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   cambrian.utils.wrappers.MjCambrianSingleAgentEnvWrapper
+   cambrian.utils.wrappers.MjCambrianPettingZooEnvWrapper
+   cambrian.utils.wrappers.MjCambrianConstantActionWrapper
+   cambrian.utils.wrappers.MjCambrianTorchToNumpyWrapper
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   cambrian.utils.wrappers.make_wrapped_env
+
+
+Module Contents
+---------------
+
+.. py:class:: MjCambrianSingleAgentEnvWrapper(env, *, agent_name = None, combine_rewards = True, combine_terminated = True, combine_truncated = True)
+
+   Bases: :py:obj:`gymnasium.Wrapper`
+
+
+   Wrapper around the MjCambrianEnv that acts as if there is a single agent.
+
+   Will replace all multi-agent methods to just use the first agent.
+
+   :keyword agent_name: The name of the agent to use. If not provided, the first agent
+                        will be used.
+
+
+   .. py:attribute:: action_space
+
+      Return the :attr:`Env` :attr:`action_space` unless overwritten then the wrapper :attr:`action_space` is used.
+
+
+   .. py:attribute:: observation_space
+
+      Return the :attr:`Env` :attr:`observation_space` unless overwritten then the wrapper :attr:`observation_space` is used.
+
+
+   .. py:method:: reset(*args, **kwargs)
+
+      Uses the :meth:`reset` of the :attr:`env` that can be overwritten to change the returned data.
+
+
+
+   .. py:method:: step(action)
+
+      Uses the :meth:`step` of the :attr:`env` that can be overwritten to change the returned data.
+
+
+
+.. py:class:: MjCambrianPettingZooEnvWrapper(env)
+
+   Bases: :py:obj:`gymnasium.Wrapper`
+
+
+   Wrapper around the MjCambrianEnv that acts as if there is a single agent, where
+   in actuality, there's multi-agents.
+
+   SB3 doesn't support Dict action spaces, so this wrapper will flatten the action
+   into a single space. The observation can be a dict; however, nested dicts are not
+   allowed.
+
+
+   .. py:method:: reset(*args, **kwargs)
+
+      Uses the :meth:`reset` of the :attr:`env` that can be overwritten to change the returned data.
+
+
+
+   .. py:method:: step(action)
+
+      Uses the :meth:`step` of the :attr:`env` that can be overwritten to change the returned data.
+
+
+
+   .. py:property:: observation_space
+      :type: gymnasium.spaces.Dict
+
+
+      SB3 doesn't support nested Dict observation spaces, so we'll flatten it.
+      If each agent has a Dict observation space, we'll flatten it into a single
+      observation where the key in the dict is the agent name and the original space
+      name.
+
+
+   .. py:property:: action_space
+      :type: gymnasium.spaces.Box
+
+
+      The only gym.Space that SB3 supports that's continuous for the action space
+      is a Box. We can assume each agent's action space is a Box, so we'll flatten
+      each action space into one Box for the environment.
+
+      Assumptions:
+          - All agents have the same number of actions
+          - All actions have the same shape
+          - All actions are continuous
+          - All actions are normalized between -1 and 1
+
+
+.. py:class:: MjCambrianConstantActionWrapper(env, constant_actions)
+
+   Bases: :py:obj:`gymnasium.Wrapper`
+
+
+   This wrapper will apply a constant action at specific indices of the action
+   space.
+
+   :Parameters: **constant_actions** -- A dictionary where the keys are the indices of the action
+                space and the values are the constant actions to apply.
+
+
+   .. py:method:: step(action)
+
+      Uses the :meth:`step` of the :attr:`env` that can be overwritten to change the returned data.
+
+
+
+.. py:class:: MjCambrianTorchToNumpyWrapper(env, *, convert_action = False)
+
+   Bases: :py:obj:`gymnasium.Wrapper`
+
+
+   Wraps a torch-based environment to convert inputs and outputs to NumPy arrays.
+
+
+   .. py:method:: step(actions)
+
+      Using a numpy-based action that is converted to torch to be used by the
+      environment.
+
+      :Parameters: **action** -- A numpy-based action
+
+      :returns: The numpy-based observation, reward, termination, truncation, and extra info
+
+
+
+   .. py:method:: reset(*, seed = None, options = None)
+
+      Resets the environment returning numpy-based observations and info.
+
+      :Parameters: * **seed** -- The seed for resetting the environment
+                   * **options** -- The options for resetting the environment
+
+      :returns: The numpy-based observation and extra info
+
+
+
+   .. py:method:: render()
+
+      Renders the environment returning a numpy-based image.
+
+      :returns: The numpy-based image
+
+
+
+.. py:function:: make_wrapped_env(config, wrappers, seed = None, **kwargs)
+
+   Utility function for creating a MjCambrianEnv.
+
+

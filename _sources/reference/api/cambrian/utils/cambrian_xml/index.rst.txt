@@ -1,0 +1,288 @@
+cambrian.utils.cambrian_xml
+===========================
+
+.. py:module:: cambrian.utils.cambrian_xml
+
+.. autoapi-nested-parse::
+
+   This module provides a helper class for manipulating mujoco xml files. It provides
+   some helper methods that wrap the `xml` library. This is useful for modifying mujoco xml
+   files in a programmatic way. MjSpec has since provided functionality directly in
+   Mujoco to support this functionality.
+
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   cambrian.utils.cambrian_xml.MjCambrianXMLConfig
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   cambrian.utils.cambrian_xml.MjCambrianXML
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   cambrian.utils.cambrian_xml.convert_xml_to_yaml
+
+
+Module Contents
+---------------
+
+.. py:data:: MjCambrianXMLConfig
+   :type:  TypeAlias
+   :value: HydraContainerConfig | List[Dict[str, Self]]
+
+
+   List[Dict[str, Self]]
+   OmegaConf complains since we have a Dict inside a List
+
+   We use a list here because then we can have non-unique keys.
+
+   This defines a custom XML config. This can be used to define custom XMLs which
+   are built from during the initialization phase of the environment. The config is
+   structured as follows:
+
+   .. code-block:: yaml
+
+       - parent_key1:
+           - child_key1:
+               - attr1: val1
+               - attr2: val2
+           - child_key2:
+               - attr1: val1
+               - attr2: val2
+       - child_key1:
+           - child_key2:
+               - attr1: ${parent_key1.child_key1.attr2}
+       - child_key2:
+           - child_key3: ${parent_key1.child_key1}
+
+   which will construct an XML that looks like:
+
+   .. code-block:: xml
+
+       <parent_key1>
+           <child_key1 attr1="val1" attr2="val2">
+               <child_key2 attr1="val2"/>
+           </child_key1>
+           <child_key2>
+               <attr1>val1</attr1>
+               <attr2>val2</attr2>
+               <child_key3 attr1="val1" attr2="val2">
+           </child_key2>
+       </parent_key1>
+
+   This is a verbose representation for XML files. This is done
+   to allow interpolation through Hydra/OmegaConf in the XML files and without the need
+   for a complex XML parser OmegaConf resolver.
+
+   :type: Actual type
+
+.. py:class:: MjCambrianXML(base_xml_path, *, overrides = None)
+
+   Helper class for manipulating mujoco xml files. Provides some helper methods for
+   that wrap the `xml` library.
+
+   :Parameters: **base_xml_path** (*Path | str*) -- The path to the base xml file to load.
+
+   :keyword overrides: The xml config to override the base
+                       xml file with. This is a list of dictionaries. See `MjCambrianXMLConfig`
+                       for more information.
+   :kwtype overrides: Optional[MjCambrianXMLConfig]
+
+
+   .. py:method:: load(path)
+
+      Load the xml from a file.
+
+
+
+   .. py:method:: write(path)
+
+      Write the xml to a file. Will pretty write the xml.
+
+
+
+   .. py:method:: make_empty()
+      :staticmethod:
+
+
+      Loads an empty mujoco xml file. Only has the `mujoco` and worldbody
+      `tags`.
+
+
+
+   .. py:method:: from_string(xml_string)
+      :staticmethod:
+
+
+      Loads the xml from a string.
+
+
+
+   .. py:method:: from_config(config)
+      :staticmethod:
+
+
+      Adds to the xml based on the passed config.
+
+      The MjCambrianXMLConfig is structured as follows:
+
+      .. code-block:: yaml
+
+          - parent_key:
+              - child_key:
+                  - attribute_key: attribute_value
+                  - subchild_key:
+                      - attribute_key: attribute_value
+                      - attribute_key: attribute_value
+                  - subchild_key:
+                      - subsubchild_key: attribute_value
+
+      This would create the following xml:
+
+      .. code-block:: xml
+
+          <parent_key>
+              <child_key attribute_key="attribute_value">
+                  <subchild_key attribute_key="attribute_value"
+                      attribute_key="attribute_value"/>
+                  <subchild_key>
+                      <subsubchild_key attribute_key="attribute_value"/>
+                  </subchild_key>
+              </child_key>
+          </parent_key>
+
+      We need to walk though the XMLConfig and update it recursively.
+
+      See `MjCambrianXMLConfig` for more information.
+
+
+
+   .. py:method:: parse(xml_string, *, overrides = None)
+      :staticmethod:
+
+
+      This is a helper method to parse an xml file with overrides.
+
+
+
+   .. py:method:: add(parent, tag, *args, **kwargs)
+
+      Add an element to the xml tree.
+
+      :Parameters: * **parent** (*ET.Element*) -- The parent element to add the new element to.
+                   * **tag** (*str*) -- The tag of the new element.
+                   * **\*args** -- The arguments to pass to the `ET.SubElement` call.
+                   * **\*\*kwargs** -- The keyword arguments to pass to the `ET.SubElement` call.
+
+
+
+   .. py:method:: remove(parent, element)
+
+      Remove an element from the xml tree.
+
+      :Parameters: * **parent** (*ET.Element*) -- The parent element to remove the element from.
+                   * **element** (*ET.Element*) -- The element to remove.
+
+
+
+   .. py:method:: find(tag, *, _all = False, **kwargs)
+
+      Find an element by tag.
+
+      If any additional keyword arguments are passed, they will be used to filter the
+      elements, as in the element must have the attribute and it must be equal to the
+      value. In this case, `ET.iterfind` will be used. It uses the predicates
+      described here: https://docs.python.org/3/library/xml.etree.elementtree.html            #supported-xpath-syntax.
+
+      If no keyword arguments are passed, `ET.find` will be used.
+
+      If not found, `None` will be returned.
+
+      :Parameters: * **tag** (*str*) -- The tag of the element to find.
+                   * **_all** (*bool*) -- If true, will use `ET.findall`, else `ET.find`.
+                   * **\*\*kwargs** -- The keyword arguments to filter the elements by.
+
+      :returns: *List[ET.Element] | ET.Element | None* --
+
+                The element or `None` if not found. If
+                    `_all` is true, a list of elements will be returned.
+
+
+
+   .. py:method:: findall(tag, **kwargs)
+
+      Alias for `find(tag, _all=True, **kwargs)`.
+
+
+
+   .. py:method:: get_path(element)
+
+      Get the path of an element in the xml tree. Unfortunately, there is no
+      built-in way to do this. We'll just iterate up the tree and build the path.
+
+      :Parameters: **element** (*ET.Element*) -- The element to get the path to.
+
+      :returns: *Tuple[List[ET.Element], str]* -- The list of elements in the path and the
+                string representation of the path. The list of elements is ordered from root
+                down to the passed element. NOTE: the root is _not_ included in the list.
+
+
+
+   .. py:method:: combine(root, other)
+
+      Combines two xml trees. Preferred to be called through the `+` or `+=`
+      operators.
+
+      Taken from here: https://stackoverflow.com/a/29896847/20125256
+
+
+
+   .. py:property:: root
+      :type: xml.etree.ElementTree.Element
+
+
+      The root element of the xml tree.
+
+
+   .. py:property:: base_dir
+      :type: pathlib.Path
+
+
+      The directory of the base xml file.
+
+
+   .. py:method:: to_string()
+
+      This pretty prints the xml to a string. toprettyxml adds a newline at the end
+      of the string, so we'll remove any empty lines.
+
+
+
+   .. py:method:: to_spec()
+
+      Convert the xml to a mujoco spec.
+
+
+
+.. py:function:: convert_xml_to_yaml(base_xml_path, *, overrides = None)
+
+   This is a helper method to convert an xml file to a yaml file.
+   This is for loading and overriding an xml file from the yaml config files. We have
+   to convert the xml to yaml in order to apply interpolations in the yaml file. Like,
+   to support ${parent:xml} (which evaluates the xml parent name) in the xml, we have
+   to convert the xml to yaml and then apply the interpolations.
+
+

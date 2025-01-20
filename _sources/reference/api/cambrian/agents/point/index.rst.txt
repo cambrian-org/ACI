@@ -1,0 +1,104 @@
+cambrian.agents.point
+=====================
+
+.. py:module:: cambrian.agents.point
+
+.. autoapi-nested-parse::
+
+   Point agents.
+
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   cambrian.agents.point.MjCambrianAgentPoint
+   cambrian.agents.point.MjCambrianAgentPointSeeker
+
+
+Module Contents
+---------------
+
+.. py:class:: MjCambrianAgentPoint(config, name, *, kp = 0.75)
+
+   Bases: :py:obj:`cambrian.agents.agent.MjCambrianAgent2D`
+
+
+   This is a hardcoded class which implements the agent as actuated by a forward
+   velocity and a rotational position. In mujoco, to the best of my knowledge, all
+   translational joints are actuated in reference to the _global_ frame rather than
+   the local frame. This means a velocity actuator applied along the x-axis will move
+   the agent along the global x-axis rather than the local x-axis. Therefore, the
+   agent will have 3 actuators: two for x and y global velocities and one for
+   rotational position. From the perspective the calling class (i.e. MjCambrianEnv),
+   this agent has two actuators: a forward velocity and a rotational position. We will
+   calculate the global velocities and rotational position from these two "actuators".
+
+   .. todo::
+
+      Will create an issue on mujoco and see if it's possible to implement this in
+      xml. The issue right now is that mujoco doesn't support relative positions for
+      hinge joints, so we have to implement the heading joint as a velocity actuator
+      which is not ideal.
+
+
+   .. py:method:: apply_action(action)
+
+      Calls the appropriate apply action method based on the heading joint type.
+
+
+
+   .. py:property:: action_space
+      :type: gymnasium.spaces.Space
+
+
+      Overrides the base implementation to only have two elements.
+
+
+.. py:class:: MjCambrianAgentPointSeeker(config, name, *, target, speed = -0.75, distance_threshold = 2.0, use_optimal_trajectory = False)
+
+   Bases: :py:obj:`MjCambrianAgentPoint`
+
+
+   This is an agent which is non-trainable and defines a custom policy which
+   acts as a 'homing' agent in the maze environment. This agent will attempt to reach
+   a target (which is either randomly placed or another specific agent) by taking
+   actions that best map to the optimal trajectory which is calculated from the maze
+   using bfs (or just by choosing the action which minimizes the distance to
+   the target).
+
+   :keyword target: The name of the target agent to home in on. If
+                    None, a random free space in the maze will be chosen as the target.
+   :kwtype target: Optional[str]
+   :keyword speed: The speed at which the agent moves. Defaults to -0.75.
+   :kwtype speed: float
+   :keyword distance_threshold: The distance threshold at which the agent will
+                                consider itself to have reached the target. Defaults to 2.0.
+   :kwtype distance_threshold: float
+   :keyword use_optimal_trajectory: Whether to use the optimal trajectory to the
+                                    target. Defaults to False.
+   :kwtype use_optimal_trajectory: bool
+
+
+   .. py:method:: reset(*args)
+
+      Resets the optimal_trajectory.
+
+
+
+   .. py:method:: get_action_privileged(env)
+
+      This is a deviation from the standard gym API. This method is similar to
+      step, but it has "privileged" access to information such as the environment.
+      This method can be overridden by agents which are not trainable and need to
+      implement custom step logic.
+
+      :Parameters: **env** (*MjCambrianEnv*) -- The environment that the agent is in. This can be
+                   used to get information about the environment.
+
+      :returns: *List[float]* -- The action to take.
+
+
+

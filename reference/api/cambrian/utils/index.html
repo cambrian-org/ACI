@@ -1,0 +1,690 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../../../../">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-TB8Y1XJVV1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-TB8Y1XJVV1');
+    </script>
+    <link rel="index" title="Index" href="../../../../genindex.html" /><link rel="search" title="Search" href="../../../../search.html" /><link rel="next" title="cambrian.utils.cambrian_xml" href="cambrian_xml/index.html" /><link rel="prev" title="cambrian.renderer.renderer" href="../renderer/renderer/index.html" />
+
+    <link rel="shortcut icon" href="../../../../_static/eye.png"/><!-- Generated with Sphinx 8.1.3 and Furo 2024.08.06 -->
+        <title>cambrian.utils - cambrian 0.0.post1.dev3+gc8c8ed9 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=d75fae25" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo.css?v=354aac6f" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css?v=4ae1632d" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo-extensions.css?v=302659d7" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/css/custom.css?v=ae43ac89" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f0f0f0;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+<div class="announcement">
+  <aside class="announcement-content">
+     
+        <a style="text-decoration: none; color: white;"
+           href="https://www.media.mit.edu/groups/camera-culture/overview/">
+           <img src="/cc-hardware/_static/cc-transparent.png"
+                style="
+                    vertical-align: middle;
+                    display: inline;
+                    padding-right: 7.5px;
+                    height: 20px;
+                "/>
+           Checkout Camera Culture!
+        </a>
+     
+  </aside>
+</div>
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../../../../index.html"><div class="brand">cambrian 0.0.post1.dev3+gc8c8ed9 documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../../../../index.html">
+  
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo only-light" src="../../../../_static/eye.png" alt="Light Logo"/>
+    <img class="sidebar-logo only-dark" src="../../../../_static/eye.png" alt="Dark Logo"/>
+  </div>
+  
+  
+</a><form class="sidebar-search-container" method="get" action="../../../../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../../index.html">Home</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../examples/index.html">Examples</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Examples</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../examples/detection.html">Detection Task</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../examples/navigation.html">Navigation Task</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../examples/tracking.html">Tracking Task</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../usage/index.html">Nuts and Bolts</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Nuts and Bolts</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../usage/configuration.html">Configuring an Experiment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../usage/training.html">Training an Agent</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../usage/visualizing.html">Visualizing the Env</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../usage/docker.html">Using Docker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../usage/pitfalls.html">Pitfalls</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current has-children"><a class="reference internal" href="../../../index.html">API Reference</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of API Reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2 has-children"><a class="reference internal" href="../envs/index.html">cambrian.envs</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of cambrian.envs</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../envs/done_fns/index.html">cambrian.envs.done_fns</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../envs/env/index.html">cambrian.envs.env</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../envs/maze_env/index.html">cambrian.envs.maze_env</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../envs/reward_fns/index.html">cambrian.envs.reward_fns</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../envs/step_fns/index.html">cambrian.envs.step_fns</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../agents/index.html">cambrian.agents</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle navigation of cambrian.agents</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../agents/agent/index.html">cambrian.agents.agent</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../agents/object/index.html">cambrian.agents.object</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../agents/point/index.html">cambrian.agents.point</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../eyes/index.html">cambrian.eyes</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle navigation of cambrian.eyes</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../eyes/eye/index.html">cambrian.eyes.eye</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../eyes/multi_eye/index.html">cambrian.eyes.multi_eye</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../eyes/optics/index.html">cambrian.eyes.optics</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../ml/index.html">cambrian.ml</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle navigation of cambrian.ml</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../ml/callbacks/index.html">cambrian.ml.callbacks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ml/constraint_fns/index.html">cambrian.ml.constraint_fns</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ml/evo/index.html">cambrian.ml.evo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ml/features_extractors/index.html">cambrian.ml.features_extractors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ml/fitness_fns/index.html">cambrian.ml.fitness_fns</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ml/model/index.html">cambrian.ml.model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ml/trainer/index.html">cambrian.ml.trainer</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../renderer/index.html">cambrian.renderer</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle navigation of cambrian.renderer</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../renderer/overlays/index.html">cambrian.renderer.overlays</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../renderer/render_utils/index.html">cambrian.renderer.render_utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../renderer/renderer/index.html">cambrian.renderer.renderer</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current has-children current-page"><a class="current reference internal" href="#">cambrian.utils</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><div class="visually-hidden">Toggle navigation of cambrian.utils</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="cambrian_xml/index.html">cambrian.utils.cambrian_xml</a></li>
+<li class="toctree-l3"><a class="reference internal" href="logger/index.html">cambrian.utils.logger</a></li>
+<li class="toctree-l3"><a class="reference internal" href="spec/index.html">cambrian.utils.spec</a></li>
+<li class="toctree-l3"><a class="reference internal" href="types/index.html">cambrian.utils.types</a></li>
+<li class="toctree-l3"><a class="reference internal" href="wrappers/index.html">cambrian.utils.wrappers</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../config/index.html">cambrian.config</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../contributing.html">Contributing</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">External Links</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/camera-culture/ACI">Github</a></li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="view-this-page">
+  <a class="muted-link" href="../../../../_sources/reference/api/cambrian/utils/index.rst.txt" title="View this page">
+    <svg><use href="#svg-eye"></use></svg>
+    <span class="visually-hidden">View this page</span>
+  </a>
+</div>
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <section id="module-cambrian.utils">
+<span id="cambrian-utils"></span><h1>cambrian.utils<a class="headerlink" href="#module-cambrian.utils" title="Link to this heading">¶</a></h1>
+<p>This module defines the Cambrian utilities.</p>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cambrian_xml/index.html">cambrian.utils.cambrian_xml</a></li>
+<li class="toctree-l1"><a class="reference internal" href="logger/index.html">cambrian.utils.logger</a></li>
+<li class="toctree-l1"><a class="reference internal" href="spec/index.html">cambrian.utils.spec</a></li>
+<li class="toctree-l1"><a class="reference internal" href="types/index.html">cambrian.utils.types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wrappers/index.html">cambrian.utils.wrappers</a></li>
+</ul>
+</div>
+</section>
+<section id="classes">
+<h2>Classes<a class="headerlink" href="#classes" title="Link to this heading">¶</a></h2>
+<div class="table-wrapper autosummary longtable docutils container">
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cambrian.utils.MjCambrianActuator" title="cambrian.utils.MjCambrianActuator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MjCambrianActuator</span></code></a></p></td>
+<td><p>Helper class which stores information about a Mujoco actuator.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cambrian.utils.MjCambrianJoint" title="cambrian.utils.MjCambrianJoint"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MjCambrianJoint</span></code></a></p></td>
+<td><p>Helper class which stores information about a Mujoco joint.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cambrian.utils.MjCambrianGeometry" title="cambrian.utils.MjCambrianGeometry"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MjCambrianGeometry</span></code></a></p></td>
+<td><p>Helper class which stores information about a Mujoco geometry</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Link to this heading">¶</a></h2>
+<div class="table-wrapper autosummary longtable docutils container">
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cambrian.utils.evaluate_policy" title="cambrian.utils.evaluate_policy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">evaluate_policy</span></code></a>(env, model, num_runs, *[, ...])</p></td>
+<td><p>Evaluate a policy.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cambrian.utils.save_data" title="cambrian.utils.save_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">save_data</span></code></a>(data, outdir, pickle_file)</p></td>
+<td><p>Save the parsed data to a pickle file.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cambrian.utils.try_load_pickle" title="cambrian.utils.try_load_pickle"><code class="xref py py-obj docutils literal notranslate"><span class="pre">try_load_pickle</span></code></a>(folder, pickle_file)</p></td>
+<td><p>Try to load the data from the pickle file.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cambrian.utils.generate_sequence_from_range" title="cambrian.utils.generate_sequence_from_range"><code class="xref py py-obj docutils literal notranslate"><span class="pre">generate_sequence_from_range</span></code></a>(range, num[, endpoint])</p></td>
+<td><p>Generate a sequence of numbers from a range. If num is 1, the average of the</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cambrian.utils.setattrs_temporary" title="cambrian.utils.setattrs_temporary"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setattrs_temporary</span></code></a>(*args)</p></td>
+<td><p>Temporarily set attributes of an object.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cambrian.utils.make_odd" title="cambrian.utils.make_odd"><code class="xref py py-obj docutils literal notranslate"><span class="pre">make_odd</span></code></a>(num)</p></td>
+<td><p>Make a number odd by adding 1 if it is even. If <cite>num</cite> is a float, it is cast to</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cambrian.utils.round_half_up" title="cambrian.utils.round_half_up"><code class="xref py py-obj docutils literal notranslate"><span class="pre">round_half_up</span></code></a>(n)</p></td>
+<td><p>Round a number to the nearest integer, rounding half up.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cambrian.utils.safe_index" title="cambrian.utils.safe_index"><code class="xref py py-obj docutils literal notranslate"><span class="pre">safe_index</span></code></a>(arr, value, *[, default])</p></td>
+<td><p>Safely get the index of a value in a list. If the value is not in the list, None</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cambrian.utils.pickle_unpickleable_object" title="cambrian.utils.pickle_unpickleable_object"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pickle_unpickleable_object</span></code></a>(source)</p></td>
+<td><p>Return a reduce tuple: (unpickle_callable, (args,))</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cambrian.utils.unpickle_unpickleable_object" title="cambrian.utils.unpickle_unpickleable_object"><code class="xref py py-obj docutils literal notranslate"><span class="pre">unpickle_unpickleable_object</span></code></a>(cls, attributes)</p></td>
+<td><p>This will be called automatically by Python when unpickling.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cambrian.utils.agent_selected" title="cambrian.utils.agent_selected"><code class="xref py py-obj docutils literal notranslate"><span class="pre">agent_selected</span></code></a>(agent, agents)</p></td>
+<td><p>Check if the agent is selected.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="package-contents">
+<h2>Package Contents<a class="headerlink" href="#package-contents" title="Link to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="cambrian.utils.evaluate_policy">
+<span class="sig-name descname"><span class="pre">evaluate_policy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">env</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_runs</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">record_kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">step_callback</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">lambda</span> <span class="pre">:</span> <span class="pre">...</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">done_callback</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">lambda</span> <span class="pre">_:</span> <span class="pre">...</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/cambrian/utils/utils.html#evaluate_policy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cambrian.utils.evaluate_policy" title="Link to this definition">¶</a></dt>
+<dd><p>Evaluate a policy.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>env</strong> (<em>gym.Env</em>) – The environment to evaluate the policy on. Assumed to be a
+VecEnv wrapper around a MjCambrianEnv.</p></li>
+<li><p><strong>model</strong> (<em>MjCambrianModel</em>) – The model to evaluate.</p></li>
+<li><p><strong>num_runs</strong> (<em>int</em>) – The number of runs to evaluate the policy on.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Keyword Arguments<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>record_kwargs</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – The keyword arguments to pass to the save
+method of the environment. If None, the environment will not be recorded.</p></li>
+<li><p><strong>step_callback</strong> (<em>Callable</em><em>[</em><em>[</em><em>]</em><em>, </em><em>bool</em><em>]</em>) – The callback function to call at each step.
+If the function returns False, the evaluation will stop.</p></li>
+<li><p><strong>done_callback</strong> (<em>Callable</em><em>[</em><em>[</em><em>int</em><em>]</em><em>, </em><em>bool</em><em>]</em>) – The callback function to call when a run
+is done. If the function returns False, the evaluation will stop.</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><em>float</em> – The cumulative reward of the evaluation.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="cambrian.utils.save_data">
+<span class="sig-name descname"><span class="pre">save_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outdir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pickle_file</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/cambrian/utils/utils.html#save_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cambrian.utils.save_data" title="Link to this definition">¶</a></dt>
+<dd><p>Save the parsed data to a pickle file.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="cambrian.utils.try_load_pickle">
+<span class="sig-name descname"><span class="pre">try_load_pickle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">folder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pickle_file</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/cambrian/utils/utils.html#try_load_pickle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cambrian.utils.try_load_pickle" title="Link to this definition">¶</a></dt>
+<dd><p>Try to load the data from the pickle file.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="cambrian.utils.generate_sequence_from_range">
+<span class="sig-name descname"><span class="pre">generate_sequence_from_range</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">range</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">endpoint</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/cambrian/utils/utils.html#generate_sequence_from_range"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cambrian.utils.generate_sequence_from_range" title="Link to this definition">¶</a></dt>
+<dd><p>Generate a sequence of numbers from a range. If num is 1, the average of the
+range is returned. Otherwise, a sequence of numbers is generated using np.linspace.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>range</strong> (<em>Tuple[float, float]</em>) – The range of the sequence.</p></li>
+<li><p><strong>num</strong> (<em>int</em>) – The number of elements in the sequence.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Keyword Arguments<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>endpoint</strong> (<em>bool</em>) – Whether to include the endpoint in the sequence.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="cambrian.utils.setattrs_temporary">
+<span class="sig-name descname"><span class="pre">setattrs_temporary</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/cambrian/utils/utils.html#setattrs_temporary"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cambrian.utils.setattrs_temporary" title="Link to this definition">¶</a></dt>
+<dd><p>Temporarily set attributes of an object.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="cambrian.utils.make_odd">
+<span class="sig-name descname"><span class="pre">make_odd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/cambrian/utils/utils.html#make_odd"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cambrian.utils.make_odd" title="Link to this definition">¶</a></dt>
+<dd><p>Make a number odd by adding 1 if it is even. If <cite>num</cite> is a float, it is cast to
+an int.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="cambrian.utils.round_half_up">
+<span class="sig-name descname"><span class="pre">round_half_up</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/cambrian/utils/utils.html#round_half_up"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cambrian.utils.round_half_up" title="Link to this definition">¶</a></dt>
+<dd><p>Round a number to the nearest integer, rounding half up.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="cambrian.utils.safe_index">
+<span class="sig-name descname"><span class="pre">safe_index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/cambrian/utils/utils.html#safe_index"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cambrian.utils.safe_index" title="Link to this definition">¶</a></dt>
+<dd><p>Safely get the index of a value in a list. If the value is not in the list, None
+is returned.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="cambrian.utils.MjCambrianActuator">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MjCambrianActuator</span></span><a class="reference internal" href="../../../../_modules/cambrian/utils/utils.html#MjCambrianActuator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cambrian.utils.MjCambrianActuator" title="Link to this definition">¶</a></dt>
+<dd><p>Helper class which stores information about a Mujoco actuator.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Variables<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>adr</strong> (<em>int</em>) – The Mujoco actuator ID (index into model.actuator_* arrays).</p></li>
+<li><p><strong>trnadr</strong> (<em>int</em>) – The index of the actuator’s transmission in the model.</p></li>
+<li><p><strong>ctrlrange</strong> (<em>Tuple</em><em>[</em><em>float</em><em>, </em><em>float</em><em>]</em>) – The control range of the actuator.</p></li>
+<li><p><strong>ctrllimited</strong> (<em>bool</em>) – Whether the actuator is control-limited.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="cambrian.utils.MjCambrianJoint">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MjCambrianJoint</span></span><a class="reference internal" href="../../../../_modules/cambrian/utils/utils.html#MjCambrianJoint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cambrian.utils.MjCambrianJoint" title="Link to this definition">¶</a></dt>
+<dd><p>Helper class which stores information about a Mujoco joint.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Variables<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>type</strong> (<em>int</em>) – The Mujoco joint type (mj.mjtJoint).</p></li>
+<li><p><strong>adr</strong> (<em>int</em>) – The Mujoco joint ID (index into model.jnt_* arrays).</p></li>
+<li><p><strong>qposadr</strong> (<em>int</em>) – The index of the joint’s position in the qpos array.</p></li>
+<li><p><strong>numqpos</strong> (<em>int</em>) – The number of positions in the joint.</p></li>
+<li><p><strong>qveladr</strong> (<em>int</em>) – The index of the joint’s velocity in the qvel array.</p></li>
+<li><p><strong>numqvel</strong> (<em>int</em>) – The number of velocities in the joint.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="cambrian.utils.MjCambrianJoint.create">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">jntadr</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/cambrian/utils/utils.html#MjCambrianJoint.create"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cambrian.utils.MjCambrianJoint.create" title="Link to this definition">¶</a></dt>
+<dd><p>Create a Joint object from a Mujoco model and joint body ID.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cambrian.utils.MjCambrianJoint.qposadrs">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">qposadrs</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#cambrian.utils.MjCambrianJoint.qposadrs" title="Link to this definition">¶</a></dt>
+<dd><p>Get the indices of the joint’s positions in the qpos array.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cambrian.utils.MjCambrianJoint.qveladrs">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">qveladrs</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#cambrian.utils.MjCambrianJoint.qveladrs" title="Link to this definition">¶</a></dt>
+<dd><p>Get the indices of the joint’s velocities in the qvel array.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="cambrian.utils.MjCambrianGeometry">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MjCambrianGeometry</span></span><a class="reference internal" href="../../../../_modules/cambrian/utils/utils.html#MjCambrianGeometry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cambrian.utils.MjCambrianGeometry" title="Link to this definition">¶</a></dt>
+<dd><p>Helper class which stores information about a Mujoco geometry</p>
+<dl class="field-list simple">
+<dt class="field-odd">Variables<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>id</strong> (<em>int</em>) – The Mujoco geometry ID (index into model.geom_* arrays).</p></li>
+<li><p><strong>rbound</strong> (<em>float</em>) – The radius of the geometry’s bounding sphere.</p></li>
+<li><p><strong>pos</strong> (<em>np.ndarray</em>) – The position of the geometry relative to the body.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="cambrian.utils.pickle_unpickleable_object">
+<span class="sig-name descname"><span class="pre">pickle_unpickleable_object</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/cambrian/utils/utils.html#pickle_unpickleable_object"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cambrian.utils.pickle_unpickleable_object" title="Link to this definition">¶</a></dt>
+<dd><p>Return a reduce tuple: (unpickle_callable, (args,))</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="cambrian.utils.unpickle_unpickleable_object">
+<span class="sig-name descname"><span class="pre">unpickle_unpickleable_object</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cls</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attributes</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/cambrian/utils/utils.html#unpickle_unpickleable_object"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cambrian.utils.unpickle_unpickleable_object" title="Link to this definition">¶</a></dt>
+<dd><p>This will be called automatically by Python when unpickling.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="cambrian.utils.agent_selected">
+<span class="sig-name descname"><span class="pre">agent_selected</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">agent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">agents</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/cambrian/utils/utils.html#agent_selected"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cambrian.utils.agent_selected" title="Link to this definition">¶</a></dt>
+<dd><p>Check if the agent is selected.</p>
+</dd></dl>
+
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="cambrian_xml/index.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">cambrian.utils.cambrian_xml</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="../renderer/renderer/index.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">cambrian.renderer.renderer</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2025, Camera Culture, MIT Media Lab
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">cambrian.utils</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#classes">Classes</a></li>
+<li><a class="reference internal" href="#functions">Functions</a></li>
+<li><a class="reference internal" href="#package-contents">Package Contents</a><ul>
+<li><a class="reference internal" href="#cambrian.utils.evaluate_policy"><code class="docutils literal notranslate"><span class="pre">evaluate_policy()</span></code></a></li>
+<li><a class="reference internal" href="#cambrian.utils.save_data"><code class="docutils literal notranslate"><span class="pre">save_data()</span></code></a></li>
+<li><a class="reference internal" href="#cambrian.utils.try_load_pickle"><code class="docutils literal notranslate"><span class="pre">try_load_pickle()</span></code></a></li>
+<li><a class="reference internal" href="#cambrian.utils.generate_sequence_from_range"><code class="docutils literal notranslate"><span class="pre">generate_sequence_from_range()</span></code></a></li>
+<li><a class="reference internal" href="#cambrian.utils.setattrs_temporary"><code class="docutils literal notranslate"><span class="pre">setattrs_temporary()</span></code></a></li>
+<li><a class="reference internal" href="#cambrian.utils.make_odd"><code class="docutils literal notranslate"><span class="pre">make_odd()</span></code></a></li>
+<li><a class="reference internal" href="#cambrian.utils.round_half_up"><code class="docutils literal notranslate"><span class="pre">round_half_up()</span></code></a></li>
+<li><a class="reference internal" href="#cambrian.utils.safe_index"><code class="docutils literal notranslate"><span class="pre">safe_index()</span></code></a></li>
+<li><a class="reference internal" href="#cambrian.utils.MjCambrianActuator"><code class="docutils literal notranslate"><span class="pre">MjCambrianActuator</span></code></a></li>
+<li><a class="reference internal" href="#cambrian.utils.MjCambrianJoint"><code class="docutils literal notranslate"><span class="pre">MjCambrianJoint</span></code></a><ul>
+<li><a class="reference internal" href="#cambrian.utils.MjCambrianJoint.create"><code class="docutils literal notranslate"><span class="pre">MjCambrianJoint.create()</span></code></a></li>
+<li><a class="reference internal" href="#cambrian.utils.MjCambrianJoint.qposadrs"><code class="docutils literal notranslate"><span class="pre">MjCambrianJoint.qposadrs</span></code></a></li>
+<li><a class="reference internal" href="#cambrian.utils.MjCambrianJoint.qveladrs"><code class="docutils literal notranslate"><span class="pre">MjCambrianJoint.qveladrs</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#cambrian.utils.MjCambrianGeometry"><code class="docutils literal notranslate"><span class="pre">MjCambrianGeometry</span></code></a></li>
+<li><a class="reference internal" href="#cambrian.utils.pickle_unpickleable_object"><code class="docutils literal notranslate"><span class="pre">pickle_unpickleable_object()</span></code></a></li>
+<li><a class="reference internal" href="#cambrian.utils.unpickle_unpickleable_object"><code class="docutils literal notranslate"><span class="pre">unpickle_unpickleable_object()</span></code></a></li>
+<li><a class="reference internal" href="#cambrian.utils.agent_selected"><code class="docutils literal notranslate"><span class="pre">agent_selected()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="../../../../_static/documentation_options.js?v=e37ea94c"></script>
+    <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../_static/scripts/furo.js?v=5fa4622c"></script>
+    <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../../_static/copybutton.js?v=f281be69"></script>
+    </body>
+</html>

@@ -1,0 +1,1196 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../../../">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-TB8Y1XJVV1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-TB8Y1XJVV1');
+    </script>
+    <link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" />
+
+    <link rel="shortcut icon" href="../../../_static/eye.png"/><!-- Generated with Sphinx 8.1.3 and Furo 2024.08.06 -->
+        <title>cambrian.envs.maze_env - cambrian 0.0.post1.dev3+gc8c8ed9 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=d75fae25" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?v=354aac6f" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?v=302659d7" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=ae43ac89" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f0f0f0;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+<div class="announcement">
+  <aside class="announcement-content">
+     
+        <a style="text-decoration: none; color: white;"
+           href="https://www.media.mit.edu/groups/camera-culture/overview/">
+           <img src="/cc-hardware/_static/cc-transparent.png"
+                style="
+                    vertical-align: middle;
+                    display: inline;
+                    padding-right: 7.5px;
+                    height: 20px;
+                "/>
+           Checkout Camera Culture!
+        </a>
+     
+  </aside>
+</div>
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../../../index.html"><div class="brand">cambrian 0.0.post1.dev3+gc8c8ed9 documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../../../index.html">
+  
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo only-light" src="../../../_static/eye.png" alt="Light Logo"/>
+    <img class="sidebar-logo only-dark" src="../../../_static/eye.png" alt="Dark Logo"/>
+  </div>
+  
+  
+</a><form class="sidebar-search-container" method="get" action="../../../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../index.html">Home</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../examples/index.html">Examples</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Examples</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../examples/detection.html">Detection Task</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../examples/navigation.html">Navigation Task</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../examples/tracking.html">Tracking Task</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../usage/index.html">Nuts and Bolts</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Nuts and Bolts</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../usage/configuration.html">Configuring an Experiment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../usage/training.html">Training an Agent</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../usage/visualizing.html">Visualizing the Env</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../usage/docker.html">Using Docker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../usage/pitfalls.html">Pitfalls</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../reference/index.html">API Reference</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of API Reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../reference/api/cambrian/envs/index.html">cambrian.envs</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of cambrian.envs</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api/cambrian/envs/done_fns/index.html">cambrian.envs.done_fns</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api/cambrian/envs/env/index.html">cambrian.envs.env</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api/cambrian/envs/maze_env/index.html">cambrian.envs.maze_env</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api/cambrian/envs/reward_fns/index.html">cambrian.envs.reward_fns</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api/cambrian/envs/step_fns/index.html">cambrian.envs.step_fns</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../reference/api/cambrian/agents/index.html">cambrian.agents</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle navigation of cambrian.agents</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api/cambrian/agents/agent/index.html">cambrian.agents.agent</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api/cambrian/agents/object/index.html">cambrian.agents.object</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api/cambrian/agents/point/index.html">cambrian.agents.point</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../reference/api/cambrian/eyes/index.html">cambrian.eyes</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle navigation of cambrian.eyes</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api/cambrian/eyes/eye/index.html">cambrian.eyes.eye</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api/cambrian/eyes/multi_eye/index.html">cambrian.eyes.multi_eye</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api/cambrian/eyes/optics/index.html">cambrian.eyes.optics</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../reference/api/cambrian/ml/index.html">cambrian.ml</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle navigation of cambrian.ml</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api/cambrian/ml/callbacks/index.html">cambrian.ml.callbacks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api/cambrian/ml/constraint_fns/index.html">cambrian.ml.constraint_fns</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api/cambrian/ml/evo/index.html">cambrian.ml.evo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api/cambrian/ml/features_extractors/index.html">cambrian.ml.features_extractors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api/cambrian/ml/fitness_fns/index.html">cambrian.ml.fitness_fns</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api/cambrian/ml/model/index.html">cambrian.ml.model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api/cambrian/ml/trainer/index.html">cambrian.ml.trainer</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../reference/api/cambrian/renderer/index.html">cambrian.renderer</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle navigation of cambrian.renderer</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api/cambrian/renderer/overlays/index.html">cambrian.renderer.overlays</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api/cambrian/renderer/render_utils/index.html">cambrian.renderer.render_utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api/cambrian/renderer/renderer/index.html">cambrian.renderer.renderer</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../reference/api/cambrian/utils/index.html">cambrian.utils</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><div class="visually-hidden">Toggle navigation of cambrian.utils</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api/cambrian/utils/cambrian_xml/index.html">cambrian.utils.cambrian_xml</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api/cambrian/utils/logger/index.html">cambrian.utils.logger</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api/cambrian/utils/spec/index.html">cambrian.utils.spec</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api/cambrian/utils/types/index.html">cambrian.utils.types</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/api/cambrian/utils/wrappers/index.html">cambrian.utils.wrappers</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/api/cambrian/config/index.html">cambrian.config</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">External Links</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/camera-culture/ACI">Github</a></li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <h1>Source code for cambrian.envs.maze_env</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Defines the MjCambrianMazeEnv class.&quot;&quot;&quot;</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">enum</span><span class="w"> </span><span class="kn">import</span> <span class="n">Enum</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">Any</span><span class="p">,</span>
+    <span class="n">Callable</span><span class="p">,</span>
+    <span class="n">Concatenate</span><span class="p">,</span>
+    <span class="n">Dict</span><span class="p">,</span>
+    <span class="n">List</span><span class="p">,</span>
+    <span class="n">Optional</span><span class="p">,</span>
+    <span class="n">Self</span><span class="p">,</span>
+    <span class="n">Tuple</span><span class="p">,</span>
+    <span class="n">TypeAlias</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">hydra_config</span><span class="w"> </span><span class="kn">import</span> <span class="n">HydraContainerConfig</span><span class="p">,</span> <span class="n">config_wrapper</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">cambrian.agents.agent</span><span class="w"> </span><span class="kn">import</span> <span class="n">MjCambrianAgent</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">cambrian.envs.env</span><span class="w"> </span><span class="kn">import</span> <span class="n">MjCambrianEnv</span><span class="p">,</span> <span class="n">MjCambrianEnvConfig</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">cambrian.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">safe_index</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">cambrian.utils.cambrian_xml</span><span class="w"> </span><span class="kn">import</span> <span class="n">MjCambrianXML</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">cambrian.utils.spec</span><span class="w"> </span><span class="kn">import</span> <span class="n">MjCambrianSpec</span>
+
+<span class="n">DEFAULT_ENTITY_ID</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;default&quot;</span>
+
+
+<div class="viewcode-block" id="MjCambrianMapEntity">
+<a class="viewcode-back" href="../../../reference/api/cambrian/envs/maze_env/index.html#cambrian.envs.MjCambrianMapEntity">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">MjCambrianMapEntity</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Enum representing different states in a grid.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        RESET (str): Initial reset position of the agent. Can include agent IDs in</span>
+<span class="sd">            the format &quot;R:&lt;agent id&gt;&quot;.</span>
+<span class="sd">        WALL (str): Represents a wall in the grid. Can include texture IDs in the</span>
+<span class="sd">            format &quot;1:&lt;texture id&gt;&quot;.</span>
+<span class="sd">        EMPTY (str): Represents an empty space in the grid.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">RESET</span> <span class="o">=</span> <span class="s2">&quot;R&quot;</span>
+    <span class="n">WALL</span> <span class="o">=</span> <span class="s2">&quot;1&quot;</span>
+    <span class="n">EMPTY</span> <span class="o">=</span> <span class="s2">&quot;0&quot;</span>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="MjCambrianMapEntity.parse">
+<a class="viewcode-back" href="../../../reference/api/cambrian/envs/maze_env/index.html#cambrian.envs.MjCambrianMapEntity.parse">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">parse</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Self</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Parse a value to handle special formats like &quot;1:&lt;texture id&gt;&quot;.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            value (str): The value to parse.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Tuple[Self, str]: The parsed entity and the texture id if</span>
+<span class="sd">                applicable.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">value</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;1:&quot;</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">MjCambrianMapEntity</span><span class="o">.</span><span class="n">WALL</span><span class="p">,</span> <span class="n">value</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span>
+        <span class="k">elif</span> <span class="n">value</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;R:&quot;</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">MjCambrianMapEntity</span><span class="o">.</span><span class="n">RESET</span><span class="p">,</span> <span class="n">value</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span>
+        <span class="k">for</span> <span class="n">entity</span> <span class="ow">in</span> <span class="n">MjCambrianMapEntity</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">value</span> <span class="o">==</span> <span class="n">entity</span><span class="o">.</span><span class="n">value</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">entity</span><span class="p">,</span> <span class="n">DEFAULT_ENTITY_ID</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unknown MjCambrianMapEntity: </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+</div>
+
+
+
+<span class="nd">@config_wrapper</span>
+<div class="viewcode-block" id="MjCambrianMazeConfig">
+<a class="viewcode-back" href="../../../reference/api/cambrian/envs/maze_env/index.html#cambrian.envs.MjCambrianMazeConfig">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">MjCambrianMazeConfig</span><span class="p">(</span><span class="n">HydraContainerConfig</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Defines a map config. Used for type hinting.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        xml (MjCambrianXML): The xml for the maze. This is the xml that will be</span>
+<span class="sd">            used to create the maze.</span>
+<span class="sd">        map (str): The map to use for the maze. It&#39;s a 2D array where</span>
+<span class="sd">            each element is a string and corresponds to a &quot;pixel&quot; in the map. See</span>
+<span class="sd">            `maze.py` for info on what different strings mean. This is actually a</span>
+<span class="sd">            List[List[str]], but we keep it as a string for readability when dumping</span>
+<span class="sd">            the config to a file. Will convert to list when creating the maze.</span>
+
+<span class="sd">        scale (float): The maze scaling for the continuous coordinates in the</span>
+<span class="sd">            MuJoCo simulation.</span>
+<span class="sd">        height (float): The height of the walls in the MuJoCo simulation.</span>
+<span class="sd">        hflip (bool): Whether to flip the maze or not. If True, the maze will be</span>
+<span class="sd">            flipped along the x-axis.</span>
+<span class="sd">        vflip (bool): Whether to flip the maze or not. If True, the maze will be</span>
+<span class="sd">            flipped along the y-axis.</span>
+<span class="sd">        rotation (float): The rotation of the maze in degrees. The rotation is</span>
+<span class="sd">            applied after the flip.</span>
+
+<span class="sd">        wall_texture_map (Dict[str, List[str]]): The mapping from texture id to</span>
+<span class="sd">            texture names. Textures in the list are chosen at random. If the list is of</span>
+<span class="sd">            length 1, only one texture will be used. A length &gt;= 1 is required.</span>
+<span class="sd">            The keyword &quot;default&quot; is required for walls denoted simply as 1 or W.</span>
+<span class="sd">            Other walls are specified as 1/W:&lt;texture id&gt;.</span>
+<span class="sd">        agent_id_map (Dict[str, List[str]]): The mapping from agent id to agent</span>
+<span class="sd">            names. Agents in the list are chosen at random. If the list is of length 1,</span>
+<span class="sd">            only one agent will be used. A length &gt;= 1 is required for each agent name.</span>
+<span class="sd">            Effectively, this means you can set a reset position as R:&lt;agent id&gt; in the</span>
+<span class="sd">            map and this map is used to assign to a group of agents. For instance,</span>
+<span class="sd">            R:O in the map and including O: [agent1, agent2] in the agent_id_map will</span>
+<span class="sd">            assign the reset position to either agent1 or agent2 at random. &quot;default&quot;</span>
+<span class="sd">            is required for agents denoted simply as R.</span>
+
+<span class="sd">        enabled (bool): Whether the maze is enabled or not.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">xml</span><span class="p">:</span> <span class="n">MjCambrianXML</span>
+    <span class="nb">map</span><span class="p">:</span> <span class="nb">str</span>
+
+    <span class="n">scale</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">height</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">hflip</span><span class="p">:</span> <span class="nb">bool</span>
+    <span class="n">vflip</span><span class="p">:</span> <span class="nb">bool</span>
+    <span class="n">rotation</span><span class="p">:</span> <span class="nb">float</span>
+
+    <span class="n">wall_texture_map</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span>
+    <span class="n">agent_id_map</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span>
+
+    <span class="n">enabled</span><span class="p">:</span> <span class="nb">bool</span></div>
+
+
+
+<span class="n">MjCambrianMazeSelectionFn</span><span class="p">:</span> <span class="n">TypeAlias</span> <span class="o">=</span> <span class="n">Callable</span><span class="p">[</span>
+    <span class="n">Concatenate</span><span class="p">[</span><span class="n">MjCambrianAgent</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="o">...</span><span class="p">],</span> <span class="nb">float</span>
+<span class="p">]</span>
+
+
+<span class="nd">@config_wrapper</span>
+<div class="viewcode-block" id="MjCambrianMazeEnvConfig">
+<a class="viewcode-back" href="../../../reference/api/cambrian/envs/maze_env/index.html#cambrian.envs.MjCambrianMazeEnvConfig">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">MjCambrianMazeEnvConfig</span><span class="p">(</span><span class="n">MjCambrianEnvConfig</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    mazes (Dict[str, MjCambrianMazeEnvConfig]): The configs for the mazes. Each</span>
+<span class="sd">        maze will be loaded into the scene and the agent will be placed in a maze</span>
+<span class="sd">        at each reset.</span>
+<span class="sd">    maze_selection_fn (MjCambrianMazeSelectionFn): The function to use to select</span>
+<span class="sd">        the maze. The function will be called at each reset to select the maze</span>
+<span class="sd">        to use. See `MjCambrianMazeSelectionFn` and `maze.py` for more info.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">mazes</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">MjCambrianMazeConfig</span><span class="p">]</span>
+    <span class="n">maze_selection_fn</span><span class="p">:</span> <span class="n">MjCambrianMazeSelectionFn</span></div>
+
+
+
+<div class="viewcode-block" id="MjCambrianMazeEnv">
+<a class="viewcode-back" href="../../../reference/api/cambrian/envs/maze_env/index.html#cambrian.envs.MjCambrianMazeEnv">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">MjCambrianMazeEnv</span><span class="p">(</span><span class="n">MjCambrianEnv</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">MjCambrianMazeEnvConfig</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_config</span> <span class="o">=</span> <span class="n">config</span>
+
+        <span class="c1"># Have to initialize the mazes first since generate_xml is called from the</span>
+        <span class="c1"># MjCambrianEnv constructor</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_maze</span><span class="p">:</span> <span class="n">MjCambrianMaze</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_maze_store</span> <span class="o">=</span> <span class="n">MjCambrianMazeStore</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">mazes</span><span class="p">,</span> <span class="n">config</span><span class="o">.</span><span class="n">maze_selection_fn</span><span class="p">)</span>
+
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<div class="viewcode-block" id="MjCambrianMazeEnv.generate_xml">
+<a class="viewcode-back" href="../../../reference/api/cambrian/envs/maze_env/index.html#cambrian.envs.MjCambrianMazeEnv.generate_xml">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">generate_xml</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MjCambrianXML</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Generates the xml for the environment.&quot;&quot;&quot;</span>
+        <span class="n">xml</span> <span class="o">=</span> <span class="n">MjCambrianXML</span><span class="o">.</span><span class="n">make_empty</span><span class="p">()</span>
+
+        <span class="c1"># Add the mazes to the xml</span>
+        <span class="c1"># Do this first so overrides defined in the env xml are applied</span>
+        <span class="n">xml</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_maze_store</span><span class="o">.</span><span class="n">generate_xml</span><span class="p">()</span>
+
+        <span class="c1"># Add the rest of the xml</span>
+        <span class="n">xml</span> <span class="o">+=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">generate_xml</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="n">xml</span></div>
+
+
+<div class="viewcode-block" id="MjCambrianMazeEnv.reset">
+<a class="viewcode-back" href="../../../reference/api/cambrian/envs/maze_env/index.html#cambrian.envs.MjCambrianMazeEnv.reset">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">reset</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">seed</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">options</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]],</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
+        <span class="c1"># Set the random seed first</span>
+        <span class="k">if</span> <span class="n">seed</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">set_random_seed</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
+
+        <span class="c1"># Choose the maze</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_maze</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_maze_store</span><span class="o">.</span><span class="n">select_maze</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_maze_store</span><span class="o">.</span><span class="n">reset</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">spec</span><span class="p">)</span>
+
+        <span class="c1"># For each agent, generate an initial position</span>
+        <span class="k">for</span> <span class="n">agent</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">agents</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">agent</span><span class="o">.</span><span class="n">init_pos</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_maze</span><span class="o">.</span><span class="n">generate_reset_pos</span><span class="p">(</span><span class="n">agent</span><span class="o">=</span><span class="n">agent</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+
+        <span class="c1"># Now reset the environment</span>
+        <span class="n">obs</span><span class="p">,</span> <span class="n">info</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">reset</span><span class="p">(</span><span class="n">seed</span><span class="o">=</span><span class="n">seed</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="n">options</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="n">renderer</span> <span class="o">:=</span> <span class="bp">self</span><span class="o">.</span><span class="n">renderer</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">viewer</span> <span class="o">:=</span> <span class="n">renderer</span><span class="o">.</span><span class="n">viewer</span><span class="p">):</span>
+            <span class="c1"># Update the camera positioning to match the current maze</span>
+            <span class="n">viewer</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">lookat</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_maze</span><span class="o">.</span><span class="n">lookat</span>
+
+            <span class="c1"># Update the camera distance to match the current maze&#39;s extent</span>
+            <span class="n">viewer</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">distance</span> <span class="o">=</span> <span class="n">viewer</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">distance</span>
+            <span class="n">viewer</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">distance</span> <span class="o">*=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_maze</span><span class="o">.</span><span class="n">max_dim</span> <span class="o">/</span> <span class="n">renderer</span><span class="o">.</span><span class="n">ratio</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_maze</span><span class="o">.</span><span class="n">ratio</span> <span class="o">&lt;</span> <span class="mf">2.0</span><span class="p">:</span>
+                <span class="n">viewer</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">distance</span> <span class="o">*=</span> <span class="mi">2</span>
+
+        <span class="k">return</span> <span class="n">obs</span><span class="p">,</span> <span class="n">info</span></div>
+
+
+    <span class="c1"># ==================</span>
+
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="MjCambrianMazeEnv.maze">
+<a class="viewcode-back" href="../../../reference/api/cambrian/envs/maze_env/index.html#cambrian.envs.MjCambrianMazeEnv.maze">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">maze</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;MjCambrianMaze&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the current maze.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_maze</span></div>
+
+
+    <span class="nd">@maze</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">maze</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">maze</span><span class="p">:</span> <span class="s2">&quot;MjCambrianMaze&quot;</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Sets the current maze.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_maze</span> <span class="o">=</span> <span class="n">maze</span>
+
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="MjCambrianMazeEnv.maze_store">
+<a class="viewcode-back" href="../../../reference/api/cambrian/envs/maze_env/index.html#cambrian.envs.MjCambrianMazeEnv.maze_store">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">maze_store</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;MjCambrianMazeStore&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the maze store.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_maze_store</span></div>
+</div>
+
+
+
+<span class="c1"># ================</span>
+
+
+<div class="viewcode-block" id="MjCambrianMaze">
+<a class="viewcode-back" href="../../../reference/api/cambrian/envs/maze_env/index.html#cambrian.envs.MjCambrianMaze">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">MjCambrianMaze</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The maze class. Generates a maze from a given map and provides utility</span>
+<span class="sd">    functions for working with the maze.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">MjCambrianMazeConfig</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_config</span> <span class="o">=</span> <span class="n">config</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_starting_x</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_map</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_load_map</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_wall_textures</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_wall_locations</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_reset_locations</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_reset_agents</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_occupied_locations</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_agent_locations</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_agent_id_map</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">agent_id_map</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">starting_x</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_starting_x</span> <span class="o">=</span> <span class="n">starting_x</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_locations</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_load_map</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Parses the map (which is a str) as a yaml str and converts it to an</span>
+<span class="sd">        np array.&quot;&quot;&quot;</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">yaml</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_map</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">map</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">str</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">hflip</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_map</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">flip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_map</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">vflip</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_map</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">flip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_map</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_map</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">rot90</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_map</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">rotation</span> <span class="o">/</span> <span class="mi">90</span><span class="p">))</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_update_locations</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;This helper method will update the initially place the wall and reset</span>
+<span class="sd">        locations. These are known at construction time. It will also parse wall</span>
+<span class="sd">        textures.&quot;&quot;&quot;</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_map</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_map</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+                <span class="n">struct</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_map</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span>
+
+                <span class="c1"># Calculate the cell location in global coords</span>
+                <span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="n">j</span> <span class="o">+</span> <span class="mf">0.5</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">scale</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_map_center</span>
+                <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_map_center</span> <span class="o">-</span> <span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mf">0.5</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">scale</span>
+                <span class="n">loc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">])</span>
+
+                <span class="n">entity</span><span class="p">,</span> <span class="n">entity_id</span> <span class="o">=</span> <span class="n">MjCambrianMapEntity</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">struct</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">entity</span> <span class="o">==</span> <span class="n">MjCambrianMapEntity</span><span class="o">.</span><span class="n">WALL</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_wall_locations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">loc</span><span class="p">)</span>
+
+                    <span class="c1"># Do a check for the texture</span>
+                    <span class="k">assert</span> <span class="n">entity_id</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">wall_texture_map</span><span class="p">,</span> <span class="p">(</span>
+                        <span class="sa">f</span><span class="s2">&quot;Invalid texture: </span><span class="si">{</span><span class="n">entity_id</span><span class="si">}</span><span class="s2">. &quot;</span>
+                        <span class="sa">f</span><span class="s2">&quot;Available textures: </span><span class="si">{</span><span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">wall_texture_map</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span><span class="si">}</span><span class="s2">&quot;</span>  <span class="c1"># noqa</span>
+                    <span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_wall_textures</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">entity_id</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">entity</span> <span class="o">==</span> <span class="n">MjCambrianMapEntity</span><span class="o">.</span><span class="n">RESET</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_reset_locations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">loc</span><span class="p">)</span>
+
+                    <span class="c1"># Do a check for the agent id</span>
+                    <span class="k">assert</span> <span class="n">entity_id</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_agent_id_map</span><span class="o">.</span><span class="n">keys</span><span class="p">()),</span> <span class="p">(</span>
+                        <span class="sa">f</span><span class="s2">&quot;Invalid agent id: </span><span class="si">{</span><span class="n">entity_id</span><span class="si">}</span><span class="s2">. &quot;</span>
+                        <span class="sa">f</span><span class="s2">&quot;Available agent ids: </span><span class="si">{</span><span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_agent_id_map</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span><span class="si">}</span><span class="s2">&quot;</span>
+                    <span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_reset_agents</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">entity_id</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">generate_xml</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MjCambrianXML</span><span class="p">:</span>
+        <span class="n">xml</span> <span class="o">=</span> <span class="n">MjCambrianXML</span><span class="o">.</span><span class="n">from_string</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">xml</span><span class="p">)</span>
+
+        <span class="n">worldbody</span> <span class="o">=</span> <span class="n">xml</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;.//worldbody&quot;</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">worldbody</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;xml must have a worldbody tag&quot;</span>
+        <span class="n">assets</span> <span class="o">=</span> <span class="n">xml</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;.//asset&quot;</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">assets</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;xml must have an asset tag&quot;</span>
+
+        <span class="c1"># Add the wall textures</span>
+        <span class="k">for</span> <span class="n">t</span><span class="p">,</span> <span class="n">textures</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">wall_texture_map</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">for</span> <span class="n">texture</span> <span class="ow">in</span> <span class="n">textures</span><span class="p">:</span>
+                <span class="n">name_prefix</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;wall_</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">t</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">texture</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="n">xml</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+                    <span class="n">assets</span><span class="p">,</span>
+                    <span class="s2">&quot;material&quot;</span><span class="p">,</span>
+                    <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name_prefix</span><span class="si">}</span><span class="s2">_mat&quot;</span><span class="p">,</span>
+                    <span class="n">texture</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name_prefix</span><span class="si">}</span><span class="s2">_tex&quot;</span><span class="p">,</span>
+                <span class="p">)</span>
+                <span class="n">xml</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+                    <span class="n">assets</span><span class="p">,</span>
+                    <span class="s2">&quot;texture&quot;</span><span class="p">,</span>
+                    <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name_prefix</span><span class="si">}</span><span class="s2">_tex&quot;</span><span class="p">,</span>
+                    <span class="n">file</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;maze_textures/</span><span class="si">{</span><span class="n">texture</span><span class="si">}</span><span class="s2">.png&quot;</span><span class="p">,</span>
+                    <span class="n">gridsize</span><span class="o">=</span><span class="s2">&quot;3 4&quot;</span><span class="p">,</span>
+                    <span class="n">gridlayout</span><span class="o">=</span><span class="s2">&quot;.U..LFRB.D..&quot;</span><span class="p">,</span>
+                <span class="p">)</span>
+
+        <span class="c1"># Add the walls. Each wall has it&#39;s own geom.</span>
+        <span class="n">scale</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">scale</span> <span class="o">/</span> <span class="mi">2</span>
+        <span class="n">height</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">height</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_wall_locations</span><span class="p">):</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;wall_</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="c1"># Set the contype != conaffinity so walls don&#39;t collide with each other</span>
+            <span class="n">xml</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+                <span class="n">worldbody</span><span class="p">,</span>
+                <span class="s2">&quot;geom&quot;</span><span class="p">,</span>
+                <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
+                <span class="n">pos</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">y</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">scale</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">height</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                <span class="n">size</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">scale</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">scale</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">scale</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">height</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                <span class="n">contype</span><span class="o">=</span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
+                <span class="n">conaffinity</span><span class="o">=</span><span class="s2">&quot;2&quot;</span><span class="p">,</span>
+                <span class="o">**</span><span class="p">{</span><span class="s2">&quot;class&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;maze_wall_</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">},</span>
+            <span class="p">)</span>
+
+        <span class="c1"># Update floor size based on the map extent</span>
+        <span class="c1"># Only done if the size is explicitly set to 0 0 0</span>
+        <span class="n">floor_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;floor_</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="n">floor</span> <span class="o">=</span> <span class="n">xml</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;.//geom[@name=&#39;</span><span class="si">{</span><span class="n">floor_name</span><span class="si">}</span><span class="s2">&#39;]&quot;</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">floor</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;`</span><span class="si">{</span><span class="n">floor_name</span><span class="si">}</span><span class="s2">` not found&quot;</span>
+        <span class="k">if</span> <span class="n">floor</span><span class="o">.</span><span class="n">attrib</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;size&quot;</span><span class="p">,</span> <span class="s2">&quot;0 0 0&quot;</span><span class="p">):</span>
+            <span class="n">size</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">map_width_scaled</span><span class="w"> </span><span class="o">//</span><span class="w"> </span><span class="mi">2</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">map_length_scaled</span><span class="w"> </span><span class="o">//</span><span class="w"> </span><span class="mi">2</span><span class="si">}</span><span class="s2"> 0.1&quot;</span>
+            <span class="n">floor</span><span class="o">.</span><span class="n">attrib</span><span class="p">[</span><span class="s2">&quot;size&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">size</span>
+        <span class="n">floor</span><span class="o">.</span><span class="n">attrib</span><span class="p">[</span><span class="s2">&quot;pos&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="p">[</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">_starting_x</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.05</span><span class="p">]))</span>
+
+        <span class="k">return</span> <span class="n">xml</span>
+
+<div class="viewcode-block" id="MjCambrianMaze.reset">
+<a class="viewcode-back" href="../../../reference/api/cambrian/envs/maze_env/index.html#cambrian.envs.MjCambrianMaze.reset">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">spec</span><span class="p">:</span> <span class="n">MjCambrianSpec</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">reset_occupied</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Resets the maze. Will reset the wall textures and reset the occupied</span>
+<span class="sd">        locations, if desired.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">reset_occupied</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_occupied_locations</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_agent_locations</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_reset_wall_textures</span><span class="p">(</span><span class="n">spec</span><span class="p">)</span></div>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_reset_wall_textures</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">spec</span><span class="p">:</span> <span class="n">MjCambrianSpec</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Helper method to reset the wall textures.</span>
+
+<span class="sd">        All like-labelled walls will have the same texture. Their textures will be</span>
+<span class="sd">        randomly selected from their respective texture lists.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># First, generate the texture_id -&gt; texture_name mapping</span>
+        <span class="n">texture_map</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_wall_textures</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">t</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">texture_map</span><span class="p">:</span>
+                <span class="n">texture_map</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span>
+                    <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">wall_texture_map</span><span class="p">[</span><span class="n">t</span><span class="p">])</span>
+                <span class="p">)</span>
+
+        <span class="c1"># Now, update the wall textures</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_wall_locations</span><span class="p">)),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_wall_textures</span><span class="p">):</span>
+            <span class="n">wall_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;wall_</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="n">geom_id</span> <span class="o">=</span> <span class="n">spec</span><span class="o">.</span><span class="n">get_geom_id</span><span class="p">(</span><span class="n">wall_name</span><span class="p">)</span>
+            <span class="k">assert</span> <span class="n">geom_id</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;`</span><span class="si">{</span><span class="n">wall_name</span><span class="si">}</span><span class="s2">` geom not found&quot;</span>
+
+            <span class="c1"># Update the geom material</span>
+            <span class="n">material_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;wall_</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">t</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">texture_map</span><span class="p">[</span><span class="n">t</span><span class="p">]</span><span class="si">}</span><span class="s2">_mat&quot;</span>
+            <span class="n">spec</span><span class="o">.</span><span class="n">geoms</span><span class="p">[</span><span class="n">geom_id</span><span class="p">]</span><span class="o">.</span><span class="n">material</span> <span class="o">=</span> <span class="n">material_name</span>
+
+    <span class="c1"># ==================</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">rowcol_to_xy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rowcol_pos</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="n">rowcol_pos</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mf">0.5</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">scale</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_map_center</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_map_center</span> <span class="o">-</span> <span class="p">(</span><span class="n">rowcol_pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mf">0.5</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">scale</span>
+
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">])</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">xy_to_rowcol</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">xy_pos</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+        <span class="n">i</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">y_map_center</span> <span class="o">-</span> <span class="n">xy_pos</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">scale</span><span class="p">)</span>
+        <span class="n">j</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">((</span><span class="n">xy_pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_map_center</span><span class="p">)</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">scale</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+
+<div class="viewcode-block" id="MjCambrianMaze.compute_optimal_path">
+<a class="viewcode-back" href="../../../reference/api/cambrian/envs/maze_env/index.html#cambrian.envs.MjCambrianMaze.compute_optimal_path">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">compute_optimal_path</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">start</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+        <span class="n">target</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">obstacles</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[],</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Computes the optimal path from the start position to the target.</span>
+
+<span class="sd">        Uses a BFS to find the shortest path.</span>
+
+<span class="sd">        Keyword Args:</span>
+<span class="sd">            obstacles (List[Tuple[int, int]]): The obstacles in the maze. Each</span>
+<span class="sd">                obstacle is a tuple of (row, col). Defaults to []. Avoids these</span>
+<span class="sd">                positions when computing the path.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Deque</span>
+
+        <span class="n">start</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">xy_to_rowcol</span><span class="p">(</span><span class="n">start</span><span class="p">)</span>
+        <span class="n">target</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">xy_to_rowcol</span><span class="p">(</span><span class="n">target</span><span class="p">)</span>
+
+        <span class="n">rows</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_map</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">cols</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_map</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">visited</span> <span class="o">=</span> <span class="p">[[</span><span class="kc">False</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">cols</span><span class="p">)]</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">rows</span><span class="p">)]</span>
+        <span class="n">visited</span><span class="p">[</span><span class="n">start</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="n">start</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">queue</span> <span class="o">=</span> <span class="n">Deque</span><span class="p">([([</span><span class="n">start</span><span class="p">],</span> <span class="mi">0</span><span class="p">)])</span>  <span class="c1"># (path, distance)</span>
+
+        <span class="n">moves</span> <span class="o">=</span> <span class="p">[(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span>
+
+        <span class="k">while</span> <span class="n">queue</span><span class="p">:</span>
+            <span class="n">path</span><span class="p">,</span> <span class="n">dist</span> <span class="o">=</span> <span class="n">queue</span><span class="o">.</span><span class="n">popleft</span><span class="p">()</span>
+            <span class="n">current</span> <span class="o">=</span> <span class="n">path</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">current</span> <span class="o">==</span> <span class="n">target</span><span class="p">):</span>
+                <span class="c1"># Convert path from indices to positions</span>
+                <span class="n">path</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">rowcol_to_xy</span><span class="p">(</span><span class="n">pos</span><span class="p">)</span> <span class="k">for</span> <span class="n">pos</span> <span class="ow">in</span> <span class="n">path</span><span class="p">]</span>
+                <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rowcol_to_xy</span><span class="p">(</span><span class="n">target</span><span class="p">))</span>
+                <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+
+            <span class="c1"># Check all moves (left, right, up, down, and all diagonals)</span>
+            <span class="k">for</span> <span class="n">dr</span><span class="p">,</span> <span class="n">dc</span> <span class="ow">in</span> <span class="n">moves</span><span class="p">:</span>
+                <span class="n">r</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">current</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">dr</span><span class="p">,</span> <span class="n">current</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">dc</span>
+                <span class="n">map_entity</span> <span class="o">=</span> <span class="n">MjCambrianMapEntity</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_map</span><span class="p">[</span><span class="n">r</span><span class="p">][</span><span class="n">c</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="k">if</span> <span class="p">(</span>
+                    <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">r</span> <span class="o">&lt;</span> <span class="n">rows</span>
+                    <span class="ow">and</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">c</span> <span class="o">&lt;</span> <span class="n">cols</span>
+                    <span class="ow">and</span> <span class="ow">not</span> <span class="n">visited</span><span class="p">[</span><span class="n">r</span><span class="p">][</span><span class="n">c</span><span class="p">]</span>
+                    <span class="ow">and</span> <span class="n">map_entity</span> <span class="o">!=</span> <span class="n">MjCambrianMapEntity</span><span class="o">.</span><span class="n">WALL</span>
+                <span class="p">):</span>
+                    <span class="c1"># If the movement is diagonal, check that the adjacent cells are</span>
+                    <span class="c1"># free as well so the path doesn&#39;t clip through walls</span>
+                    <span class="n">pr</span><span class="p">,</span> <span class="n">pc</span> <span class="o">=</span> <span class="n">current</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">current</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="n">dr</span><span class="p">,</span> <span class="n">dc</span><span class="p">)</span> <span class="ow">in</span> <span class="n">moves</span><span class="p">[</span><span class="mi">4</span><span class="p">:]:</span>
+                        <span class="n">pc_map_entity</span> <span class="o">=</span> <span class="n">MjCambrianMapEntity</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_map</span><span class="p">[</span><span class="n">r</span><span class="p">][</span><span class="n">pc</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
+                        <span class="n">pr_map_entity</span> <span class="o">=</span> <span class="n">MjCambrianMapEntity</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_map</span><span class="p">[</span><span class="n">pr</span><span class="p">][</span><span class="n">c</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
+                        <span class="k">if</span> <span class="p">(</span>
+                            <span class="n">pc_map_entity</span> <span class="o">==</span> <span class="n">MjCambrianMapEntity</span><span class="o">.</span><span class="n">WALL</span>
+                            <span class="ow">or</span> <span class="n">pr_map_entity</span> <span class="o">==</span> <span class="n">MjCambrianMapEntity</span><span class="o">.</span><span class="n">WALL</span>
+                        <span class="p">):</span>
+                            <span class="k">continue</span>
+
+                    <span class="c1"># Check if the cell is an obstacle</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span> <span class="ow">in</span> <span class="n">obstacles</span><span class="p">:</span>
+                        <span class="k">continue</span>
+
+                    <span class="n">visited</span><span class="p">[</span><span class="n">r</span><span class="p">][</span><span class="n">c</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+                    <span class="n">queue</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">path</span> <span class="o">+</span> <span class="p">[(</span><span class="n">r</span><span class="p">,</span> <span class="n">c</span><span class="p">)],</span> <span class="n">dist</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No path found&quot;</span><span class="p">)</span></div>
+
+
+    <span class="c1"># ==================</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_generate_pos</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">locations</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span> <span class="n">tries</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">20</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Helper method to generate a position. The generated position must be at a</span>
+<span class="sd">        unique location from self._occupied_locations.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            locations (List[np.ndarray]): The locations to choose from.</span>
+<span class="sd">            tries (int): The number of tries to attempt to find a unique position.</span>
+<span class="sd">                Defaults to 20.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            np.ndarray: The chosen position. Is of size (2,).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">locations</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;Not enough locations to choose from&quot;</span>
+
+        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">tries</span><span class="p">):</span>
+            <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="n">low</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">high</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">locations</span><span class="p">))</span>
+            <span class="n">pos</span> <span class="o">=</span> <span class="n">locations</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+            <span class="c1"># Check if the position is already occupied</span>
+            <span class="k">for</span> <span class="n">occupied</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_occupied_locations</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">pos</span> <span class="o">-</span> <span class="n">occupied</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">scale</span><span class="p">:</span>
+                    <span class="k">break</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">pos</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Could not generate a unique position. </span><span class="si">{</span><span class="n">tries</span><span class="si">}</span><span class="s2"> tries failed. &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;Occupied locations: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_occupied_locations</span><span class="si">}</span><span class="s2">. &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;Available locations: </span><span class="si">{</span><span class="n">locations</span><span class="si">}</span><span class="s2">.&quot;</span>
+        <span class="p">)</span>
+
+<div class="viewcode-block" id="MjCambrianMaze.generate_reset_pos">
+<a class="viewcode-back" href="../../../reference/api/cambrian/envs/maze_env/index.html#cambrian.envs.MjCambrianMaze.generate_reset_pos">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">generate_reset_pos</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">agent</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">add_as_occupied</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Generates a random reset position for an agent.</span>
+
+<span class="sd">        Keyword Args:</span>
+<span class="sd">            add_as_occupied (bool): Whether to add the chosen location to the</span>
+<span class="sd">                occupied locations. Defaults to True.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            np.ndarray: The chosen position. Is of size (2,).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">reset_locations</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">reset_agent</span><span class="p">,</span> <span class="n">reset_pos</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_reset_agents</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_reset_locations</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">agent</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_agent_id_map</span><span class="p">[</span><span class="n">reset_agent</span><span class="p">]:</span>
+                <span class="n">reset_locations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">reset_pos</span><span class="p">)</span>
+        <span class="n">reset_locations</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">reset_locations</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">reset_locations</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;No reset locations found for agent &#39;</span><span class="si">{</span><span class="n">agent</span><span class="si">}</span><span class="s2">&#39;.&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Reset the occupied location if the agent is already in the occupied locations</span>
+        <span class="k">if</span> <span class="n">agent</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_agent_locations</span><span class="p">:</span>
+            <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_occupied_locations</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_agent_locations</span><span class="p">[</span><span class="n">agent</span><span class="p">]]</span>
+
+        <span class="c1"># Generate the pos and assign that pos to the agent</span>
+        <span class="n">reset_locations</span> <span class="o">=</span> <span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="n">loc</span><span class="p">)</span> <span class="k">for</span> <span class="n">loc</span> <span class="ow">in</span> <span class="n">reset_locations</span><span class="p">]</span>
+        <span class="n">occupied_locations</span> <span class="o">=</span> <span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="n">loc</span><span class="p">)</span> <span class="k">for</span> <span class="n">loc</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_occupied_locations</span><span class="p">]</span>
+        <span class="n">possible_locations</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">reset_locations</span><span class="p">)</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span><span class="n">occupied_locations</span><span class="p">))</span>
+        <span class="n">pos</span> <span class="o">=</span> <span class="n">possible_locations</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">possible_locations</span><span class="p">))]</span>
+        <span class="k">if</span> <span class="n">add_as_occupied</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_agent_locations</span><span class="p">[</span><span class="n">agent</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_occupied_locations</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_occupied_locations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pos</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">pos</span></div>
+
+
+    <span class="c1"># ==================</span>
+
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="MjCambrianMaze.config">
+<a class="viewcode-back" href="../../../reference/api/cambrian/envs/maze_env/index.html#cambrian.envs.MjCambrianMaze.config">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">config</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MjCambrianMazeEnvConfig</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the config.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_config</span></div>
+
+
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="MjCambrianMaze.name">
+<a class="viewcode-back" href="../../../reference/api/cambrian/envs/maze_env/index.html#cambrian.envs.MjCambrianMaze.name">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the name.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_name</span></div>
+
+
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="MjCambrianMaze.map">
+<a class="viewcode-back" href="../../../reference/api/cambrian/envs/maze_env/index.html#cambrian.envs.MjCambrianMaze.map">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">map</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the map.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_map</span></div>
+
+
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="MjCambrianMaze.map_length_scaled">
+<a class="viewcode-back" href="../../../reference/api/cambrian/envs/maze_env/index.html#cambrian.envs.MjCambrianMaze.map_length_scaled">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">map_length_scaled</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the map length scaled.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_map</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">scale</span></div>
+
+
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="MjCambrianMaze.map_width_scaled">
+<a class="viewcode-back" href="../../../reference/api/cambrian/envs/maze_env/index.html#cambrian.envs.MjCambrianMaze.map_width_scaled">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">map_width_scaled</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the map width scaled.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_map</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">scale</span></div>
+
+
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="MjCambrianMaze.max_dim">
+<a class="viewcode-back" href="../../../reference/api/cambrian/envs/maze_env/index.html#cambrian.envs.MjCambrianMaze.max_dim">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">max_dim</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the max dimension.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">map_length_scaled</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">map_width_scaled</span><span class="p">)</span></div>
+
+
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="MjCambrianMaze.min_dim">
+<a class="viewcode-back" href="../../../reference/api/cambrian/envs/maze_env/index.html#cambrian.envs.MjCambrianMaze.min_dim">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">min_dim</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the min dimension.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">map_length_scaled</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">map_width_scaled</span><span class="p">)</span></div>
+
+
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="MjCambrianMaze.ratio">
+<a class="viewcode-back" href="../../../reference/api/cambrian/envs/maze_env/index.html#cambrian.envs.MjCambrianMaze.ratio">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">ratio</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the ratio of the length over width.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">map_length_scaled</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">map_width_scaled</span></div>
+
+
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="MjCambrianMaze.x_map_center">
+<a class="viewcode-back" href="../../../reference/api/cambrian/envs/maze_env/index.html#cambrian.envs.MjCambrianMaze.x_map_center">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">x_map_center</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the x map center.&quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">_starting_x</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;Maze has not been initialized&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">map_width_scaled</span> <span class="o">//</span> <span class="mi">2</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_starting_x</span></div>
+
+
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="MjCambrianMaze.y_map_center">
+<a class="viewcode-back" href="../../../reference/api/cambrian/envs/maze_env/index.html#cambrian.envs.MjCambrianMaze.y_map_center">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">y_map_center</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the y map center.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">map_length_scaled</span> <span class="o">/</span> <span class="mi">2</span></div>
+
+
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="MjCambrianMaze.lookat">
+<a class="viewcode-back" href="../../../reference/api/cambrian/envs/maze_env/index.html#cambrian.envs.MjCambrianMaze.lookat">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">lookat</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns a point which aids in placement of a camera to visualize this</span>
+<span class="sd">        maze.&quot;&quot;&quot;</span>
+        <span class="c1"># NOTE: Negative because of convention based on BEV camera</span>
+        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">_starting_x</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;Maze has not been initialized&quot;</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">_starting_x</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_map</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">/</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span></div>
+
+
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="MjCambrianMaze.reset_locations">
+<a class="viewcode-back" href="../../../reference/api/cambrian/envs/maze_env/index.html#cambrian.envs.MjCambrianMaze.reset_locations">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">reset_locations</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the reset locations.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_reset_locations</span></div>
+</div>
+
+
+
+<span class="c1"># ================================</span>
+
+
+<div class="viewcode-block" id="MjCambrianMazeStore">
+<a class="viewcode-back" href="../../../reference/api/cambrian/envs/maze_env/index.html#cambrian.envs.MjCambrianMazeStore">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">MjCambrianMazeStore</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;This is a simple class to store a collection of mazes.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">maze_configs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">MjCambrianMazeEnvConfig</span><span class="p">],</span>
+        <span class="n">maze_selection_fn</span><span class="p">:</span> <span class="n">MjCambrianMazeSelectionFn</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_mazes</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">MjCambrianMaze</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_create_mazes</span><span class="p">(</span><span class="n">maze_configs</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_current_maze</span><span class="p">:</span> <span class="n">MjCambrianMaze</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_maze_selection_fn</span> <span class="o">=</span> <span class="n">maze_selection_fn</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_create_mazes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">maze_configs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">MjCambrianMazeEnvConfig</span><span class="p">]):</span>
+        <span class="n">prev_x</span><span class="p">,</span> <span class="n">prev_width</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">config</span> <span class="ow">in</span> <span class="n">maze_configs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mazes</span><span class="p">:</span>
+                <span class="c1"># If the maze already exists, skip it</span>
+                <span class="k">continue</span>
+            <span class="k">elif</span> <span class="ow">not</span> <span class="n">config</span><span class="o">.</span><span class="n">enabled</span><span class="p">:</span>
+                <span class="c1"># If the maze is not enabled, skip it</span>
+                <span class="k">continue</span>
+
+            <span class="c1"># First create the maze</span>
+            <span class="n">maze</span> <span class="o">=</span> <span class="n">MjCambrianMaze</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_mazes</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">maze</span>
+
+            <span class="c1"># Calculate the starting x of the maze</span>
+            <span class="c1"># We&#39;ll place the maze such that it doesn&#39;t overlap with existing mazes</span>
+            <span class="c1"># It&#39;ll be placed next to the previous one</span>
+            <span class="c1"># The positions of the maze is calculated from one corner (defined as x</span>
+            <span class="c1"># in this case)</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="n">prev_x</span> <span class="o">+</span> <span class="n">prev_width</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">maze</span><span class="o">.</span><span class="n">map_width_scaled</span> <span class="o">/</span> <span class="mi">2</span>
+            <span class="n">maze</span><span class="o">.</span><span class="n">initialize</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+            <span class="c1"># Update the prev_center and prev_width</span>
+            <span class="n">prev_x</span><span class="p">,</span> <span class="n">prev_width</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span> <span class="n">maze</span><span class="o">.</span><span class="n">map_width_scaled</span>
+
+<div class="viewcode-block" id="MjCambrianMazeStore.generate_xml">
+<a class="viewcode-back" href="../../../reference/api/cambrian/envs/maze_env/index.html#cambrian.envs.MjCambrianMazeStore.generate_xml">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">generate_xml</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MjCambrianXML</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Generates the xml for the current maze.&quot;&quot;&quot;</span>
+        <span class="n">xml</span> <span class="o">=</span> <span class="n">MjCambrianXML</span><span class="o">.</span><span class="n">make_empty</span><span class="p">()</span>
+
+        <span class="k">for</span> <span class="n">maze</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mazes</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">xml</span> <span class="o">+=</span> <span class="n">maze</span><span class="o">.</span><span class="n">generate_xml</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="n">xml</span></div>
+
+
+<div class="viewcode-block" id="MjCambrianMazeStore.reset">
+<a class="viewcode-back" href="../../../reference/api/cambrian/envs/maze_env/index.html#cambrian.envs.MjCambrianMazeStore.reset">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">spec</span><span class="p">:</span> <span class="n">MjCambrianSpec</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Resets all mazes.&quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">maze</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mazes</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">maze</span><span class="o">.</span><span class="n">reset</span><span class="p">(</span><span class="n">spec</span><span class="p">)</span></div>
+
+
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="MjCambrianMazeStore.current_maze">
+<a class="viewcode-back" href="../../../reference/api/cambrian/envs/maze_env/index.html#cambrian.envs.MjCambrianMazeStore.current_maze">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">current_maze</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MjCambrianMaze</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the current maze.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_current_maze</span></div>
+
+
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="MjCambrianMazeStore.maze_list">
+<a class="viewcode-back" href="../../../reference/api/cambrian/envs/maze_env/index.html#cambrian.envs.MjCambrianMazeStore.maze_list">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">maze_list</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">MjCambrianMaze</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the list of mazes.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_mazes</span><span class="o">.</span><span class="n">values</span><span class="p">())</span></div>
+
+
+    <span class="c1"># ======================</span>
+    <span class="c1"># Maze selection methods</span>
+
+<div class="viewcode-block" id="MjCambrianMazeStore.select_maze">
+<a class="viewcode-back" href="../../../reference/api/cambrian/envs/maze_env/index.html#cambrian.envs.MjCambrianMazeStore.select_maze">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">select_maze</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">env</span><span class="p">:</span> <span class="s2">&quot;MjCambrianEnv&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MjCambrianMaze</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;This should be called by the environment to select a maze.&quot;&quot;&quot;</span>
+        <span class="n">maze</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_maze_selection_fn</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">env</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_current_maze</span> <span class="o">=</span> <span class="n">maze</span>
+        <span class="k">return</span> <span class="n">maze</span></div>
+
+
+<div class="viewcode-block" id="MjCambrianMazeStore.select_maze_random">
+<a class="viewcode-back" href="../../../reference/api/cambrian/envs/maze_env/index.html#cambrian.envs.MjCambrianMazeStore.select_maze_random">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">select_maze_random</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_</span><span class="p">:</span> <span class="s2">&quot;MjCambrianEnv&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MjCambrianMaze</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Selects a maze at random.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">maze_list</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="MjCambrianMazeStore.select_maze_schedule">
+<a class="viewcode-back" href="../../../reference/api/cambrian/envs/maze_env/index.html#cambrian.envs.MjCambrianMazeStore.select_maze_schedule">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">select_maze_schedule</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">env</span><span class="p">:</span> <span class="s2">&quot;MjCambrianEnv&quot;</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">schedule</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;linear&quot;</span><span class="p">,</span>
+        <span class="n">total_timesteps</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">n_envs</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">lam_0</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mf">2.0</span><span class="p">,</span>
+        <span class="n">lam_n</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="mf">2.0</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MjCambrianMaze</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Selects a maze based on a schedule. The scheduled selections are based on</span>
+<span class="sd">        the order of the mazes in the list.</span>
+
+<span class="sd">        Keyword Args:</span>
+<span class="sd">            schedule (Optional[str]): The schedule to use. One of &quot;linear&quot;,</span>
+<span class="sd">                &quot;exponential&quot;, or &quot;logistic&quot;. Defaults to &quot;linear&quot;.</span>
+
+<span class="sd">            total_timesteps (int): The total number of timesteps in the training</span>
+<span class="sd">                schedule. Unused if schedule is None. Required otherwise.</span>
+<span class="sd">            n_envs (int): The number of environments. Unused if schedule is None.</span>
+<span class="sd">                Required otherwise.</span>
+<span class="sd">            lam_0 (Optional[float]): The lambda value at the start of the schedule.</span>
+<span class="sd">                Unused if schedule is None.</span>
+<span class="sd">            lam_n (Optional[float]): The lambda value at the end of the schedule.</span>
+<span class="sd">                Unused if schedule is None.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">assert</span> <span class="n">lam_0</span> <span class="o">&lt;</span> <span class="n">lam_n</span><span class="p">,</span> <span class="s2">&quot;lam_0 must be less than lam_n&quot;</span>
+
+        <span class="c1"># Compute the current step</span>
+        <span class="n">steps_per_env</span> <span class="o">=</span> <span class="n">total_timesteps</span> <span class="o">//</span> <span class="n">n_envs</span>
+        <span class="n">step</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">num_timesteps</span> <span class="o">/</span> <span class="n">steps_per_env</span>
+
+        <span class="c1"># Compute the lambda value</span>
+        <span class="k">if</span> <span class="n">schedule</span> <span class="o">==</span> <span class="s2">&quot;linear&quot;</span><span class="p">:</span>
+            <span class="n">lam</span> <span class="o">=</span> <span class="n">lam_0</span> <span class="o">+</span> <span class="p">(</span><span class="n">lam_n</span> <span class="o">-</span> <span class="n">lam_0</span><span class="p">)</span> <span class="o">*</span> <span class="n">step</span>
+        <span class="k">elif</span> <span class="n">schedule</span> <span class="o">==</span> <span class="s2">&quot;exponential&quot;</span><span class="p">:</span>
+            <span class="n">lam</span> <span class="o">=</span> <span class="n">lam_0</span> <span class="o">*</span> <span class="p">(</span><span class="n">lam_n</span> <span class="o">/</span> <span class="n">lam_0</span><span class="p">)</span> <span class="o">**</span> <span class="p">(</span><span class="n">step</span> <span class="o">/</span> <span class="n">n_envs</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">schedule</span> <span class="o">==</span> <span class="s2">&quot;logistic&quot;</span><span class="p">:</span>
+            <span class="n">lam</span> <span class="o">=</span> <span class="n">lam_0</span> <span class="o">+</span> <span class="p">(</span><span class="n">lam_n</span> <span class="o">-</span> <span class="n">lam_0</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span> <span class="o">*</span> <span class="n">step</span> <span class="o">/</span> <span class="n">n_envs</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid schedule: </span><span class="si">{</span><span class="n">schedule</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="n">p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">lam</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">maze_list</span><span class="p">)))</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">maze_list</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="n">p</span> <span class="o">/</span> <span class="n">p</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span></div>
+
+
+<div class="viewcode-block" id="MjCambrianMazeStore.select_maze_cycle">
+<a class="viewcode-back" href="../../../reference/api/cambrian/envs/maze_env/index.html#cambrian.envs.MjCambrianMazeStore.select_maze_cycle">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">select_maze_cycle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">env</span><span class="p">:</span> <span class="s2">&quot;MjCambrianEnv&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MjCambrianMaze</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Selects a maze based on a cycle.&quot;&quot;&quot;</span>
+        <span class="n">idx</span> <span class="o">=</span> <span class="n">safe_index</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">maze_list</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_current_maze</span><span class="p">,</span> <span class="n">default</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">maze_list</span><span class="p">[(</span><span class="n">idx</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">maze_list</span><span class="p">)]</span></div>
+</div>
+
+</pre></div>
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          
+          
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2025, Camera Culture, MIT Media Lab
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer no-toc">
+      
+      
+      
+    </aside>
+  </div>
+</div><script src="../../../_static/documentation_options.js?v=e37ea94c"></script>
+    <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/scripts/furo.js?v=5fa4622c"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    </body>
+</html>
