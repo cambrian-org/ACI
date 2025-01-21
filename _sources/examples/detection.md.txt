@@ -44,7 +44,7 @@ You can evaluate a trained policy or the task itself in a few ways.
 We provide a simple policy that demonstrates good performance in the detection task. The policy is privileged in the sense that it has access to all environment states. The logic is defined in the {class}`~cambrian.agents.point.MjCambrianAgentPointSeeker` class. To evaluate using this policy, you can use the following command:
 
 ```bash
-bash scripts/run.sh cambrian/main.py --eval example=detection env/agents@env.agent.agents=point_seeker
+bash scripts/run.sh cambrian/main.py --eval example=detection env/agents@env.agents.agent=point_seeker
 ```
 
 This command will save the evaluation results in the log directory, which defaults to `logs/<today's date>/detection/`.
