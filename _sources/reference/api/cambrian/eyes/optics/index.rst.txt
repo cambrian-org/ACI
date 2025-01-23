@@ -92,14 +92,13 @@ Module Contents
    :ivar random_prob: Probability of the aperture mask being 1. If
                       None, the probability is 0.5. Defaults to None.
    :vartype random_prob: Optional[float]
-   :ivar size: Size of the aperture mask. This is the size
-               of the aperture mask. If None, the size is the same as the pupil resolution.
-               Defaults to None.
+   :ivar size: Size of the aperture mask. If None, the size
+               is the same as the pupil resolution. Defaults to None.
 
    :vartype size: Optional[Tuple[int, int]]
 
 
-   .. py:method:: calculate_aperture_mask(X1_Y1, Lx, Ly)
+   .. py:method:: calculate_aperture_mask(X1_Y1, *_)
 
       This method calculates the aperture mask.
 
@@ -159,6 +158,12 @@ Module Contents
    This class applies the depth invariant PSF to the image.
 
    :Parameters: **config** (*MjCambrianOpticsConfig*) -- Config for the optics module.
+
+
+   .. py:method:: initialize()
+
+      This will initialize the parameters used during the PSF calculation.
+
 
 
    .. py:method:: step(obs = None)

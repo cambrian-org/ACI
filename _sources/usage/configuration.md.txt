@@ -1,6 +1,6 @@
 # Configuring an Experiment
 
-This package uses [`hydra`](#hydra) extensively for configuration management. All config files are located within the [`configs/`](https://github.com/camera-culture/ACI/tree/main/configs) directory. Each config is defined by a schema which is used to validate the config.
+This package uses [`hydra`](#hydra) extensively for configuration management. All config files are located within the {src}`configs/ <cambrian/configs>` directory. Each config is defined by a schema which is used to validate the config.
 
 ## Hydra
 
@@ -18,15 +18,15 @@ Hydra provides a range of features to streamline configuration management:
 
 ### Usage
 
-We use Hydra to manage configurations for our experiments. The configuration files are stored in the `configs/` directory and each configuration file is composed of other configuration files via the `defaults` field. See [](#config-composition) for more information on how to use Hydra in this project.
+We use Hydra to manage configurations for our experiments. The configuration files are stored in the {src}``configs/ <cambrian/configs>`` directory and each configuration file is composed of other configuration files via the `defaults` field. See [](#config-composition) for more information on how to use Hydra in this project.
 
 ## Config Schema
 
-Each config schema is defined within the file which it's used; for instance, [`MjCambrianEnvConfig`](https://camera-culture.github.io/ACI/reference/api/cambrian/envs/index.html#cambrian.envs.MjCambrianEnvConfig) is defined in [`env.py`](https://github.com/camera-culture/ACI/blob/02fa04cd38c3b4d73c9ff4cc8e67ec08114507be/cambrian/envs/env.py#L62). The schema is implemented as a dataclass and added to the [Hydra ConfigStore](https://hydra.cc/docs/tutorials/structured_config/config_store/) using the [`config_wrapper` decorator](https://AaronYoung5.github.io/hydra-config/reference/api/hydra_config/config/index.html#hydra_config.config.config_wrapper). Thus, the associated config file should implement this schema; for instance, [`configs/env/env.yaml`](https://github.com/camera-culture/ACI/blob/main/configs/env/env.yaml) implements the `MjCambrianEnvConfig` schema.
+Each config schema is defined within the file which it's used; for instance, {class}`~cambrian.envs.env.MjCambrianEnvConfig` is defined in {src}``env.py <cambrian/envs/env.py>``. The schema is implemented as a dataclass and added to the [Hydra ConfigStore](https://hydra.cc/docs/tutorials/structured_config/config_store/) using the {func}`~hydra_config.config_wrapper`. Thus, the associated config file should implement this schema; for instance, {src}``env.yaml <cambrian/configs/env/env.yaml>`` implements the {class}`~cambrian.envs.env.MjCambrianEnvConfig` schema.
 
 ## Config Composition
 
-To reduce redundancy, configs are composed using the [Default List](https://hydra.cc/docs/advanced/defaults_list/) in hydra. For instance, [`MjCambrianMazeEnvConfig`](https://camera-culture.github.io/ACI/reference/api/cambrian/envs/index.html#cambrian.envs.MjCambrianMazeEnvConfig) (which inherits from `MjCambrianEnvConfig`) is defined in [`configs/env/maze_env.yaml`](https://github.com/camera-culture/ACI/blob/main/configs/env/maze_env.yaml) and simply includes the default `env` like the following:
+To reduce redundancy, configs are composed using the [Default List](https://hydra.cc/docs/advanced/defaults_list/) in hydra. For instance, {class}`~cambrian.envs.maze_env.MjCambrianMazeEnvConfig` (which inherits from {class}`~cambrian.envs.env.MjCambrianEnvConfig`) is defined in {src}``maze_env.yaml <cambrian/configs/env/maze_env.yaml>`` and simply includes the default `env` like the following:
 
 ```yaml
 defaults:
@@ -54,7 +54,7 @@ This will print out the entire config. You can print out specific parts of the c
 using `-p <dot.separated.path>`.
 
 ```bash
-python <ANY SCRIPT> exp=<EXPERIMENT> -p <dot.separated.path>
+python <ANY SCRIPT> exp=<EXPERIMENT> -c all -p <dot.separated.path>
 ```
 
 ```{note}
@@ -63,7 +63,6 @@ This is hydra syntax. For more information, run `python <ANY SCRIPT> --hydra-hel
 
 ## Config Overrides
 
-All configs should be put under `configs`. These are parsed by
-[hydra](https://hydra.cc/docs/intro) and can be overridden by passing in
+All configs are parsed by [hydra](https://hydra.cc/docs/intro) and can be overridden by passing in
 `<dot.separated.path>=<value>` to the script. Checkout hydra's documentation for more
 details.

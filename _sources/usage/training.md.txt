@@ -4,13 +4,13 @@
 
 ## Running a single training loop
 
-To run locally, you can use the `run.sh` script. For example, you can run:
+To run locally, you can use the {src}`run.sh <scripts/run.sh>` script. For example, you can run:
 
 ```bash
 bash scripts/run.sh cambrian/main.py --train exp=<EXPERIMENT>
 ```
 
-`run.sh` isn't actually necessary, it just sets some default environment variables and is helpful as it's the same entrypoint for running on a cluster. You can also run the above command directly with `python cambrian/main.py ...`.
+{src}`run.sh <scripts/run.sh>` isn't actually necessary, it just sets some default environment variables and is helpful as it's the same entrypoint for running on a cluster. You can also run the above command directly with `python cambrian/main.py ...`.
 
 ```{tip}
 When invoked with bash, `run.sh` script will default to setting `MUJOCO_GL=egl`. Training should always be done with `MUJOCO_GL=egl` cause that runs with a headless implementation of OpenGL and is significantly faster.
@@ -22,7 +22,7 @@ You can also run `--eval` instead of `--train` to run evaluation to visualize th
 
 ### Running on a cluster
 
-We have provided scripts to run on three clusters: [SuperCloud](https://supercloud.mit.edu), [OpenMind](https://mcgovern.mit.edu/tile/openmind-computing-cluster/), and [Euler](https://euler-cluster.readthedocs.io/en/latest/). Coupled with these scripts are the [Slurm-based launcher configuration](https://hydra.cc/docs/plugins/submitit_launcher/), located at `configs/hydra/launcher/`. When running on a cluster, a daemon job will always be launched to monitor the training process; this is a requirement of hydra and will simply block until the training is complete.
+We have provided scripts to run on three clusters: [SuperCloud](https://supercloud.mit.edu), [OpenMind](https://mcgovern.mit.edu/tile/openmind-computing-cluster/), and [Euler](https://euler-cluster.readthedocs.io/en/latest/). Coupled with these scripts are the [Slurm-based launcher configuration](https://hydra.cc/docs/plugins/submitit_launcher/), located at {src}`configs/hydra/launcher/ <cambrian/configs/hydra/launcher>`. When running on a cluster, a daemon job will always be launched to monitor the training process; this is a requirement of hydra and will simply block until the training is complete.
 
 To run, you can still use the `run.sh` script, which has some default Slurm configs set.
 
@@ -69,9 +69,9 @@ In the above examples, we are simply running a single training loop. If you want
 bash scripts/run.sh cambrian/main.py --train exp=<EXPERIMENT> evo=evo --multirun
 ```
 
-The evolution loop utilizes the [`nevergrad` sweeper](https://hydra.cc/docs/plugins/nevergrad_sweeper/), and it's configs are located at `configs/hydra/sweeper/`. You can replace `bash` with `sbatch` to run on a cluster.
+The evolution loop utilizes the [`nevergrad` sweeper](https://hydra.cc/docs/plugins/nevergrad_sweeper/), and it's configs are located at {src}`configs/hydra/sweeper/ <cambrian/configs/hydra/sweeper>`. You can replace `bash` with `sbatch` to run on a cluster.
 
-In total, you should see `min(hydra.sweeper.optim.num_workers, hydra.launcher.array_parallelism) + 1` jobs. The `+ 1` is for the daemon job that monitors the training process. See the [`evolution_nevergrad.yaml`](https://github.com/camera-culture/ACI/blob/main/configs/hydra/sweeper/evolution_nevergrad.yaml) and [`slurm.yaml`](https://github.com/camera-culture/ACI/blob/main/configs/hydra/launcher/slurm.yaml) for more info.
+In total, you should see `min(hydra.sweeper.optim.num_workers, hydra.launcher.array_parallelism) + 1` jobs. The `+ 1` is for the daemon job that monitors the training process. See the {src}`evolution_nevergrad.yaml <cambrian/configs/hydra/sweeper/evolution_nevergrad.yaml>` and {src}`slurm.yaml <cambrian/configs/hydra/launcher/slurm.yaml>` for more info.
 
 Running on a cluster can aid in parallelizing the training process. And note the
 `--multirun` flag (can also be `-m`) is required to run a sweep.

@@ -19,6 +19,7 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?v=302659d7" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=45624144" />
     
@@ -171,7 +172,7 @@
      
         <a style="text-decoration: none; color: white;"
            href="https://www.media.mit.edu/groups/camera-culture/overview/">
-           <img src="_static/cc-transparent.png"
+           <img src="/ACI/_static/cc-transparent.png"
                 style="
                     vertical-align: middle;
                     display: inline;
@@ -234,6 +235,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../examples/detection.html">Detection Task</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../examples/navigation.html">Navigation Task</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../examples/tracking.html">Tracking Task</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../examples/optics.html">Optics</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../usage/index.html">Nuts and Bolts</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Nuts and Bolts</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -474,6 +476,7 @@
         <span class="n">filename</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Path</span> <span class="o">|</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">record</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
         <span class="n">load_if_exists</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">callback_kwargs</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">expdir</span> <span class="o">/</span> <span class="s2">&quot;eval_config.yaml&quot;</span><span class="p">)</span>
 
@@ -497,7 +500,9 @@
         <span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">record</span><span class="p">:</span>
             <span class="n">record_kwargs</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="n">evaluate_policy</span><span class="p">(</span><span class="n">eval_env</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">n_runs</span><span class="p">,</span> <span class="n">record_kwargs</span><span class="o">=</span><span class="n">record_kwargs</span><span class="p">)</span>
+        <span class="n">evaluate_policy</span><span class="p">(</span>
+            <span class="n">eval_env</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">n_runs</span><span class="p">,</span> <span class="n">record_kwargs</span><span class="o">=</span><span class="n">record_kwargs</span><span class="p">,</span> <span class="o">**</span><span class="n">callback_kwargs</span>
+        <span class="p">)</span>
 
         <span class="c1"># Calculate fitness</span>
         <span class="n">fitness</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">trainer</span><span class="o">.</span><span class="n">fitness_fn</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="p">)</span>
@@ -598,11 +603,12 @@
       
     </aside>
   </div>
-</div><script src="../../../_static/documentation_options.js?v=8900a1f2"></script>
+</div><script src="../../../_static/documentation_options.js?v=5258ea4b"></script>
     <script src="../../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/scripts/furo.js?v=5fa4622c"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
     </body>
 </html>

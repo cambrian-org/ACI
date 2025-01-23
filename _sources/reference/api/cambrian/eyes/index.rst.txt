@@ -310,6 +310,12 @@ Package Contents
    :Parameters: **config** (*MjCambrianOpticsConfig*) -- Config for the optics module.
 
 
+   .. py:method:: initialize()
+
+      This will initialize the parameters used during the PSF calculation.
+
+
+
    .. py:method:: step(obs = None)
 
       Overwrites the default render method to apply the depth invariant PSF to the

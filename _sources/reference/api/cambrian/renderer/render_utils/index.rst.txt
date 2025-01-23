@@ -19,6 +19,7 @@ Functions
    cambrian.renderer.render_utils.generate_composite
    cambrian.renderer.render_utils.convert_depth_distances
    cambrian.renderer.render_utils.convert_depth_to_rgb
+   cambrian.renderer.render_utils.add_text
 
 
 Module Contents
@@ -73,5 +74,19 @@ Module Contents
                 * **depth** (*torch.Tensor*) -- The depth values.
 
    :returns: *torch.Tensor* -- The RGB values.
+
+
+.. py:function:: add_text(image, text, position = (0, 0), size = None, **kwargs)
+
+   Add text to an image.
+
+   .. note:: This is slow, so use it sparingly.
+
+   :Parameters: * **image** (*torch.Tensor*) -- The image to add text to.
+                * **text** (*str*) -- The text to add.
+                * **position** (*tuple[int, int]*) -- The position to add the text.
+                * **color** (*tuple[int, int, int], optional*) -- The color of the text. Defaults to (255, 255, 255).
+
+   :returns: *torch.Tensor* -- The image with the text added.
 
 

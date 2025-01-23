@@ -19,6 +19,7 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?v=302659d7" />
     <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=45624144" />
     
@@ -171,7 +172,7 @@
      
         <a style="text-decoration: none; color: white;"
            href="https://www.media.mit.edu/groups/camera-culture/overview/">
-           <img src="_static/cc-transparent.png"
+           <img src="/ACI/_static/cc-transparent.png"
                 style="
                     vertical-align: middle;
                     display: inline;
@@ -234,6 +235,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../examples/detection.html">Detection Task</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../examples/navigation.html">Navigation Task</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../examples/tracking.html">Tracking Task</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../examples/optics.html">Optics</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../usage/index.html">Nuts and Bolts</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Nuts and Bolts</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -342,7 +344,8 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">hydra_config</span><span class="w"> </span><span class="kn">import</span> <span class="n">HydraContainerConfig</span><span class="p">,</span> <span class="n">config_wrapper</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">cambrian.eyes.eye</span><span class="w"> </span><span class="kn">import</span> <span class="n">MjCambrianEye</span><span class="p">,</span> <span class="n">MjCambrianEyeConfig</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">cambrian.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_odd</span><span class="p">,</span> <span class="n">device</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">cambrian.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_odd</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="n">RenderFrame</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">cambrian.renderer.render_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">resize_with_aspect_fill</span><span class="p">,</span> <span class="n">add_text</span>
 
 
 <span class="nd">@config_wrapper</span>
@@ -411,9 +414,8 @@
 <span class="sd">            randomized.</span>
 <span class="sd">        random_prob (Optional[float]): Probability of the aperture mask being 1. If</span>
 <span class="sd">            None, the probability is 0.5. Defaults to None.</span>
-<span class="sd">        size (Optional[Tuple[int, int]]): Size of the aperture mask. This is the size</span>
-<span class="sd">            of the aperture mask. If None, the size is the same as the pupil resolution.</span>
-<span class="sd">            Defaults to None.</span>
+<span class="sd">        size (Optional[Tuple[int, int]]): Size of the aperture mask. If None, the size </span>
+<span class="sd">            is the same as the pupil resolution. Defaults to None.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">mask</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span>
@@ -423,11 +425,15 @@
 
 <div class="viewcode-block" id="MjCambrianMaskApertureConfig.calculate_aperture_mask">
 <a class="viewcode-back" href="../../../reference/api/cambrian/eyes/optics/index.html#cambrian.eyes.MjCambrianMaskApertureConfig.calculate_aperture_mask">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">calculate_aperture_mask</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">X1_Y1</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">Lx</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">Ly</span><span class="p">:</span> <span class="nb">float</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
-        <span class="n">size</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">(</span><span class="n">Lx</span><span class="p">,</span> <span class="n">Ly</span><span class="p">)</span>
-        <span class="n">mask</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mask</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">calculate_aperture_mask</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X1_Y1</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="o">*</span><span class="n">_</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+        <span class="n">size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">X1_Y1</span><span class="o">.</span><span class="n">shape</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">mask</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">randomize</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;Mask or size must be set.&quot;</span>
+            <span class="n">mask</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">random_prob</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">mask</span> <span class="o">=</span> <span class="n">mask</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">random_prob</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">mask</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mask</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
         <span class="k">assert</span> <span class="n">mask</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">mask</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">randomize</span><span class="p">:</span>
             <span class="n">mask</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">mask</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
@@ -512,11 +518,11 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_psfs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_depths</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">depths</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_initialize</span><span class="p">()</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">depths</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_precompute_psfs</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">initialize</span><span class="p">()</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">_initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="MjCambrianOpticsEye.initialize">
+<a class="viewcode-back" href="../../../reference/api/cambrian/eyes/optics/index.html#cambrian.eyes.MjCambrianOpticsEye.initialize">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;This will initialize the parameters used during the PSF calculation.&quot;&quot;&quot;</span>
         <span class="c1"># pupil_Mx,pupil_My defines the number of pixels in x,y direction</span>
         <span class="c1"># (i.e. width, height) of the pupil</span>
@@ -571,7 +577,7 @@
             <span class="n">torch</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">pupil_Mx</span><span class="p">),</span> <span class="n">torch</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">pupil_My</span><span class="p">),</span> <span class="n">indexing</span><span class="o">=</span><span class="s2">&quot;ij&quot;</span>
         <span class="p">)</span>
         <span class="n">r</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="n">pupil_Mx</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">square</span><span class="p">()</span> <span class="o">+</span> <span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="n">pupil_My</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">square</span><span class="p">())</span>
-        <span class="n">height_map</span> <span class="o">=</span> <span class="n">h_r</span><span class="p">[</span><span class="n">r</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">int64</span><span class="p">)]</span>  <span class="c1"># (n, n)</span>
+        <span class="n">height_map</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span> <span class="o">=</span> <span class="n">h_r</span><span class="p">[</span><span class="n">r</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">int64</span><span class="p">)]</span>  <span class="c1"># (n, n)</span>
         <span class="n">height_map</span> <span class="o">*=</span> <span class="n">torch</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">wavelengths</span> <span class="o">/</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">refractive_index</span> <span class="o">-</span> <span class="mf">1.0</span><span class="p">))</span>
         <span class="n">phi_m</span> <span class="o">=</span> <span class="n">k</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">refractive_index</span> <span class="o">-</span> <span class="mf">1.0</span><span class="p">)</span> <span class="o">*</span> <span class="n">height_map</span>
         <span class="n">pupil</span> <span class="o">=</span> <span class="n">A</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">phi_m</span><span class="p">)</span>
@@ -605,6 +611,11 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_pupil</span> <span class="o">=</span> <span class="n">pupil</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_height_map</span> <span class="o">=</span> <span class="n">height_map</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_psf_resolution</span> <span class="o">=</span> <span class="n">psf_resolution</span>
+
+        <span class="c1"># Precompute the PSFs, if necessary</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">depths</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_precompute_psfs</span><span class="p">()</span></div>
+
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_precompute_psfs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;This will precompute the PSFs for all depths. This is done to avoid</span>
@@ -746,11 +757,12 @@
       
     </aside>
   </div>
-</div><script src="../../../_static/documentation_options.js?v=8900a1f2"></script>
+</div><script src="../../../_static/documentation_options.js?v=5258ea4b"></script>
     <script src="../../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/scripts/furo.js?v=5fa4622c"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
     </body>
 </html>

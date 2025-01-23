@@ -1,6 +1,6 @@
 # Visualizing the Env
 
-There is a runner in `env.py` that will visualize the world. You have a few run options:
+There is a runner in {src}`env.py <cambrian/envs/env.py>` that will visualize the world. You have a few run options:
 
 ## Display Methods
 

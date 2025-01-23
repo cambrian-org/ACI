@@ -8,4 +8,5 @@ The following examples demonstrate how to use the {mod}`cambrian` package to tra
 detection
 navigation
 tracking
+optics
 ```

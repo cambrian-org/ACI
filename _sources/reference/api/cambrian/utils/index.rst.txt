@@ -53,7 +53,7 @@ Functions
 Package Contents
 ----------------
 
-.. py:function:: evaluate_policy(env, model, num_runs, *, record_kwargs = None, step_callback = lambda: True, done_callback = lambda _: True)
+.. py:function:: evaluate_policy(env, model, num_runs, *, record_kwargs = None, step_callback = lambda _: True, done_callback = lambda _: True)
 
    Evaluate a policy.
 

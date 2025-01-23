@@ -61,6 +61,8 @@ Module Contents
    :vartype n_eval_episodes: int
    :ivar add_overlays: Whether to add overlays or not.
    :vartype add_overlays: bool
+   :ivar add_text_overlays: Whether to add text overlays or not.
+   :vartype add_text_overlays: bool
    :ivar clear_overlays_on_reset: Whether to clear the overlays on reset or not.
                                   Consequence of setting to False is that when drawing position overlays
                                   and when mazes change between evaluations, the sites will be drawn on top
