@@ -4,6 +4,7 @@ The tracking task is very similar to the [Detection Task](./detection.md), but i
 
 ```{figure} assets/tracking/screenshot.png
 :align: center
+:class: example-figure
 :width: 75%
 **Screenshot of the tracking task.** Similar to the [Detection Task](./detection.md), the tracking task implements a simple control for the objects. Each object will move to random positions within the map, their movement visualized by the green and red trails. The agent thus must learn to discern between the strips like in the detection task, but also track the objects as they move.
 ```
@@ -24,6 +25,7 @@ Below is an example of a successfully trained agent on the tracking task:
 
 ```{video} assets/tracking/trained_agent.mp4
 :align: center
+:class: example-figure
 :figwidth: 75%
 :loop:
 :autoplay:
@@ -35,6 +37,7 @@ Below is an example of a privileged agent evaluation on the tracking task:
 
 ```{video} assets/tracking/privileged_agent.mp4
 :align: center
+:class: example-figure
 :figwidth: 75%
 :loop:
 :autoplay:
@@ -44,7 +47,7 @@ Below is an example of a privileged agent evaluation on the tracking task:
 
 ## Task Configuration
 
-```{literalinclude} ../../configs/task/tracking.yaml
+```{literalinclude} ../../cambrian/configs/task/tracking.yaml
 :language: yaml
 :caption: configs/task/tracking.yaml
 ```

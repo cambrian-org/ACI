@@ -21,7 +21,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=302659d7" />
-    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=ae43ac89" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=45624144" />
     
     
 
@@ -172,7 +172,7 @@
      
         <a style="text-decoration: none; color: white;"
            href="https://www.media.mit.edu/groups/camera-culture/overview/">
-           <img src="/cc-hardware/_static/cc-transparent.png"
+           <img src="_static/cc-transparent.png"
                 style="
                     vertical-align: middle;
                     display: inline;
@@ -342,7 +342,7 @@
 <h1>Detection Task<a class="headerlink" href="#detection-task" title="Link to this heading">¶</a></h1>
 <p>The detection task is designed to train the agent to perform object discrimination. There are two objects in the environment, a goal object and an adversarial object, A screenshot of the agent’s view is shown below:</p>
 <figure class="align-center" id="id1">
-<a class="reference internal image-reference" href="../_images/screenshot.png"><img alt="../_images/screenshot.png" src="../_images/screenshot.png" style="width: 75%;" />
+<a class="example-figure reference internal image-reference" href="../_images/screenshot.png"><img alt="../_images/screenshot.png" class="example-figure" src="../_images/screenshot.png" style="width: 75%;" />
 </a>
 <figcaption>
 <p><span class="caption-text"><strong>Screenshot of the detection task.</strong> The detection task incorporates two objects, a goal object and an adversarial object. The goal (visualized with a green dot above in the birds eye view) has vertical stripes. Conversely, the adversarial object (visualized with a red dot) has horizontal stripes. The green and red dots are not visible to the agent. The first person view of the agent is shown at the bottom of the image. In this screenshot, the agent has three eyes, each with 50x50 pixels.</span><a class="headerlink" href="#id1" title="Link to this image">¶</a></p>
@@ -361,7 +361,7 @@
 </pre></div>
 </div>
 <p>A successfully trained agent may look like the following:</p>
-<figure  class="align-center" style="width: 75%"><div class="align-center"><video autoplay="True" controls="True" loop="True" muted="True" preload="auto"><source src="../_images/trained_agent.mp4" type="video/mp4"></video></div><figcaption class="align-center"><p style="text-align: left; display:inline-block"><span class="caption-text">This agent has been successfully trained to discern between the goal and adversary objects. The above command uses a default set of eye parameters; in this case, 3 eyes, each with a field-of-view of 45°, and a resolution of 20x20 pixels.</span></p></figcaption></figure></section>
+<figure  class="align-center" style="width: 75%"><div class="align-center"><video autoplay="True" controls="True" loop="True" muted="True" preload="auto" class="example-figure"><source src="../_images/trained_agent.mp4" type="video/mp4"></video></div><figcaption class="align-center"><p style="text-align: left; display:inline-block"><span class="caption-text">This agent has been successfully trained to discern between the goal and adversary objects. The above command uses a default set of eye parameters; in this case, 3 eyes, each with a field-of-view of 45°, and a resolution of 20x20 pixels.</span></p></figcaption></figure></section>
 <section id="evaluating-an-agent">
 <h2>Evaluating an Agent<a class="headerlink" href="#evaluating-an-agent" title="Link to this heading">¶</a></h2>
 <p>You can evaluate a trained policy or the task itself in a few ways.</p>
@@ -372,11 +372,11 @@
 </pre></div>
 </div>
 <p>This command will save the evaluation results in the log directory, which defaults to <code class="docutils literal notranslate"><span class="pre">logs/&lt;today's</span> <span class="pre">date&gt;/detection/</span></code>.</p>
-<div class="admonition tip">
+<figure  class="align-center" style="width: 75%"><div class="align-center"><video autoplay="True" controls="True" loop="True" muted="True" preload="auto"><source src="../_images/privileged_agent.mp4" type="video/mp4"></video></div><figcaption class="align-center"><p style="text-align: left; display:inline-block"><span class="caption-text">The privileged policy simply tries to reduce the distance and angle error between itself in the goal. It doesn't use any visual stimuli.</span></p></figcaption></figure><div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>You can also visualize the evaluation in a gui window by setting <code class="docutils literal notranslate"><span class="pre">env.renderer.render_modes='[human]'</span></code>. You may also need to set the environment variable <code class="docutils literal notranslate"><span class="pre">MUJOCO_GL=glfw</span></code> to use the window-based renderer.</p>
 </div>
-<figure  class="align-center" style="width: 75%"><div class="align-center"><video autoplay="True" controls="True" loop="True" muted="True" preload="auto"><source src="../_images/privileged_agent.mp4" type="video/mp4"></video></div><figcaption class="align-center"><p style="text-align: left; display:inline-block"><span class="caption-text">The privileged policy simply tries to reduce the distance and angle error between itself in the goal. It doesn't use any visual stimuli.</span></p></figcaption></figure></section>
+</section>
 <section id="evaluating-using-a-trained-policy">
 <h3>Evaluating using a Trained Policy<a class="headerlink" href="#evaluating-using-a-trained-policy" title="Link to this heading">¶</a></h3>
 <p>You can also evaluate a trained policy using the <code class="docutils literal notranslate"><span class="pre">trainer/model=loaded_model</span></code> argument.</p>
@@ -395,9 +395,125 @@
 <p>This command will launch the individual scripts using <a class="reference external" href="https://github.com/facebookincubator/submitit">submitit</a>, with configurations defined in the <code class="docutils literal notranslate"><span class="pre">configs/hydra/launcher/supercloud.yaml</span></code> file. This file can be amended to work for other Slurm clusters.</p>
 <p>Additionally, this command enables 3 types of mutations: <code class="docutils literal notranslate"><span class="pre">num_eyes</span></code>, <code class="docutils literal notranslate"><span class="pre">resolution</span></code>, and <code class="docutils literal notranslate"><span class="pre">lon_range</span></code>. Additional mutations can be added by modifying the <code class="docutils literal notranslate"><span class="pre">evo/mutations</span></code> argument.</p>
 <p>The optimized configuration and its trained policy is shown below:</p>
-<figure  class="align-center" style="width: 75%"><div class="align-center"><video autoplay="True" controls="True" loop="True" muted="True" preload="auto"><source src="../_images/evolved_agent.mp4" type="video/mp4"></video></div><figcaption class="align-center"><p style="text-align: left; display:inline-block"><span class="caption-text">The optimized policy has 3 eyes, with a longitudinal range of 60° and a resolution of 14x14 pixels.</span></p></figcaption></figure></section>
+<figure  class="align-center" style="width: 75%"><div class="align-center"><video autoplay="True" controls="True" loop="True" muted="True" preload="auto" class="example-figure"><source src="../_images/evolved_agent.mp4" type="video/mp4"></video></div><figcaption class="align-center"><p style="text-align: left; display:inline-block"><span class="caption-text">The optimized policy has 3 eyes, with a longitudinal range of 60° and a resolution of 14x14 pixels.</span></p></figcaption></figure></section>
 <section id="task-configuration">
 <h2>Task Configuration<a class="headerlink" href="#task-configuration" title="Link to this heading">¶</a></h2>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">configs/task/detection.yaml</span><a class="headerlink" href="#id2" title="Link to this code">¶</a></div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># @package _global_</span>
+
+<span class="c1"># This task is similar to light_seeking, but has a goal _and_ adversary. The</span>
+<span class="c1"># config must set `custom.frequency` to the frequency of the texture</span>
+<span class="c1"># that should be applied to the objects. By default, the textures are synchronized</span>
+<span class="c1"># between the goal and adversary, but this can be overridden by setting</span>
+<span class="c1"># env.agents.&lt;object name&gt;.custom.frequency directly for each object.</span>
+
+<span class="nt">defaults</span><span class="p">:</span>
+<span class="w">  </span><span class="c1"># Use one maze for the time being</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">/env/mazes@env.mazes.maze</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">OPEN</span>
+
+<span class="w">  </span><span class="c1"># Use the maze_task config as the base</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">maze_task</span>
+
+<span class="w">  </span><span class="c1"># Define one point agent with a single eye</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">/env/agents@env.agents.agent</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">point</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">/env/agents/eyes@env.agents.agent.eyes.eye</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">multi_eye</span>
+
+<span class="w">  </span><span class="c1"># Define two objects: a goal and an adversary</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">/env/agents@env.agents.goal0</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">object_sphere_textured_goal</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">/env/agents@env.agents.adversary0</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">object_sphere_textured_adversary</span>
+
+<span class="nt">custom</span><span class="p">:</span>
+<span class="w">  </span><span class="c1"># This sets both the frequency of the texture of the goal and adversary</span>
+<span class="w">  </span><span class="c1"># The goal and adversary textures are the same, just rotated 90 degrees relative</span>
+<span class="w">  </span><span class="c1"># to one another</span>
+<span class="w">  </span><span class="nt">frequency</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8</span>
+
+<span class="nt">env</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">mazes</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">maze</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">scale</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2.0</span>
+<span class="w">      </span><span class="nt">agent_id_map</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">default</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${glob:agent*,${oc.dict.keys:env.agents}}</span>
+<span class="w">        </span><span class="nt">O</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${glob:goal*|adversary*,${oc.dict.keys:env.agents}}</span>
+
+<span class="w">  </span><span class="nt">reward_fn</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">reward_if_done</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">_target_</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cambrian.envs.reward_fns.reward_fn_done</span>
+<span class="w">      </span><span class="nt">_partial_</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">scale_by_quickness</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">termination_reward</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0</span>
+<span class="w">      </span><span class="nt">truncation_reward</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${eval:&#39;-${.termination_reward}&#39;}</span>
+<span class="w">      </span><span class="nt">disable_on_max_episode_steps</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">for_agents</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${glob:agent*,${oc.dict.keys:env.agents}}</span>
+
+<span class="w">    </span><span class="nt">penalize_if_has_contacts</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">_target_</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cambrian.envs.reward_fns.reward_fn_has_contacts</span>
+<span class="w">      </span><span class="nt">_partial_</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">reward</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">-1.0</span>
+<span class="w">      </span><span class="nt">for_agents</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${glob:agent*,${oc.dict.keys:env.agents}}</span>
+
+<span class="w">  </span><span class="nt">truncation_fn</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">truncate_if_close_to_adversary</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">_target_</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cambrian.envs.done_fns.done_if_close_to_agents</span>
+<span class="w">      </span><span class="nt">_partial_</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">for_agents</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${glob:agent*,${oc.dict.keys:env.agents}}</span>
+<span class="w">      </span><span class="nt">to_agents</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${glob:adversary*,${oc.dict.keys:env.agents}}</span>
+<span class="w">      </span><span class="nt">distance_threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0</span>
+
+<span class="w">  </span><span class="nt">termination_fn</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">terminate_if_close_to_goal</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">_target_</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cambrian.envs.done_fns.done_if_close_to_agents</span>
+<span class="w">      </span><span class="nt">_partial_</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">for_agents</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${glob:agent*,${oc.dict.keys:env.agents}}</span>
+<span class="w">      </span><span class="nt">to_agents</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${glob:goal*,${oc.dict.keys:env.agents}}</span>
+<span class="w">      </span><span class="nt">distance_threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0</span>
+
+<span class="nt">eval_env</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">step_fn</span><span class="p">:</span>
+<span class="w">    </span><span class="c1"># respawn the goal or adversary if the agent is close to it</span>
+<span class="w">    </span><span class="c1"># this subsequently means that agents which avoid the adversary more often are</span>
+<span class="w">    </span><span class="c1"># far more likely to be selected for (i.e. they are better agents)</span>
+<span class="w">    </span><span class="nt">respawn_objects_if_agent_close</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">_target_</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cambrian.envs.step_fns.step_respawn_agents_if_close_to_agents</span>
+<span class="w">      </span><span class="nt">_partial_</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">for_agents</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${glob:goal*|adversary*,${oc.dict.keys:env.agents}}</span>
+<span class="w">      </span><span class="nt">to_agents</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${glob:agent*,${oc.dict.keys:env.agents}}</span>
+<span class="w">      </span><span class="nt">distance_threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0</span>
+
+<span class="w">  </span><span class="nt">reward_fn</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">reward_if_goal_respawned</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">_target_</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cambrian.envs.reward_fns.reward_fn_agent_respawned</span>
+<span class="w">      </span><span class="nt">_partial_</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="c1"># large positive reward for respawning the goal (which happens if the agent is</span>
+<span class="w">      </span><span class="c1"># close to it)</span>
+<span class="w">      </span><span class="nt">reward</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10.0</span>
+<span class="w">      </span><span class="nt">for_agents</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${glob:goal*,${oc.dict.keys:env.agents}}</span>
+<span class="w">      </span><span class="nt">scale_by_quickness</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+
+<span class="w">    </span><span class="nt">penalize_if_adversary_respawned</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">_target_</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cambrian.envs.reward_fns.reward_fn_agent_respawned</span>
+<span class="w">      </span><span class="nt">_partial_</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="c1"># large negative reward for respawning the adversary (which happens if the agent</span>
+<span class="w">      </span><span class="c1"># is close to it)</span>
+<span class="w">      </span><span class="nt">reward</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">-20.0</span>
+<span class="w">      </span><span class="nt">for_agents</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${glob:adversary*,${oc.dict.keys:env.agents}}</span>
+<span class="w">      </span><span class="nt">scale_by_quickness</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+
+<span class="w">    </span><span class="nt">penalize_if_has_contacts</span><span class="p">:</span>
+<span class="w">      </span><span class="c1"># large negative reward for contacts</span>
+<span class="w">      </span><span class="nt">reward</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">-2.0</span>
+
+<span class="w">  </span><span class="nt">truncation_fn</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">truncate_if_close_to_adversary</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">disable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">True</span>
+
+<span class="w">  </span><span class="nt">termination_fn</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">terminate_if_close_to_goal</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">disable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">True</span>
+</pre></div>
+</div>
+</div>
 </section>
 </section>
 
@@ -476,7 +592,7 @@
       
     </aside>
   </div>
-</div><script src="../_static/documentation_options.js?v=f75f1775"></script>
+</div><script src="../_static/documentation_options.js?v=8900a1f2"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/furo.js?v=5fa4622c"></script>

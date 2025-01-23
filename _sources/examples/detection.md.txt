@@ -4,6 +4,7 @@ The detection task is designed to train the agent to perform object discriminati
 
 ```{figure} assets/detection/screenshot.png
 :align: center
+:class: example-figure
 :width: 75%
 **Screenshot of the detection task.** The detection task incorporates two objects, a goal object and an adversarial object. The goal (visualized with a green dot above in the birds eye view) has vertical stripes. Conversely, the adversarial object (visualized with a red dot) has horizontal stripes. The green and red dots are not visible to the agent. The first person view of the agent is shown at the bottom of the image. In this screenshot, the agent has three eyes, each with 50x50 pixels.
 ```
@@ -28,6 +29,7 @@ A successfully trained agent may look like the following:
 
 ```{video} assets/detection/trained_agent.mp4
 :align: center
+:class: example-figure
 :figwidth: 75%
 :loop:
 :autoplay:
@@ -49,10 +51,6 @@ bash scripts/run.sh cambrian/main.py --eval example=detection env/agents@env.age
 
 This command will save the evaluation results in the log directory, which defaults to `logs/<today's date>/detection/`.
 
-```{tip}
-You can also visualize the evaluation in a gui window by setting `env.renderer.render_modes='[human]'`. You may also need to set the environment variable `MUJOCO_GL=glfw` to use the window-based renderer.
-```
-
 ```{video} assets/detection/privileged_agent.mp4
 :align: center
 :figwidth: 75%
@@ -60,6 +58,10 @@ You can also visualize the evaluation in a gui window by setting `env.renderer.r
 :autoplay:
 :muted:
 :caption: The privileged policy simply tries to reduce the distance and angle error between itself in the goal. It doesn't use any visual stimuli.
+```
+
+```{tip}
+You can also visualize the evaluation in a gui window by setting `env.renderer.render_modes='[human]'`. You may also need to set the environment variable `MUJOCO_GL=glfw` to use the window-based renderer.
 ```
 
 ### Evaluating using a Trained Policy
@@ -88,6 +90,7 @@ The optimized configuration and its trained policy is shown below:
 
 ```{video} assets/detection/evolved_agent.mp4
 :align: center
+:class: example-figure
 :figwidth: 75%
 :loop:
 :autoplay:
@@ -97,7 +100,7 @@ The optimized configuration and its trained policy is shown below:
 
 ## Task Configuration
 
-```{literalinclude} ../../configs/task/detection.yaml
+```{literalinclude} ../../cambrian/configs/task/detection.yaml
 :language: yaml
 :caption: configs/task/detection.yaml
 ```

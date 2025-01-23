@@ -4,6 +4,7 @@ The navigation task is designed to train an agent to orient itself in a map-like
 
 ```{figure} assets/navigation/screenshot.png
 :align: center
+:class: example-figure
 :width: 75%
 **Screenshot of the navigation task.** The agent is spawned at the right end of the map in two possible locations (with small permutations to remove deterministic behavior). The agent must then navigate to the left while avoiding contact with walls using only visual stimuli.
 ```
@@ -24,6 +25,7 @@ Below is an example of a successfully trained agent on the navigation task:
 
 ```{video} assets/navigation/trained_agent.mp4
 :align: center
+:class: example-figure
 :figwidth: 75%
 :loop:
 :autoplay:
@@ -35,6 +37,7 @@ Below is an example of a privileged agent evaluation on the navigation task:
 
 ```{video} assets/navigation/privileged_agent.mp4
 :align: center
+:class: example-figure
 :figwidth: 75%
 :loop:
 :autoplay:
@@ -54,6 +57,7 @@ The optimized configuration and its trained policy is shown below:
 
 ```{video} assets/navigation/evolved_agent.mp4
 :align: center
+:class: example-figure
 :figwidth: 75%
 :loop:
 :autoplay:
@@ -63,7 +67,7 @@ The optimized configuration and its trained policy is shown below:
 
 ## Task Configuration
 
-```{literalinclude} ../../configs/task/navigation.yaml
+```{literalinclude} ../../cambrian/configs/task/navigation.yaml
 :language: yaml
 :caption: configs/task/navigation.yaml
 ```

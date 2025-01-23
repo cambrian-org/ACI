@@ -21,7 +21,7 @@
     <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css?v=4ae1632d" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo-extensions.css?v=302659d7" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/css/custom.css?v=ae43ac89" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/css/custom.css?v=45624144" />
     
     
 
@@ -172,7 +172,7 @@
      
         <a style="text-decoration: none; color: white;"
            href="https://www.media.mit.edu/groups/camera-culture/overview/">
-           <img src="/cc-hardware/_static/cc-transparent.png"
+           <img src="_static/cc-transparent.png"
                 style="
                     vertical-align: middle;
                     display: inline;
@@ -608,9 +608,8 @@ BL B BR</p>
 <li><p><strong>instance</strong> (<em>Callable</em><em>[</em><em>[</em><em>Self</em><em>, </em><em>str</em><em>]</em><em>, </em><a class="reference internal" href="#cambrian.eyes.MjCambrianEye" title="cambrian.eyes.MjCambrianEye"><em>MjCambrianEye</em></a><em>]</em>) – The class instance to use
 when creating the eye. Takes the config and the name of the eye as
 arguments.</p></li>
-<li><p><strong>eye_instance</strong> (<em>Callable</em><em>[</em><em>[</em><em>Self</em><em>, </em><em>str</em><em>]</em><em>, </em><a class="reference internal" href="#cambrian.eyes.MjCambrianEye" title="cambrian.eyes.MjCambrianEye"><em>MjCambrianEye</em></a><em>]</em>) – The class instance to use
-when creating the single eye instances. Takes the config and the name of the
-eye as arguments.</p></li>
+<li><p><strong>single_eye</strong> (<a class="reference internal" href="#cambrian.eyes.MjCambrianEyeConfig" title="cambrian.eyes.MjCambrianEyeConfig"><em>MjCambrianEyeConfig</em></a>) – The config for a single eye. This is used as
+the base configuration for all eyes in the multi-eye system.</p></li>
 <li><p><strong>lat_range</strong> (<em>Optional</em><em>[</em><em>Tuple</em><em>[</em><em>float</em><em>, </em><em>float</em><em>]</em><em>]</em>) – The x range of the eye. This is
 used to determine the placement of the eye on the agent. Specified in
 degrees. This is the latitudinal/vertical range of the evenly placed eye
@@ -649,7 +648,7 @@ the values as the eye observation spaces. Defaults to False.</p></li>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="cambrian.eyes.MjCambrianOpticsEye.step">
-<span class="sig-name descname"><span class="pre">step</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/cambrian/eyes/optics.html#MjCambrianOpticsEye.step"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cambrian.eyes.MjCambrianOpticsEye.step" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/cambrian/eyes/optics.html#MjCambrianOpticsEye.step"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cambrian.eyes.MjCambrianOpticsEye.step" title="Link to this definition">¶</a></dt>
 <dd><p>Overwrites the default render method to apply the depth invariant PSF to the
 image.</p>
 </dd></dl>
@@ -675,6 +674,8 @@ added to the image. If 0.0, no noise is added.</p></li>
 <li><p><strong>height_map</strong> (<em>List</em><em>[</em><em>float</em><em>]</em>) – Height map of the lens. This is used to
 calculate the phase shift of the light passing through the lens. Uses a
 radially symmetric approximation.</p></li>
+<li><p><strong>scale_intensity</strong> (<em>bool</em>) – Whether to scale the intensity of the PSF by the
+overall throughput of the aperture.</p></li>
 <li><p><strong>aperture</strong> (<a class="reference internal" href="optics/index.html#cambrian.eyes.optics.MjCambrianApertureConfig" title="cambrian.eyes.optics.MjCambrianApertureConfig"><em>MjCambrianApertureConfig</em></a>) – Aperture config. This defines the
 aperture of the lens. The aperture can be circular or custom.</p></li>
 <li><p><strong>depths</strong> (<em>List</em><em>[</em><em>float</em><em>]</em>) – Depths at which the PSF is calculated. If empty, the psf
@@ -789,7 +790,7 @@ is calculated for each render call; otherwise, the PSFs are precomputed.</p></li
       
     </aside>
   </div>
-</div><script src="../../../../_static/documentation_options.js?v=f75f1775"></script>
+</div><script src="../../../../_static/documentation_options.js?v=8900a1f2"></script>
     <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/scripts/furo.js?v=5fa4622c"></script>

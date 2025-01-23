@@ -21,7 +21,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=302659d7" />
-    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=ae43ac89" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=45624144" />
     
     
 
@@ -172,7 +172,7 @@
      
         <a style="text-decoration: none; color: white;"
            href="https://www.media.mit.edu/groups/camera-culture/overview/">
-           <img src="/cc-hardware/_static/cc-transparent.png"
+           <img src="_static/cc-transparent.png"
                 style="
                     vertical-align: middle;
                     display: inline;
@@ -342,7 +342,7 @@
 <h1>Navigation Task<a class="headerlink" href="#navigation-task" title="Link to this heading">¶</a></h1>
 <p>The navigation task is designed to train an agent to orient itself in a map-like environment. The agent is spawned at one end of a map and is tasked to navigate as far as it can get through the corridor-like world to reach the other end.</p>
 <figure class="align-center" id="id1">
-<a class="reference internal image-reference" href="../_images/screenshot1.png"><img alt="../_images/screenshot1.png" src="../_images/screenshot1.png" style="width: 75%;" />
+<a class="example-figure reference internal image-reference" href="../_images/screenshot1.png"><img alt="../_images/screenshot1.png" class="example-figure" src="../_images/screenshot1.png" style="width: 75%;" />
 </a>
 <figcaption>
 <p><span class="caption-text"><strong>Screenshot of the navigation task.</strong> The agent is spawned at the right end of the map in two possible locations (with small permutations to remove deterministic behavior). The agent must then navigate to the left while avoiding contact with walls using only visual stimuli.</span><a class="headerlink" href="#id1" title="Link to this image">¶</a></p>
@@ -358,8 +358,8 @@
 <h2>Training/Evaluation/Evolving an Agent<a class="headerlink" href="#training-evaluation-evolving-an-agent" title="Link to this heading">¶</a></h2>
 <p>The training, evaluation, and evolution of an agent for the navigation task is identical to the detection task, except the <code class="docutils literal notranslate"><span class="pre">task=navigation</span></code>. Please refer to the <a class="reference internal" href="detection.html"><span class="std std-doc">Detection Task</span></a> for more information. To enable a privileged agent, you should specify the agent as <code class="docutils literal notranslate"><span class="pre">...agent=point_seeker_maze</span></code> instead of <code class="docutils literal notranslate"><span class="pre">...agent=point_seeker</span></code> so that the policy avoids the maze walls.</p>
 <p>Below is an example of a successfully trained agent on the navigation task:</p>
-<figure  class="align-center" style="width: 75%"><div class="align-center"><video autoplay="True" controls="True" loop="True" muted="True" preload="auto"><source src="../_images/trained_agent1.mp4" type="video/mp4"></video></div><figcaption class="align-center"><p style="text-align: left; display:inline-block"><span class="caption-text">This agent has been successfully trained to navigate from the right side of the map to the left. It uses a default set of eye parameters; in this case, 15 eyes, each with a field-of-view of 10°, and a resolution of 1x1 pixels.</span></p></figcaption></figure><p>Below is an example of a privileged agent evaluation on the navigation task:</p>
-<figure  class="align-center" style="width: 75%"><div class="align-center"><video autoplay="True" controls="True" loop="True" muted="True" preload="auto"><source src="../_images/privileged_agent1.mp4" type="video/mp4"></video></div><figcaption class="align-center"><p style="text-align: left; display:inline-block"><span class="caption-text">The privileged policy simply tries to reduce the distance between itself and the end of the map. It uses a simple breadth-first search algorithm to select a trajectory through the maze without contacting the walls.</span></p></figcaption></figure></section>
+<figure  class="align-center" style="width: 75%"><div class="align-center"><video autoplay="True" controls="True" loop="True" muted="True" preload="auto" class="example-figure"><source src="../_images/trained_agent1.mp4" type="video/mp4"></video></div><figcaption class="align-center"><p style="text-align: left; display:inline-block"><span class="caption-text">This agent has been successfully trained to navigate from the right side of the map to the left. It uses a default set of eye parameters; in this case, 15 eyes, each with a field-of-view of 10°, and a resolution of 1x1 pixels.</span></p></figcaption></figure><p>Below is an example of a privileged agent evaluation on the navigation task:</p>
+<figure  class="align-center" style="width: 75%"><div class="align-center"><video autoplay="True" controls="True" loop="True" muted="True" preload="auto" class="example-figure"><source src="../_images/privileged_agent1.mp4" type="video/mp4"></video></div><figcaption class="align-center"><p style="text-align: left; display:inline-block"><span class="caption-text">The privileged policy simply tries to reduce the distance between itself and the end of the map. It uses a simple breadth-first search algorithm to select a trajectory through the maze without contacting the walls.</span></p></figcaption></figure></section>
 <section id="evolving-an-agent">
 <h2>Evolving an Agent<a class="headerlink" href="#evolving-an-agent" title="Link to this heading">¶</a></h2>
 <p>You can also evolve an agent using the following command (similar to the <a class="reference internal" href="detection.html#evolving-an-agent"><span class="std std-ref">Detection Task</span></a>)</p>
@@ -367,9 +367,107 @@
 </pre></div>
 </div>
 <p>The optimized configuration and its trained policy is shown below:</p>
-<figure  class="align-center" style="width: 75%"><div class="align-center"><video autoplay="True" controls="True" loop="True" muted="True" preload="auto"><source src="../_images/evolved_agent1.mp4" type="video/mp4"></video></div><figcaption class="align-center"><p style="text-align: left; display:inline-block"><span class="caption-text">The optimized policy has 10 eyes, with a longitudinal range of 120° and a resolution of 4x4 pixels.</span></p></figcaption></figure></section>
+<figure  class="align-center" style="width: 75%"><div class="align-center"><video autoplay="True" controls="True" loop="True" muted="True" preload="auto" class="example-figure"><source src="../_images/evolved_agent1.mp4" type="video/mp4"></video></div><figcaption class="align-center"><p style="text-align: left; display:inline-block"><span class="caption-text">The optimized policy has 10 eyes, with a longitudinal range of 120° and a resolution of 4x4 pixels.</span></p></figcaption></figure></section>
 <section id="task-configuration">
 <h2>Task Configuration<a class="headerlink" href="#task-configuration" title="Link to this heading">¶</a></h2>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">configs/task/navigation.yaml</span><a class="headerlink" href="#id2" title="Link to this code">¶</a></div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># @package _global_</span>
+
+<span class="c1"># This task is for navigation. It defines a set of mazes which the agent must navigate.</span>
+<span class="c1"># The agent is rewarded based on it&#39;s movement from its initial position. The agent</span>
+<span class="c1"># is penalized if it makes contact with the walls of the maze. A</span>
+<span class="c1"># termination condition indicates success, and in this case, the agent is successful if</span>
+<span class="c1"># it reaches the goal (within a certain distance threshold).</span>
+
+<span class="nt">defaults</span><span class="p">:</span>
+<span class="w">  </span><span class="c1"># Use one fairly complicated maze</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">/env/mazes@env.mazes.maze</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">COMPLEX</span>
+
+<span class="w">  </span><span class="c1"># Use the maze_task config as the base</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">maze_task</span>
+
+<span class="w">  </span><span class="c1"># Define one point agent with a single eye</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">/env/agents@env.agents.agent</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">point</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">/env/agents/eyes@env.agents.agent.eyes.eye</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">multi_eye</span>
+
+<span class="w">  </span><span class="c1"># Define one goal object</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">/env/agents@env.agents.goal</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">object_sphere</span>
+
+<span class="nt">env</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">agents</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">goal</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">custom</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.25</span>
+
+<span class="w">  </span><span class="c1"># Update the scale of the maze so that it&#39;s more difficult</span>
+<span class="w">  </span><span class="nt">mazes</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">maze</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">agent_id_map</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">default</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${glob:agent*,${oc.dict.keys:env.agents}}</span>
+<span class="w">        </span><span class="nt">E</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${glob:agent*,${oc.dict.keys:env.agents}}</span>
+<span class="w">        </span><span class="nt">O</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${glob:goal*,${oc.dict.keys:env.agents}}</span>
+
+<span class="w">  </span><span class="nt">reward_fn</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">reward_if_done</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">_target_</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cambrian.envs.reward_fns.reward_fn_done</span>
+<span class="w">      </span><span class="nt">_partial_</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">termination_reward</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0</span>
+<span class="w">      </span><span class="nt">truncation_reward</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${eval:&#39;-${.termination_reward}&#39;}</span>
+<span class="w">      </span><span class="nt">disable_on_max_episode_steps</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">for_agents</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${glob:agent*,${oc.dict.keys:env.agents}}</span>
+<span class="w">      </span><span class="nt">scale_by_quickness</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+
+<span class="w">    </span><span class="nt">euclidean_delta_to_goal</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">_target_</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cambrian.envs.reward_fns.reward_fn_euclidean_delta_to_agent</span>
+<span class="w">      </span><span class="nt">_partial_</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">reward</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.1</span>
+<span class="w">      </span><span class="nt">for_agents</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${glob:agent*,${oc.dict.keys:env.agents}}</span>
+<span class="w">      </span><span class="nt">to_agents</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${glob:goal*,${oc.dict.keys:env.agents}}</span>
+
+<span class="w">    </span><span class="nt">penalize_if_has_contacts</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">_target_</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cambrian.envs.reward_fns.reward_fn_has_contacts</span>
+<span class="w">      </span><span class="nt">_partial_</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">reward</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">-0.1</span>
+<span class="w">      </span><span class="nt">for_agents</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${glob:agent*,${oc.dict.keys:env.agents}}</span>
+
+<span class="w">  </span><span class="nt">truncation_fn</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">truncate_if_low_reward</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">_target_</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cambrian.envs.done_fns.done_if_low_reward</span>
+<span class="w">      </span><span class="nt">_partial_</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">-50.0</span>
+
+<span class="w">  </span><span class="nt">termination_fn</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">terminate_if_close_to_goal</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">_target_</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cambrian.envs.done_fns.done_if_close_to_agents</span>
+<span class="w">      </span><span class="nt">_partial_</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">for_agents</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${glob:agent*,${oc.dict.keys:env.agents}}</span>
+<span class="w">      </span><span class="nt">to_agents</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${glob:goal*,${oc.dict.keys:env.agents}}</span>
+<span class="w">      </span><span class="nt">distance_threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0</span>
+
+<span class="nt">eval_env</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">mazes</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">maze</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">agent_id_map</span><span class="p">:</span>
+<span class="w">        </span><span class="c1"># Update the default map such that the agent is only placed on R:E spaces</span>
+<span class="w">        </span><span class="nt">default</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[]</span>
+
+<span class="w">  </span><span class="nt">reward_fn</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">reward_if_done</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">termination_reward</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10.0</span>
+
+<span class="w">    </span><span class="nt">euclidean_delta_to_goal</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">reward</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2.0</span>
+
+<span class="w">    </span><span class="nt">penalize_if_has_contacts</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">reward</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">-1.0</span>
+
+<span class="w">  </span><span class="nt">truncation_fn</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">truncate_if_low_reward</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">disable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</pre></div>
+</div>
+</div>
 </section>
 </section>
 
@@ -443,7 +541,7 @@
       
     </aside>
   </div>
-</div><script src="../_static/documentation_options.js?v=f75f1775"></script>
+</div><script src="../_static/documentation_options.js?v=8900a1f2"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/furo.js?v=5fa4622c"></script>

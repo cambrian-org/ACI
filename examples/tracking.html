@@ -21,7 +21,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=302659d7" />
-    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=ae43ac89" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=45624144" />
     
     
 
@@ -172,7 +172,7 @@
      
         <a style="text-decoration: none; color: white;"
            href="https://www.media.mit.edu/groups/camera-culture/overview/">
-           <img src="/cc-hardware/_static/cc-transparent.png"
+           <img src="_static/cc-transparent.png"
                 style="
                     vertical-align: middle;
                     display: inline;
@@ -342,7 +342,7 @@
 <h1>Tracking Task<a class="headerlink" href="#tracking-task" title="Link to this heading">¶</a></h1>
 <p>The tracking task is very similar to the <a class="reference internal" href="detection.html"><span class="std std-doc">Detection Task</span></a>, but instead of all objects being static, they move around the environment.</p>
 <figure class="align-center" id="id1">
-<a class="reference internal image-reference" href="../_images/screenshot2.png"><img alt="../_images/screenshot2.png" src="../_images/screenshot2.png" style="width: 75%;" />
+<a class="example-figure reference internal image-reference" href="../_images/screenshot2.png"><img alt="../_images/screenshot2.png" class="example-figure" src="../_images/screenshot2.png" style="width: 75%;" />
 </a>
 <figcaption>
 <p><span class="caption-text"><strong>Screenshot of the tracking task.</strong> Similar to the <a class="reference internal" href="detection.html"><span class="std std-doc">Detection Task</span></a>, the tracking task implements a simple control for the objects. Each object will move to random positions within the map, their movement visualized by the green and red trails. The agent thus must learn to discern between the strips like in the detection task, but also track the objects as they move.</span><a class="headerlink" href="#id1" title="Link to this image">¶</a></p>
@@ -358,10 +358,42 @@
 <h2>Training/Evaluation/Evolving an Agent<a class="headerlink" href="#training-evaluation-evolving-an-agent" title="Link to this heading">¶</a></h2>
 <p>The training, evaluation, and evolution of an agent for the tracking task is identical to the detection task. Please refer to the <a class="reference internal" href="detection.html"><span class="std std-doc">Detection Task</span></a> for more information.</p>
 <p>Below is an example of a successfully trained agent on the tracking task:</p>
-<figure  class="align-center" style="width: 75%"><div class="align-center"><video autoplay="True" controls="True" loop="True" muted="True" preload="auto"><source src="../_images/trained_agent2.mp4" type="video/mp4"></video></div><figcaption class="align-center"><p style="text-align: left; display:inline-block"><span class="caption-text">This agent has been successfully trained to discern between moving goal and adversarial objects. The above command uses a default set of eye parameters; in this case, 3 eyes, each with a field-of-view of 45°, and a resolution of 20x20 pixels.</span></p></figcaption></figure><p>Below is an example of a privileged agent evaluation on the tracking task:</p>
-<figure  class="align-center" style="width: 75%"><div class="align-center"><video autoplay="True" controls="True" loop="True" muted="True" preload="auto"><source src="../_images/privileged_agent2.mp4" type="video/mp4"></video></div><figcaption class="align-center"><p style="text-align: left; display:inline-block"><span class="caption-text">The privileged policy simply tries to reduce the distance and angle error between itself in the goal. It doesn't use any visual stimuli.</span></p></figcaption></figure></section>
+<figure  class="align-center" style="width: 75%"><div class="align-center"><video autoplay="True" controls="True" loop="True" muted="True" preload="auto" class="example-figure"><source src="../_images/trained_agent2.mp4" type="video/mp4"></video></div><figcaption class="align-center"><p style="text-align: left; display:inline-block"><span class="caption-text">This agent has been successfully trained to discern between moving goal and adversarial objects. The above command uses a default set of eye parameters; in this case, 3 eyes, each with a field-of-view of 45°, and a resolution of 20x20 pixels.</span></p></figcaption></figure><p>Below is an example of a privileged agent evaluation on the tracking task:</p>
+<figure  class="align-center" style="width: 75%"><div class="align-center"><video autoplay="True" controls="True" loop="True" muted="True" preload="auto" class="example-figure"><source src="../_images/privileged_agent2.mp4" type="video/mp4"></video></div><figcaption class="align-center"><p style="text-align: left; display:inline-block"><span class="caption-text">The privileged policy simply tries to reduce the distance and angle error between itself in the goal. It doesn't use any visual stimuli.</span></p></figcaption></figure></section>
 <section id="task-configuration">
 <h2>Task Configuration<a class="headerlink" href="#task-configuration" title="Link to this heading">¶</a></h2>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">configs/task/tracking.yaml</span><a class="headerlink" href="#id2" title="Link to this code">¶</a></div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># @package _global_</span>
+
+<span class="c1"># This task is for tracking of an object. It&#39;s similar to detection, but the object(s)</span>
+<span class="c1"># move.</span>
+
+<span class="nt">defaults</span><span class="p">:</span>
+<span class="w">  </span><span class="c1"># Inherit the config from detection</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">detection</span>
+
+<span class="w">  </span><span class="c1"># Override the goal and adversary, which both move around the map</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">override /env/agents@env.agents.goal0</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">object_sphere_textured_goal</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">point_textured</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">point_seeker_random</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">override /env/agents@env.agents.adversary0</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">object_sphere_textured_adversary</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">point_textured</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">point_seeker_random</span>
+
+<span class="nt">env</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">agents</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">goal0</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">trainable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">      </span><span class="nt">overlay_color</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0.2</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.8</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.2</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">1</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">adversary0</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">trainable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">      </span><span class="nt">overlay_color</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0.8</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.2</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.2</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">1</span><span class="p p-Indicator">]</span>
+</pre></div>
+</div>
+</div>
 </section>
 </section>
 
@@ -434,7 +466,7 @@
       
     </aside>
   </div>
-</div><script src="../_static/documentation_options.js?v=f75f1775"></script>
+</div><script src="../_static/documentation_options.js?v=8900a1f2"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/furo.js?v=5fa4622c"></script>

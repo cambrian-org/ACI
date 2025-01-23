@@ -27,10 +27,24 @@ Module Contents
 
 .. py:class:: MjCambrianApertureConfig
 
-   Bases: :py:obj:`hydra_config.HydraContainerConfig`
+   Bases: :py:obj:`hydra_config.HydraContainerConfig`, :py:obj:`abc.ABC`
 
 
    Base dataclass which provides additional methods for working with configs.
+
+
+   .. py:method:: calculate_aperture_mask(X1_Y1, Lx, Ly)
+      :abstractmethod:
+
+
+      This method calculates the aperture mask.
+
+      :Parameters: * **X1_Y1** (*torch.Tensor*) -- Squared distance from the center of the aperture.
+                   * **Lx** (*float*) -- Width of the aperture.
+                   * **Ly** (*float*) -- Height of the aperture.
+
+      :returns: *torch.Tensor* -- Aperture mask.
+
 
 
 .. py:class:: MjCambrianCircularApertureConfig
@@ -44,6 +58,18 @@ Module Contents
    :ivar radius: Radius of the circular aperture.
 
    :vartype radius: float
+
+
+   .. py:method:: calculate_aperture_mask(X1_Y1, Lx, Ly)
+
+      This method calculates the aperture mask.
+
+      :Parameters: * **X1_Y1** (*torch.Tensor*) -- Squared distance from the center of the aperture.
+                   * **Lx** (*float*) -- Width of the aperture.
+                   * **Ly** (*float*) -- Height of the aperture.
+
+      :returns: *torch.Tensor* -- Aperture mask.
+
 
 
 .. py:class:: MjCambrianMaskApertureConfig
@@ -73,6 +99,18 @@ Module Contents
    :vartype size: Optional[Tuple[int, int]]
 
 
+   .. py:method:: calculate_aperture_mask(X1_Y1, Lx, Ly)
+
+      This method calculates the aperture mask.
+
+      :Parameters: * **X1_Y1** (*torch.Tensor*) -- Squared distance from the center of the aperture.
+                   * **Lx** (*float*) -- Width of the aperture.
+                   * **Ly** (*float*) -- Height of the aperture.
+
+      :returns: *torch.Tensor* -- Aperture mask.
+
+
+
 .. py:class:: MjCambrianOpticsEyeConfig
 
    Bases: :py:obj:`cambrian.eyes.eye.MjCambrianEyeConfig`
@@ -98,8 +136,11 @@ Module Contents
    :ivar height_map: Height map of the lens. This is used to
                      calculate the phase shift of the light passing through the lens. Uses a
                      radially symmetric approximation.
-
    :vartype height_map: List[float]
+   :ivar scale_intensity: Whether to scale the intensity of the PSF by the
+                          overall throughput of the aperture.
+
+   :vartype scale_intensity: bool
    :ivar aperture: Aperture config. This defines the
                    aperture of the lens. The aperture can be circular or custom.
 
@@ -120,7 +161,7 @@ Module Contents
    :Parameters: **config** (*MjCambrianOpticsConfig*) -- Config for the optics module.
 
 
-   .. py:method:: step()
+   .. py:method:: step(obs = None)
 
       Overwrites the default render method to apply the depth invariant PSF to the
       image.

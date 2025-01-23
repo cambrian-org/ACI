@@ -34,12 +34,12 @@ Module Contents
    :ivar instance: The class instance to use
                    when creating the eye. Takes the config and the name of the eye as
                    arguments.
-   :vartype instance: Callable[[Self, str], MjCambrianEye]
-   :ivar eye_instance: The class instance to use
-                       when creating the single eye instances. Takes the config and the name of the
-                       eye as arguments.
 
-   :vartype eye_instance: Callable[[Self, str], MjCambrianEye]
+   :vartype instance: Callable[[Self, str], MjCambrianEye]
+   :ivar single_eye: The config for a single eye. This is used as
+                     the base configuration for all eyes in the multi-eye system.
+
+   :vartype single_eye: MjCambrianEyeConfig
    :ivar lat_range: The x range of the eye. This is
                     used to determine the placement of the eye on the agent. Specified in
                     degrees. This is the latitudinal/vertical range of the evenly placed eye
