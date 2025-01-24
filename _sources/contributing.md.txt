@@ -31,12 +31,12 @@ pip install -e '.[doc,dev]'
 
 [GitHub actions](https://github.com/features/actions) are used to automatically build the site and [GitHub pages](https://pages.github.com/) are used to host the static site. To update deployed content, you have to push to the `main` branch. Once the changes are pushed, the site will rebuild. Please ensure there are no errors in your code/documentation before doing so, as you may get an email from github if something bad happens.
 
-<!-- Further, to update the package available on [PyPI](https://pypi.org/project/ACI/), you must create a [git tag](https://git-scm.com/book/en/v2/Git-Basics-Tagging). When a tag is created and pushed to GitHub, it will start an Action which will automatically push the new release to PyPI. See [Versioning](#versioning) for information on how versioning works with `ACI`. The Github Action only runs when the tag is pushed to main through a merge request. To create a tag, you may do the following: -->
-<!--  -->
-<!-- ```bash -->
-<!-- git tag <tag> # An example tag is v3.0.1 -->
-<!-- git push origin main --tags -->
-<!-- ``` -->
+Further, to update the package available on [PyPI](https://pypi.org/project/cambrian-core/), you must create a [git tag](https://git-scm.com/book/en/v2/Git-Basics-Tagging). When a tag is created and pushed to GitHub, it will start an Action which will automatically push the new release to PyPI. See [Versioning](#versioning) for information on how versioning works with `cambrian`. The Github Action only runs when the tag is pushed to main through a merge request. To create a tag, you may do the following: -->
+
+```bash
+git tag <tag> # An example tag is 3.0.1
+git push origin main --tags
+```
 
 #### Versioning
 

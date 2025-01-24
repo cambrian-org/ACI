@@ -368,12 +368,11 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 <section id="deploy-your-changes">
 <h3>Deploy your Changes<a class="headerlink" href="#deploy-your-changes" title="Link to this heading">¶</a></h3>
 <p><a class="reference external" href="https://github.com/features/actions">GitHub actions</a> are used to automatically build the site and <a class="reference external" href="https://pages.github.com/">GitHub pages</a> are used to host the static site. To update deployed content, you have to push to the <code class="docutils literal notranslate"><span class="pre">main</span></code> branch. Once the changes are pushed, the site will rebuild. Please ensure there are no errors in your code/documentation before doing so, as you may get an email from github if something bad happens.</p>
-<!-- Further, to update the package available on [PyPI](https://pypi.org/project/ACI/), you must create a [git tag](https://git-scm.com/book/en/v2/Git-Basics-Tagging). When a tag is created and pushed to GitHub, it will start an Action which will automatically push the new release to PyPI. See [Versioning](#versioning) for information on how versioning works with `ACI`. The Github Action only runs when the tag is pushed to main through a merge request. To create a tag, you may do the following: -->
-<!--  -->
-<!-- ```bash -->
-<!-- git tag <tag> # An example tag is v3.0.1 -->
-<!-- git push origin main --tags -->
-<!-- ``` -->
+<p>Further, to update the package available on <a class="reference external" href="https://pypi.org/project/cambrian-core/">PyPI</a>, you must create a <a class="reference external" href="https://git-scm.com/book/en/v2/Git-Basics-Tagging">git tag</a>. When a tag is created and pushed to GitHub, it will start an Action which will automatically push the new release to PyPI. See <a class="reference internal" href="#versioning">Versioning</a> for information on how versioning works with <code class="docutils literal notranslate"><span class="pre">cambrian</span></code>. The Github Action only runs when the tag is pushed to main through a merge request. To create a tag, you may do the following: –&gt;</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>tag<span class="w"> </span>&lt;tag&gt;<span class="w"> </span><span class="c1"># An example tag is 3.0.1</span>
+git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>main<span class="w"> </span>--tags
+</pre></div>
+</div>
 <section id="versioning">
 <h4>Versioning<a class="headerlink" href="#versioning" title="Link to this heading">¶</a></h4>
 <p>Versioning is done automatically through <code class="docutils literal notranslate"><span class="pre">tags</span></code> by <a class="reference external" href="https://github.com/pypa/setuptools_scm">setuptools_scm</a>. When a tag is pushed to the <code class="docutils literal notranslate"><span class="pre">main</span></code> branch, a new package is pushed to PyPI with the attached tag. Therefore, you must ensure the tag you push is <em>after</em> the previous tags seen on GitHub (otherwise nothing will push to PyPI).</p>
@@ -533,7 +532,7 @@ make<span class="w"> </span>clean<span class="w"> </span>html
       
     </aside>
   </div>
-</div><script src="_static/documentation_options.js?v=e5b6b36f"></script>
+</div><script src="_static/documentation_options.js?v=77b4747f"></script>
     <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/furo.js?v=5fa4622c"></script>
