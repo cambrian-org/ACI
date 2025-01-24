@@ -16,5 +16,5 @@ contributing
 ```{toctree}
 :caption: External Links
 :hidden:
-Github <https://github.com/camera-culture/ACI>
+Github <https://github.com/cambrian-org/ACI>
 ```

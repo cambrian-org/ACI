@@ -15,7 +15,7 @@ A `conda` or `virtualenv` will add isolation to your python environments and red
 Clone the repo as normal:
 
 ```bash
-git clone https://github.com/camera-culture/ACI.git && cd ACI
+git clone https://github.com/cambrian-org/ACI.git && cd ACI
 ```
 
 ### Installing a Symbolic Linked Version for Testing
