@@ -572,13 +572,14 @@
 <span class="sd">        image (torch.Tensor): The image to add text to.</span>
 <span class="sd">        text (str): The text to add.</span>
 <span class="sd">        position (tuple[int, int]): The position to add the text.</span>
-<span class="sd">        color (tuple[int, int, int], optional): The color of the text. Defaults to (255, 255, 255).</span>
+<span class="sd">        color (tuple[int, int, int], optional): The color of the text.</span>
+<span class="sd">            Defaults to (255, 255, 255).</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        torch.Tensor: The image with the text added.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="kn">from</span><span class="w"> </span><span class="nn">PIL</span><span class="w"> </span><span class="kn">import</span> <span class="n">Image</span><span class="p">,</span> <span class="n">ImageDraw</span><span class="p">,</span> <span class="n">ImageFont</span>
     <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">PIL</span><span class="w"> </span><span class="kn">import</span> <span class="n">Image</span><span class="p">,</span> <span class="n">ImageDraw</span><span class="p">,</span> <span class="n">ImageFont</span>
 
     <span class="n">device</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">device</span>
 
@@ -623,7 +624,7 @@
       
     </aside>
   </div>
-</div><script src="../../../_static/documentation_options.js?v=a804e294"></script>
+</div><script src="../../../_static/documentation_options.js?v=6fe21a07"></script>
     <script src="../../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/scripts/furo.js?v=5fa4622c"></script>

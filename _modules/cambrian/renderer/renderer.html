@@ -659,8 +659,8 @@
 
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">overlays</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="c1"># Do a single mjr_overlay call to initialize underlying 2D rendering</span>
-            <span class="c1"># If we don&#39;t do this, calling mjr_drawPixels without first calling mjr_overlay</span>
-            <span class="c1"># will result in the pixels being drawn behind the 3D scene.</span>
+            <span class="c1"># If we don&#39;t do this, calling mjr_drawPixels without first calling</span>
+            <span class="c1"># mjr_overlay will result in the pixels being drawn behind the 3D scene.</span>
             <span class="n">mj</span><span class="o">.</span><span class="n">mjr_overlay</span><span class="p">(</span>
                 <span class="n">mj</span><span class="o">.</span><span class="n">mjtFont</span><span class="o">.</span><span class="n">mjFONT_NORMAL</span><span class="p">,</span>
                 <span class="n">mj</span><span class="o">.</span><span class="n">mjtGridPos</span><span class="o">.</span><span class="n">mjGRID_BOTTOMLEFT</span><span class="p">,</span>
@@ -669,7 +669,7 @@
                 <span class="s2">&quot;&quot;</span><span class="p">,</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_mjr_context</span><span class="p">,</span>
             <span class="p">)</span>
-        
+
         <span class="k">for</span> <span class="n">overlay</span> <span class="ow">in</span> <span class="n">overlays</span><span class="p">:</span>
             <span class="n">overlay</span><span class="o">.</span><span class="n">draw_before_render</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_scene</span><span class="p">)</span>
 
@@ -1314,7 +1314,7 @@
       
     </aside>
   </div>
-</div><script src="../../../_static/documentation_options.js?v=a804e294"></script>
+</div><script src="../../../_static/documentation_options.js?v=6fe21a07"></script>
     <script src="../../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/scripts/furo.js?v=5fa4622c"></script>

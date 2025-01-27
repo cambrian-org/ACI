@@ -344,8 +344,7 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">hydra_config</span><span class="w"> </span><span class="kn">import</span> <span class="n">HydraContainerConfig</span><span class="p">,</span> <span class="n">config_wrapper</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">cambrian.eyes.eye</span><span class="w"> </span><span class="kn">import</span> <span class="n">MjCambrianEye</span><span class="p">,</span> <span class="n">MjCambrianEyeConfig</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">cambrian.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_odd</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="n">RenderFrame</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">cambrian.renderer.render_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">resize_with_aspect_fill</span><span class="p">,</span> <span class="n">add_text</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">cambrian.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">device</span><span class="p">,</span> <span class="n">make_odd</span>
 
 
 <span class="nd">@config_wrapper</span>
@@ -414,7 +413,7 @@
 <span class="sd">            randomized.</span>
 <span class="sd">        random_prob (Optional[float]): Probability of the aperture mask being 1. If</span>
 <span class="sd">            None, the probability is 0.5. Defaults to None.</span>
-<span class="sd">        size (Optional[Tuple[int, int]]): Size of the aperture mask. If None, the size </span>
+<span class="sd">        size (Optional[Tuple[int, int]]): Size of the aperture mask. If None, the size</span>
 <span class="sd">            is the same as the pupil resolution. Defaults to None.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -757,7 +756,7 @@
       
     </aside>
   </div>
-</div><script src="../../../_static/documentation_options.js?v=a804e294"></script>
+</div><script src="../../../_static/documentation_options.js?v=6fe21a07"></script>
     <script src="../../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/scripts/furo.js?v=5fa4622c"></script>
