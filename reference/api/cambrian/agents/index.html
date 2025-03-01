@@ -14,7 +14,7 @@
     </script>
     <link rel="index" title="Index" href="../../../../genindex.html" /><link rel="search" title="Search" href="../../../../search.html" /><link rel="next" title="cambrian.agents.agent" href="agent/index.html" /><link rel="prev" title="cambrian.envs.step_fns" href="../envs/step_fns/index.html" />
 
-    <link rel="shortcut icon" href="../../../../_static/eye.png"/><!-- Generated with Sphinx 8.1.3 and Furo 2024.08.06 -->
+    <link rel="shortcut icon" href="../../../../_static/eye.png"/><!-- Generated with Sphinx 8.2.1 and Furo 2024.08.06 -->
         <title>cambrian.agents - ACI</title>
       <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=d75fae25" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo.css?v=354aac6f" />
@@ -237,6 +237,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../../examples/navigation.html">Navigation Task</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../examples/tracking.html">Tracking Task</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../examples/optics.html">Optics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../examples/custom.html">Using Custom Configs</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../../usage/index.html">Nuts and Bolts</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Nuts and Bolts</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -381,7 +382,7 @@
 <h2>Package Contents<a class="headerlink" href="#package-contents" title="Link to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="cambrian.agents.MjCambrianAgent">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MjCambrianAgent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/cambrian/agents/agent.html#MjCambrianAgent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cambrian.agents.MjCambrianAgent" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MjCambrianAgent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/cambrian/agents/agent.html#MjCambrianAgent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cambrian.agents.MjCambrianAgent" title="Link to this definition">¶</a></dt>
 <dd><p>The agent class is defined as a physics object with eyes.</p>
 <p>This object serves as an agent in a multi-agent mujoco environment. Therefore,
 it must have a uniquely identifiable name.</p>
@@ -419,7 +420,7 @@ is applied.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cambrian.agents.MjCambrianAgent.get_action_privileged">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_action_privileged</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">env</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/cambrian/agents/agent.html#MjCambrianAgent.get_action_privileged"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cambrian.agents.MjCambrianAgent.get_action_privileged" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">abstractmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_action_privileged</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">env</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/cambrian/agents/agent.html#MjCambrianAgent.get_action_privileged"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cambrian.agents.MjCambrianAgent.get_action_privileged" title="Link to this definition">¶</a></dt>
 <dd><p>This is a deviation from the standard gym API. This method is similar to
 step, but it has “privileged” access to information such as the environment.
 This method can be overridden by agents which are not trainable and need to
@@ -451,14 +452,12 @@ positions during the simulation.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="cambrian.agents.MjCambrianAgent.render">
 <span class="sig-name descname"><span class="pre">render</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/cambrian/agents/agent.html#MjCambrianAgent.render"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cambrian.agents.MjCambrianAgent.render" title="Link to this definition">¶</a></dt>
-<dd><p>Renders the eyes and returns the debug image.</p>
-<p>We don’t know where the eyes are placed, so for simplicity, we’ll just return
-the first eye’s render.</p>
+<dd><p>Creates a list of overlays to render for the agent within the viewer.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="cambrian.agents.MjCambrianAgent.has_contacts">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">has_contacts</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#cambrian.agents.MjCambrianAgent.has_contacts" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">has_contacts</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#cambrian.agents.MjCambrianAgent.has_contacts" title="Link to this definition">¶</a></dt>
 <dd><p>Returns whether or not the agent has contacts.</p>
 <p>Walks through all the contacts in the environment and checks if any of them
 involve this agent.</p>
@@ -466,7 +465,7 @@ involve this agent.</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="cambrian.agents.MjCambrianAgent.observation_space">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">observation_space</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">gymnasium.spaces.Space</span></em><a class="headerlink" href="#cambrian.agents.MjCambrianAgent.observation_space" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">observation_space</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">gymnasium.spaces.Space</span></em><a class="headerlink" href="#cambrian.agents.MjCambrianAgent.observation_space" title="Link to this definition">¶</a></dt>
 <dd><p>The observation space is defined on an agent basis. the <cite>env</cite> should combine
 the observation spaces such that it’s supported by stable_baselines3/pettingzoo.</p>
 <dl class="simple">
@@ -481,13 +480,13 @@ the observation spaces such that it’s supported by stable_baselines3/pettingzo
 
 <dl class="py property">
 <dt class="sig sig-object py" id="cambrian.agents.MjCambrianAgent.action_space">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">action_space</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">gymnasium.spaces.Space</span></em><a class="headerlink" href="#cambrian.agents.MjCambrianAgent.action_space" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">action_space</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">gymnasium.spaces.Space</span></em><a class="headerlink" href="#cambrian.agents.MjCambrianAgent.action_space" title="Link to this definition">¶</a></dt>
 <dd><p>The action space is simply the controllable actuators of the agent.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="cambrian.agents.MjCambrianAgent.qpos">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">qpos</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span></em><a class="headerlink" href="#cambrian.agents.MjCambrianAgent.qpos" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">qpos</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span></em><a class="headerlink" href="#cambrian.agents.MjCambrianAgent.qpos" title="Link to this definition">¶</a></dt>
 <dd><p>Gets the qpos of the agent. The qpos is the state of the joints defined
 in the agent’s xml. This method is used to get the state of the qpos. It’s
 actually a masked array where the entries are masked if the qpos adr is not
@@ -497,7 +496,7 @@ and edited as if it were the full qpos array.</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="cambrian.agents.MjCambrianAgent.pos">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">pos</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span></em><a class="headerlink" href="#cambrian.agents.MjCambrianAgent.pos" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">pos</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span></em><a class="headerlink" href="#cambrian.agents.MjCambrianAgent.pos" title="Link to this definition">¶</a></dt>
 <dd><p>Returns the position of the agent in the environment.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -508,13 +507,13 @@ To set the position of the agent, use the <cite>pos</cite> setter.</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="cambrian.agents.MjCambrianAgent.init_pos">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">init_pos</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#cambrian.agents.MjCambrianAgent.init_pos" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">init_pos</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#cambrian.agents.MjCambrianAgent.init_pos" title="Link to this definition">¶</a></dt>
 <dd><p>Returns the initial position of the agent in the environment.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="cambrian.agents.MjCambrianAgent.quat">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">quat</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span></em><a class="headerlink" href="#cambrian.agents.MjCambrianAgent.quat" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">quat</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span></em><a class="headerlink" href="#cambrian.agents.MjCambrianAgent.quat" title="Link to this definition">¶</a></dt>
 <dd><p><cite>wxyz</cite>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -530,13 +529,13 @@ To set the quaternion of the agent, use the <cite>quat</cite> setter.</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="cambrian.agents.MjCambrianAgent.trainable">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">trainable</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#cambrian.agents.MjCambrianAgent.trainable" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">trainable</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#cambrian.agents.MjCambrianAgent.trainable" title="Link to this definition">¶</a></dt>
 <dd><p>Returns whether the agent is trainable or not.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="cambrian.agents.MjCambrianAgent.num_eyes">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">num_eyes</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#cambrian.agents.MjCambrianAgent.num_eyes" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">num_eyes</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#cambrian.agents.MjCambrianAgent.num_eyes" title="Link to this definition">¶</a></dt>
 <dd><p>Returns the number of eyes on the agent.</p>
 </dd></dl>
 
@@ -544,7 +543,7 @@ To set the quaternion of the agent, use the <cite>quat</cite> setter.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="cambrian.agents.MjCambrianAgent2D">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MjCambrianAgent2D</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/cambrian/agents/agent.html#MjCambrianAgent2D"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cambrian.agents.MjCambrianAgent2D" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MjCambrianAgent2D</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/cambrian/agents/agent.html#MjCambrianAgent2D"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cambrian.agents.MjCambrianAgent2D" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cambrian.agents.MjCambrianAgent" title="cambrian.agents.MjCambrianAgent"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MjCambrianAgent</span></code></a></p>
 <p>Assumes the agent is moving on 2D plane and has a yaw hinge joint which is used
 to adjust orientation of the agent.</p>
@@ -552,7 +551,7 @@ to adjust orientation of the agent.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="cambrian.agents.MjCambrianAgentConfig">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MjCambrianAgentConfig</span></span><a class="reference internal" href="../../../../_modules/cambrian/agents/agent.html#MjCambrianAgentConfig"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cambrian.agents.MjCambrianAgentConfig" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MjCambrianAgentConfig</span></span><a class="reference internal" href="../../../../_modules/cambrian/agents/agent.html#MjCambrianAgentConfig"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cambrian.agents.MjCambrianAgentConfig" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://aaronyoung5.github.io/hydra-config/reference/api/hydra_config/index.html#hydra_config.HydraContainerConfig" title="(in hydra-config)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">hydra_config.HydraContainerConfig</span></code></a></p>
 <p>Defines the config for an agent. Used for type hinting.</p>
 <dl class="field-list simple">
@@ -610,7 +609,7 @@ be placed on the agent at the specified coordinates.</p></li>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="cambrian.agents.MjCambrianAgentObject">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MjCambrianAgentObject</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/cambrian/agents/object.html#MjCambrianAgentObject"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cambrian.agents.MjCambrianAgentObject" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MjCambrianAgentObject</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/cambrian/agents/object.html#MjCambrianAgentObject"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cambrian.agents.MjCambrianAgentObject" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="agent/index.html#cambrian.agents.agent.MjCambrianAgent2D" title="cambrian.agents.agent.MjCambrianAgent2D"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cambrian.agents.agent.MjCambrianAgent2D</span></code></a></p>
 <p>This is a class which defines an object agent. An object agent is
 essentially a non-trainable agent. It’s simply an object in the environment which
@@ -637,7 +636,7 @@ used to get information about the environment.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="cambrian.agents.MjCambrianAgentPoint">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MjCambrianAgentPoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.75</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/cambrian/agents/point.html#MjCambrianAgentPoint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cambrian.agents.MjCambrianAgentPoint" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MjCambrianAgentPoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">kp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.75</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/cambrian/agents/point.html#MjCambrianAgentPoint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cambrian.agents.MjCambrianAgentPoint" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="agent/index.html#cambrian.agents.agent.MjCambrianAgent2D" title="cambrian.agents.agent.MjCambrianAgent2D"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cambrian.agents.agent.MjCambrianAgent2D</span></code></a></p>
 <p>This is a hardcoded class which implements the agent as actuated by a forward
 velocity and a rotational position. In mujoco, to the best of my knowledge, all
@@ -663,7 +662,7 @@ which is not ideal.</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="cambrian.agents.MjCambrianAgentPoint.action_space">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">action_space</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">gymnasium.spaces.Space</span></em><a class="headerlink" href="#cambrian.agents.MjCambrianAgentPoint.action_space" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">action_space</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">gymnasium.spaces.Space</span></em><a class="headerlink" href="#cambrian.agents.MjCambrianAgentPoint.action_space" title="Link to this definition">¶</a></dt>
 <dd><p>Overrides the base implementation to only have two elements.</p>
 </dd></dl>
 
@@ -773,7 +772,7 @@ which is not ideal.</p>
       
     </aside>
   </div>
-</div><script src="../../../../_static/documentation_options.js?v=ad3cf7c1"></script>
+</div><script src="../../../../_static/documentation_options.js?v=1fef2893"></script>
     <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/scripts/furo.js?v=5fa4622c"></script>

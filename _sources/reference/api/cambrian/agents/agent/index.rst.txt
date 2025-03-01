@@ -167,10 +167,7 @@ Module Contents
 
    .. py:method:: render()
 
-      Renders the eyes and returns the debug image.
-
-      We don't know where the eyes are placed, so for simplicity, we'll just return
-      the first eye's render.
+      Creates a list of overlays to render for the agent within the viewer.
 
 
 

@@ -14,7 +14,7 @@
     </script>
     <link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" />
 
-    <link rel="shortcut icon" href="../../../_static/eye.png"/><!-- Generated with Sphinx 8.1.3 and Furo 2024.08.06 -->
+    <link rel="shortcut icon" href="../../../_static/eye.png"/><!-- Generated with Sphinx 8.2.1 and Furo 2024.08.06 -->
         <title>cambrian - ACI</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=d75fae25" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?v=354aac6f" />
@@ -237,6 +237,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../examples/navigation.html">Navigation Task</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../examples/tracking.html">Tracking Task</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../examples/optics.html">Optics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../examples/custom.html">Using Custom Configs</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../usage/index.html">Nuts and Bolts</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Nuts and Bolts</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -392,7 +393,7 @@
 <h2>Package Contents<a class="headerlink" href="#package-contents" title="Link to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="cambrian.MjCambrianConfig">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MjCambrianConfig</span></span><a class="reference internal" href="../../../_modules/cambrian/config.html#MjCambrianConfig"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cambrian.MjCambrianConfig" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MjCambrianConfig</span></span><a class="reference internal" href="../../../_modules/cambrian/config.html#MjCambrianConfig"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cambrian.MjCambrianConfig" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://aaronyoung5.github.io/hydra-config/reference/api/hydra_config/index.html#hydra_config.HydraContainerConfig" title="(in hydra-config)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">hydra_config.HydraContainerConfig</span></code></a></p>
 <p>The base config for the mujoco cambrian environment. Used for type hinting.</p>
 <dl class="field-list simple">
@@ -421,7 +422,7 @@ values. This is used to ensure that each process has a unique seed.</p></li>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="cambrian.MjCambrianTrainer">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MjCambrianTrainer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/cambrian/ml/trainer.html#MjCambrianTrainer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cambrian.MjCambrianTrainer" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MjCambrianTrainer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/cambrian/ml/trainer.html#MjCambrianTrainer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cambrian.MjCambrianTrainer" title="Link to this definition">¶</a></dt>
 <dd><p>This is the trainer class for running training and evaluation.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -513,7 +514,7 @@ values. This is used to ensure that each process has a unique seed.</p></li>
       
     </aside>
   </div>
-</div><script src="../../../_static/documentation_options.js?v=ad3cf7c1"></script>
+</div><script src="../../../_static/documentation_options.js?v=1fef2893"></script>
     <script src="../../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/scripts/furo.js?v=5fa4622c"></script>

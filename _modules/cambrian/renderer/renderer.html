@@ -13,7 +13,7 @@
     </script>
     <link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" />
 
-    <link rel="shortcut icon" href="../../../_static/eye.png"/><!-- Generated with Sphinx 8.1.3 and Furo 2024.08.06 -->
+    <link rel="shortcut icon" href="../../../_static/eye.png"/><!-- Generated with Sphinx 8.2.1 and Furo 2024.08.06 -->
         <title>cambrian.renderer.renderer - ACI</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=d75fae25" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?v=354aac6f" />
@@ -236,6 +236,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../examples/navigation.html">Navigation Task</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../examples/tracking.html">Tracking Task</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../examples/optics.html">Optics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../examples/custom.html">Using Custom Configs</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../usage/index.html">Nuts and Bolts</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Nuts and Bolts</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -342,7 +343,7 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">copy</span><span class="w"> </span><span class="kn">import</span> <span class="n">deepcopy</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">enum</span><span class="w"> </span><span class="kn">import</span> <span class="n">Flag</span><span class="p">,</span> <span class="n">auto</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Type</span><span class="p">,</span> <span class="n">TYPE_CHECKING</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">TYPE_CHECKING</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Type</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">glfw</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">imageio</span>
@@ -662,6 +663,20 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">make_context_current</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_viewport</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_viewport</span><span class="o">.</span><span class="n">height</span><span class="p">)</span>
 
+        <span class="c1"># Reorder the overlays based on their layer type</span>
+        <span class="n">overlays</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">overlays</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">overlay</span><span class="p">:</span> <span class="n">overlay</span><span class="o">.</span><span class="n">layer</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_draw_before_render</span><span class="p">(</span><span class="n">overlays</span><span class="p">)</span>
+
+        <span class="n">mj</span><span class="o">.</span><span class="n">mjr_render</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_viewport</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_scene</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mjr_context</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_draw_after_render</span><span class="p">(</span><span class="n">overlays</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_draw_before_render</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">overlays</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">MjCambrianViewerOverlay</span><span class="p">]):</span>
+        <span class="k">for</span> <span class="n">overlay</span> <span class="ow">in</span> <span class="n">overlays</span><span class="p">:</span>
+            <span class="n">overlay</span><span class="o">.</span><span class="n">draw_before_render</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_scene</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_draw_after_render</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">overlays</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">MjCambrianViewerOverlay</span><span class="p">]):</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">overlays</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="c1"># Do a single mjr_overlay call to initialize underlying 2D rendering</span>
             <span class="c1"># If we don&#39;t do this, calling mjr_drawPixels without first calling</span>
@@ -674,11 +689,6 @@
                 <span class="s2">&quot;&quot;</span><span class="p">,</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_mjr_context</span><span class="p">,</span>
             <span class="p">)</span>
-
-        <span class="k">for</span> <span class="n">overlay</span> <span class="ow">in</span> <span class="n">overlays</span><span class="p">:</span>
-            <span class="n">overlay</span><span class="o">.</span><span class="n">draw_before_render</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_scene</span><span class="p">)</span>
-
-        <span class="n">mj</span><span class="o">.</span><span class="n">mjr_render</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_viewport</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_scene</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mjr_context</span><span class="p">)</span>
 
         <span class="k">for</span> <span class="n">overlay</span> <span class="ow">in</span> <span class="n">overlays</span><span class="p">:</span>
             <span class="n">overlay</span><span class="o">.</span><span class="n">draw_after_render</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_mjr_context</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_viewport</span><span class="p">)</span>
@@ -1107,7 +1117,7 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_record</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_rgb_buffer</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_usd_exporter</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="s1">&#39;mujoco.usd.exporter.USDExporter&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_usd_exporter</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="s2">&quot;mujoco.usd.exporter.USDExporter&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_should_render</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="nb">any</span><span class="p">(</span>
             <span class="n">m</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">render_modes</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;rgb_array&quot;</span><span class="p">,</span> <span class="s2">&quot;depth_array&quot;</span><span class="p">]</span>
         <span class="p">)</span>
@@ -1328,7 +1338,7 @@
       
     </aside>
   </div>
-</div><script src="../../../_static/documentation_options.js?v=ad3cf7c1"></script>
+</div><script src="../../../_static/documentation_options.js?v=1fef2893"></script>
     <script src="../../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/scripts/furo.js?v=5fa4622c"></script>

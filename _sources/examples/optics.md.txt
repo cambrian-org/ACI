@@ -62,7 +62,7 @@ python tools/optics/optics_sweep.py
 :loop:
 :autoplay:
 :muted:
-:caption: In this example, we sweep various aperture radii to demonstrate the relative bluring for different aperture size values. The radius is essentially a percentage that the aperture is open; a value of 0.1 corresponds to a 10% open aperture and 1.0 corresponds to a fully open aperture.
+:caption: In this example, we sweep various aperture radii to demonstrate the relative blurring for different aperture size values. The radius is essentially a percentage that the aperture is open; a value of 0.1 corresponds to a 10% open aperture and 1.0 corresponds to a fully open aperture.
 ```
 
 The script source used to generate this video is shown below:

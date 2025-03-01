@@ -14,7 +14,7 @@
     </script>
     <link rel="index" title="Index" href="../../../../../genindex.html" /><link rel="search" title="Search" href="../../../../../search.html" /><link rel="next" title="cambrian.ml.trainer" href="../trainer/index.html" /><link rel="prev" title="cambrian.ml.fitness_fns" href="../fitness_fns/index.html" />
 
-    <link rel="shortcut icon" href="../../../../../_static/eye.png"/><!-- Generated with Sphinx 8.1.3 and Furo 2024.08.06 -->
+    <link rel="shortcut icon" href="../../../../../_static/eye.png"/><!-- Generated with Sphinx 8.2.1 and Furo 2024.08.06 -->
         <title>cambrian.ml.model - ACI</title>
       <link rel="stylesheet" type="text/css" href="../../../../../_static/pygments.css?v=d75fae25" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/styles/furo.css?v=354aac6f" />
@@ -237,6 +237,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../../../examples/navigation.html">Navigation Task</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../../examples/tracking.html">Tracking Task</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../../examples/optics.html">Optics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../../examples/custom.html">Using Custom Configs</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../../../usage/index.html">Nuts and Bolts</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Nuts and Bolts</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -364,7 +365,7 @@ having to train the agent each time.</p>
 <h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="cambrian.ml.model.MjCambrianModel">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MjCambrianModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/cambrian/ml/model.html#MjCambrianModel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cambrian.ml.model.MjCambrianModel" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MjCambrianModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/cambrian/ml/model.html#MjCambrianModel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cambrian.ml.model.MjCambrianModel" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">stable_baselines3.PPO</span></code></p>
 <p>Proximal Policy Optimization algorithm (PPO) (clip version)</p>
 <p>Paper: <a class="reference external" href="https://arxiv.org/abs/1707.06347">https://arxiv.org/abs/1707.06347</a>
@@ -484,7 +485,7 @@ rollout.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cambrian.ml.model.MjCambrianModel.load_weights">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">load_weights</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">weights</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/cambrian/ml/model.html#MjCambrianModel.load_weights"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cambrian.ml.model.MjCambrianModel.load_weights" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">load_weights</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">weights</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/cambrian/ml/model.html#MjCambrianModel.load_weights"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cambrian.ml.model.MjCambrianModel.load_weights" title="Link to this definition">¶</a></dt>
 <dd><p>Load the weights for the policy. This is useful for testing the
 evolutionary loop without having to train the agent each time.</p>
 </dd></dl>
@@ -596,7 +597,7 @@ where the hidden states of the RNN must be reset.</p></li>
       
     </aside>
   </div>
-</div><script src="../../../../../_static/documentation_options.js?v=ad3cf7c1"></script>
+</div><script src="../../../../../_static/documentation_options.js?v=1fef2893"></script>
     <script src="../../../../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../../_static/scripts/furo.js?v=5fa4622c"></script>

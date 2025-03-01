@@ -14,7 +14,6 @@ Classes
 
 .. autoapisummary::
 
-   cambrian.renderer.overlays.MjCambrianCursor
    cambrian.renderer.overlays.MjCambrianViewerOverlay
    cambrian.renderer.overlays.MjCambrianTextViewerOverlay
    cambrian.renderer.overlays.MjCambrianImageViewerOverlay
@@ -23,11 +22,6 @@ Classes
 
 Module Contents
 ---------------
-
-.. py:class:: MjCambrianCursor
-
-   This class is used to define a cursor for the overlay.
-
 
 .. py:class:: MjCambrianViewerOverlay(obj, cursor = None)
 
@@ -51,6 +45,39 @@ Module Contents
 
 
 
+   .. py:method:: place(cursor)
+
+      Places the cursor at the given location. Won't overwrite the current cursor,
+      if it exists.
+
+      :Parameters: **cursor** -- The cursor to place.
+
+
+
+   .. py:method:: create_text_overlay(text, *, cursor = None)
+      :staticmethod:
+
+
+      Creates a text overlay.
+
+
+
+   .. py:method:: create_image_overlay(obj, *, cursor = None)
+      :staticmethod:
+
+
+      Creates an image overlay.
+
+
+
+   .. py:method:: create_site_overlay(pos, rgba, size, geom_kwargs = dict(emission=0.25))
+      :staticmethod:
+
+
+      Creates a site overlay.
+
+
+
 .. py:class:: MjCambrianTextViewerOverlay(obj, cursor = None)
 
    Bases: :py:obj:`MjCambrianViewerOverlay`
@@ -65,6 +92,15 @@ Module Contents
 
 
 
+   .. py:method:: place(cursor)
+
+      Places the cursor at the given location. Won't overwrite the current cursor,
+      if it exists.
+
+      :Parameters: **cursor** -- The cursor to place.
+
+
+
 .. py:class:: MjCambrianImageViewerOverlay(obj, cursor = None)
 
    Bases: :py:obj:`MjCambrianViewerOverlay`
@@ -76,6 +112,15 @@ Module Contents
    .. py:method:: draw_after_render(mjr_context, viewport)
 
       Called after rendering the scene.
+
+
+
+   .. py:method:: place(cursor)
+
+      Places the cursor at the given location. Won't overwrite the current cursor,
+      if it exists.
+
+      :Parameters: **cursor** -- The cursor to place.
 
 
 
