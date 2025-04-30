@@ -1,0 +1,15 @@
+defaults:
+  - point
+
+name: Predator
+
+use_privileged_action: true
+
+overlay_color: [1, 0, 0, 1]
+
+instance:
+  _target_: cambrian.agents.predator.MjCambrianAgentPredator
+  _partial_: true
+  speed: -0.75
+  # The default target is the next agent in the list
+  prey: ${eval:'next((a for a in ${oc.dict.keys:env.agents} if a != "${parent:instance}"), None)'}
