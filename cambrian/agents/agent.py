@@ -84,6 +84,9 @@ class MjCambrianAgentConfig(HydraContainerConfig):
 
     instance: Callable[[Self, str, int], "MjCambrianAgent"]
 
+    # The name of the agent, optional.
+    name: str = "Agent"
+
     trainable: bool
     use_privileged_action: bool
     overlay_color: Tuple[float, float, float, float]

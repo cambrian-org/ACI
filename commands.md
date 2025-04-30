@@ -1,0 +1,1 @@
+python cambrian/main.py --eval example=detection env.renderer.render_modes='[human]' env.frame_skip=5

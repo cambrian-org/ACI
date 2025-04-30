@@ -1,6 +1,9 @@
 """This is the main entrypoint for the ``cambrian`` package. It's used to run the
 training and evaluation loops."""
 
+import os
+os.environ["MUJOCO_GL"] = "glfw"
+
 import argparse
 
 from hydra_config import run_hydra
