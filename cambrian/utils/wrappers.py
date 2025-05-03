@@ -105,7 +105,7 @@ class MjCambrianPettingZooEnvWrapper(gym.Wrapper):
         for agent_name, agent_obs in obs.items():
             if isinstance(agent_obs, dict):
                 for key, value in agent_obs.items():
-                    flattened_obs[f"{agent_name}_{key}"] = value
+                    flattened_obs[f"{agent_name}_{key}_!"] = value
             else:
                 flattened_obs[agent_name] = agent_obs
 
@@ -148,6 +148,7 @@ class MjCambrianPettingZooEnvWrapper(gym.Wrapper):
         name."""
         observation_space: Dict[str, gym.Space] = {}
         for agent in self.env.agents.values():
+            print("pettingzoo agent:", agent.name)
             agent_observation_space = agent.observation_space
             if isinstance(agent_observation_space, gym.spaces.Dict):
                 for key, value in agent_observation_space.spaces.items():

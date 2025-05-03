@@ -271,6 +271,7 @@ class MjCambrianAgent:
         """Place the eyes on the agent."""
         for name, eye_config in self._config.eyes.items():
             self._eyes[name] = eye_config.instance(eye_config, f"{self._name}_{name}")
+        # print(self._eyes.values())
 
     def generate_xml(self) -> MjCambrianXML:
         """Generates the xml for the agent. Will generate the xml from the model file

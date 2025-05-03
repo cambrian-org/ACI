@@ -34,7 +34,7 @@ class MjCambrianAgentPredator(MjCambrianAgentPoint):
         distance = np.linalg.norm(target_vector)
 
         if distance < self._capture_threshold:
-            get_logger().info(f"{self.name} captured {self._prey}!")
+            # get_logger().info(f"{self.name} captured {self._prey}!")
             return [0.0, 0.0]  
 
         target_theta = np.arctan2(target_vector[1], target_vector[0])

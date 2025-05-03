@@ -221,6 +221,7 @@ class MjCambrianEnv(ParallelEnv, Env):
         # Then, reset the agents
         obs: Dict[str, Dict[str, Any]] = {}
         for name, agent in self._agents.items():
+            print(f"Resetting agent: {name}")
             obs[name] = agent.reset(self._spec)
 
         # Recompile the model/data
@@ -257,6 +258,8 @@ class MjCambrianEnv(ParallelEnv, Env):
             self._rollout.setdefault("positions", [])
             self._rollout["positions"].append([a.qpos for a in self._agents.values()])
 
+        print("obs: ", obs.keys())
+
         return self._config.step_fn(self, obs, info)
 
     def step(
@@ -281,11 +284,12 @@ class MjCambrianEnv(ParallelEnv, Env):
         info = self._info
 
         # First, apply the actions to the agents and step the simulation
+        # print(self.observation_spaces)
         for name, agent in self._agents.items():
-            if name in action:
-                print(f"Agent action pair: {name}:{action[name]}")
-            else:
-                print("Action for ", name, "not found in action dict. Available actions:", action.keys())
+            # if name in action:
+            #     print(f"Agent action pair: {name}:{action[name]}")
+            # else:
+            #     print("Action for ", name, "not found in action dict. Available actions:", action.keys())
             if not agent.trainable or agent.config.use_privileged_action:
                 if not agent.trainable and name in action:
                     get_logger().warning(
@@ -567,9 +571,10 @@ class MjCambrianEnv(ParallelEnv, Env):
         observation_spaces: Dict[str, spaces.Space] = {}
         for name, agent in self._agents.items():
             if agent.trainable:
+                # print("name, agent.observation_space: ", name, agent.observation_space)
                 observation_spaces[name] = agent.observation_space
 
-        print(f"Observation spaces: {observation_spaces}")
+        # print(f"#################Observation spaces: {observation_spaces}")
         return spaces.Dict(observation_spaces)
 
     @property
@@ -686,7 +691,7 @@ if __name__ == "__main__":
         env.spec.save(config.expdir / "env.xml")
 
         action = {name: [-1.0, -0.0] for name, a in env.agents.items() if a.trainable}
-        print("Action in run_renderer: ", action)
+        # print("Action in run_renderer: ", action)
         env.step(action.copy())
 
         if "human" in config.env.renderer.render_modes:

@@ -35,7 +35,7 @@ class MjCambrianAgentPrey(MjCambrianAgentPoint):
         distance = np.linalg.norm(escape_vector)
 
         if distance > self._safe_distance:
-            get_logger().info(f"{self.name} is safe from {self._predator}.")
+            # get_logger().info(f"{self.name} is safe from {self._predator}.")
             return [0.0, 0.0]
 
         escape_theta = np.arctan2(escape_vector[1], escape_vector[0])
