@@ -1,0 +1,2 @@
+_target_: cambrian.utils.wrappers.MjCambrianMultiAgentEnvWrapper
+_partial_: true

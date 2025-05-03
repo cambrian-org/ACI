@@ -6,9 +6,15 @@ defaults:
 
 env:
   agents:
-    agent:
+    agent_predator:
       eyes:
         eye:
           resolution: [20, 20]
-          num_eyes: [1, 3]
+          num_eyes: [2, 1]
+          lon_range: [-30, 30]
+    agent_prey:
+      eyes:
+        eye:
+          resolution: [20, 20]
+          num_eyes: [2, 1]
           lon_range: [-30, 30]

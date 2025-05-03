@@ -82,7 +82,145 @@ class MjCambrianSingleAgentEnvWrapper(gym.Wrapper):
             truncated = truncated[self._agent.name]
 
         return obs, reward, terminated, truncated, info
+    
+class MjCambrianMultiAgentEnvWrapper(gym.Wrapper):
+    """Wrapper around the MjCambrianEnv that acts as if there is a single agent, where
+    in actuality, there's multi-agents.
 
+    SB3 doesn't support Dict action spaces, so this wrapper will flatten the action
+    into a single space. The observation can be a dict; however, nested dicts are not
+    allowed.
+    """
+
+    def __init__(self, env: MjCambrianEnv):
+        super().__init__(env)
+        self.env: MjCambrianEnv
+
+    def reset(self, *args, **kwargs) -> Tuple[ObsType, InfoType]:
+        obs, info = self.env.reset(*args, **kwargs)
+
+        # Flatten the observations
+        flattened_obs: Dict[str, Any] = {}
+        for agent_name, agent_obs in obs.items():
+            if isinstance(agent_obs, dict):
+                for key, value in agent_obs.items():
+                    flattened_obs[f"{agent_name}_{key}_!"] = value
+            else:
+                flattened_obs[agent_name] = agent_obs
+
+        return flattened_obs, info
+
+    def step(
+        self, action: ActionType
+    ) -> Tuple[ObsType, RewardType, TerminatedType, TruncatedType, InfoType]:
+        print("step function called&&&&&&&&&&&&&&&&&&&&&&&&&")
+        # Convert the action back to a dict
+        action = action.reshape(-1, len(self.env.agents))
+        action = {
+            agent_name: action[:, i:i+2]
+            for i, agent_name in enumerate(self.env.agents.keys())
+            if self.env.agents[agent_name].config.trainable and agent_name.startswith("agent_")
+        }
+
+        obs, reward, terminated, truncated, info = self.env.step(action)
+
+        # Accumulate the rewards, terminated, and truncated
+        reward = sum(reward.values())
+        terminated = any(terminated.values())
+        truncated = any(truncated.values())
+
+        # Flatten the observations
+        flattened_obs: Dict[str, Any] = {}
+        for agent_name, agent_obs in obs.items():
+            if isinstance(agent_obs, dict):
+                for key, value in agent_obs.items():
+                    flattened_obs[f"{agent_name}_{key}"] = value
+            else:
+                flattened_obs[agent_name] = agent_obs
+
+        return flattened_obs, reward, terminated, truncated, info
+
+    @property
+    def observation_space(self) -> gym.spaces.Dict:
+        """SB3 doesn't support nested Dict observation spaces, so we'll flatten it.
+        If each agent has a Dict observation space, we'll flatten it into a single
+        observation where the key in the dict is the agent name and the original space
+        name."""
+        observation_space: Dict[str, gym.Space] = {}
+        for agent in self.env.agents.values():
+            print("pettingzoo agent:", agent.name)
+            agent_observation_space = agent.observation_space
+            if isinstance(agent_observation_space, gym.spaces.Dict):
+                for key, value in agent_observation_space.spaces.items():
+                    observation_space[f"{agent.name}_{key}"] = value
+            else:
+                observation_space[agent.name] = agent_observation_space
+        return gym.spaces.Dict(observation_space)
+
+    @property
+    def action_space(self) -> gym.spaces.Box:
+        """The only gym.Space that SB3 supports that's continuous for the action space
+        is a Box. We can assume each agent's action space is a Box, so we'll flatten
+        each action space into one Box for the environment.
+
+        Assumptions:
+            - All agents have the same number of actions
+            - All actions have the same shape
+            - All actions are continuous
+            - All actions are normalized between -1 and 1
+        """
+
+        # Get the first agent's action space
+        first_agent_name = next(iter(self.env.agents.keys()))
+        first_agent_action_space = self.env.agents[first_agent_name].action_space
+
+        # Check if the action space is continuous
+        assert isinstance(first_agent_action_space, gym.spaces.Box), (
+            "SB3 only supports continuous action spaces for the environment. "
+            f"agent {first_agent_name} has a {type(first_agent_action_space)}"
+            " action space."
+        )
+
+        # Get the shape of the action space
+        shape = first_agent_action_space.shape
+        low = first_agent_action_space.low
+        high = first_agent_action_space.high
+
+        # Check if all agents have the same number of actions
+        for agent_name, agent_action_space in self.env.action_spaces.items():
+            assert shape == agent_action_space.shape, (
+                "All agents must have the same number of actions. "
+                f"agent {first_agent_name} has {shape} actions, but {agent_name} "
+                f"has {agent_action_space.shape} actions."
+            )
+
+            # Check if the action space is continuous
+            assert isinstance(agent_action_space, gym.spaces.Box), (
+                "SB3 only supports continuous action spaces for the environment. "
+                f"agent {first_agent_name} has a "
+                f"{type(first_agent_action_space)} action space."
+            )
+
+            assert all(low == agent_action_space.low), (
+                "All actions must have the same low value. "
+                f"agent {first_agent_name} has a low value of {low}, "
+                f"but {agent_name} has a low value of {agent_action_space.low}."
+            )
+
+            assert all(high == agent_action_space.high), (
+                "All actions must have the same high value. "
+                f"agent {first_agent_name} has a high value of {high}, "
+                f"but {agent_name} has a high value of {agent_action_space.high}."
+            )
+
+        len = np.sum(key.startswith("agent_") for key in self.env.agents.keys())
+
+        low = np.tile(low, len)
+        high = np.tile(high, len)
+        shape = (shape[0] * len,)
+        return gym.spaces.Box(
+            low=low, high=high, shape=shape, dtype=first_agent_action_space.dtype
+        )
 
 class MjCambrianPettingZooEnvWrapper(gym.Wrapper):
     """Wrapper around the MjCambrianEnv that acts as if there is a single agent, where
@@ -343,8 +481,15 @@ def make_wrapped_env(
     def _init():
         env = config.instance(config, **kwargs)
         for wrapper in wrappers:
+            print(f"Wrapping {env} with {wrapper}")
             env = wrapper(env)
+            # if isinstance(wrapper, MjCambrianMultiAgentEnvWrapper):
+            #     print("cambrian_env.agents.keys: ", env.agents.keys())
         # check_env will call reset and set the seed to 0; call set_random_seed after
+        print(f"Checking env {env}")
+        print("observation space:", env.observation_space)
+        print("action space:", env.action_space)
+        # print("cambrian_env.agents.keys: ", env.agents.keys())
         check_env(env, warn=False)
         env.unwrapped.set_random_seed(seed)
         return env

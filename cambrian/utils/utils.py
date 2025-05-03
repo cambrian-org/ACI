@@ -73,6 +73,7 @@ def evaluate_policy(
 
     print("cambrian_env.observation_spaces: ", cambrian_env.observation_spaces)
     print("cambrian_env.action_spaces: ", cambrian_env.action_spaces)
+    print("cambrian_env.agents.keys: ", cambrian_env.agents.keys())
 
     run = 0
     obs = env.reset()
@@ -81,9 +82,12 @@ def evaluate_policy(
     while run < 1:
         # get number of parameters
         action, _ = model.predict(obs, deterministic=True)
-        # print("action: ", action)
+        print("action before step: ", action)
+        print("obs before step: ", obs.keys())
+        
         # print("obs: ", obs.keys())
         obs, _, done, _ = env.step(action)
+        print("obs after step: ", obs.keys())
 
         if done:
             get_logger().info(

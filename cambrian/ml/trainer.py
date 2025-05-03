@@ -140,6 +140,8 @@ class MjCambrianTrainer:
 
         eval_env = self._make_env(self._config.eval_env, 1, monitor="eval_monitor.csv")
         print("#########made envs#########")
+        cambrian_env: MjCambrianEnv = eval_env.envs[0].unwrapped
+        print("$$$$$$$$$cambrian_env.observation_space:", cambrian_env.observation_space)
         model = self._make_model(eval_env)
         print("#########made model#########")
         if load_if_exists and (self._config.expdir / "best_model.zip").exists():
