@@ -83,6 +83,32 @@ class MjCambrianSingleAgentEnvWrapper(gym.Wrapper):
 
         return obs, reward, terminated, truncated, info
     
+class MjCambrianAECEnvWrapper(gym.Wrapper):
+    def __init__(self, env):
+        self.env = env
+        self.agents = env.agents
+        self.agent_id = 0
+        self.agent_selector = self.agents[self.agent_id]
+    def reset(self, *, seed = None, options = None):
+        obs = self.env.reset(seed=seed, options=options)[self.agent_selector]
+        obs['agent'] = self.encoder(self.agent_selector)
+        return obs
+    def step(self, action):
+        actions = []
+        for agent in self.agents:
+            if(agent != self.agent_selector):
+                actions.append(np.zeros(actions))
+            else:
+                action.append(action)
+        obs = self.env.step(action)[self.agent_selector]
+        obs['agent'] = self.encoder(self.agent_selector)
+
+        self.agent_id = (self.agent_id +1) % len(self.agents)
+        self.agent_selector = self.agents[self.agent_id]
+
+        return obs   
+    
+    
 class MjCambrianMultiAgentEnvWrapper(gym.Wrapper):
     """Wrapper around the MjCambrianEnv that acts as if there is a single agent, where
     in actuality, there's multi-agents.
