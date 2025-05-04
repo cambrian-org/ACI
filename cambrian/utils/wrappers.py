@@ -104,7 +104,7 @@ class MjCambrianMultiAgentEnvWrapper(gym.Wrapper):
         for agent_name, agent_obs in obs.items():
             if isinstance(agent_obs, dict):
                 for key, value in agent_obs.items():
-                    flattened_obs[f"{agent_name}_{key}_!"] = value
+                    flattened_obs[f"{agent_name}_{key}"] = value
             else:
                 flattened_obs[agent_name] = agent_obs
 
