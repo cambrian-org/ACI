@@ -224,7 +224,7 @@ class MjCambrianTrainer:
 
         callbacks = []
         for callback in self._config.trainer.callbacks.values():
-            # TODO: is this a good assumption? is there a better way to do this?
+            # Only call the callback if it's a partial function
             if isinstance(callback, partial):
                 callback = callback(env)
             callbacks.append(callback)

@@ -36,3 +36,9 @@ eval_callback:
 
 progress_bar_callback:
   _target_: cambrian.ml.callbacks.MjCambrianProgressBarCallback
+
+wandb_callback:
+  _target_: cambrian.ml.callbacks.WandbCallback
+  project_name: "cambrian_predator_prey"
+  run_name: ${expname}
+  config: {}
