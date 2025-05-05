@@ -1,0 +1,2 @@
+_target_: cambrian.utils.wrappers.MjCambrianAECEnvWrapper
+_partial_: true

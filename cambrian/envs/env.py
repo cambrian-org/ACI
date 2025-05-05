@@ -286,10 +286,10 @@ class MjCambrianEnv(ParallelEnv, Env):
         # First, apply the actions to the agents and step the simulation
         # print(self.observation_spaces)
         for name, agent in self._agents.items():
-            if name in action:
-                print(f"Agent action pair: {name}:{action[name]}")
-            else:
-                print("Action for ", name, "not found in action dict. Available actions:", action.keys())
+            # if name in action:
+            #     print(f"Agent action pair: {name}:{action[name].shape}")
+            # else:
+            #     print("Action for ", name, "not found in action dict. Available actions:", action.keys())
             if not agent.trainable or agent.config.use_privileged_action:
                 if not agent.trainable and name in action:
                     get_logger().warning(
@@ -311,10 +311,8 @@ class MjCambrianEnv(ParallelEnv, Env):
         obs: Dict[str, Any] = {}
         for name, agent in self._agents.items():
             obs[name] = agent.step()
-        print("1111111obs: ", obs.keys())
         # Call helper methods to update the observations, rewards, terminated, and info
         obs, info = self._config.step_fn(self, obs, info)
-        print("2222222obs: ", obs.keys())
         terminated = self._compute_terminated(info)
         truncated = self._compute_truncated(info)
         reward = self._compute_reward(terminated, truncated, info)

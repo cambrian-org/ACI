@@ -84,43 +84,22 @@ class MjCambrianSingleAgentEnvWrapper(gym.Wrapper):
         return obs, reward, terminated, truncated, info
     
 class MjCambrianAECEnvWrapper(gym.Wrapper):
-    def __init__(self, env):
-        self.env = env
-        self.agents = env.agents
-        self.agent_id = 0
-        self.agent_selector = self.agents[self.agent_id]
-    def reset(self, *, seed = None, options = None):
-        obs = self.env.reset(seed=seed, options=options)[self.agent_selector]
-        obs['agent'] = self.encoder(self.agent_selector)
-        return obs
-    def step(self, action):
-        actions = []
-        for agent in self.agents:
-            if(agent != self.agent_selector):
-                actions.append(np.zeros(actions))
-            else:
-                action.append(action)
-        obs = self.env.step(action)[self.agent_selector]
-        obs['agent'] = self.encoder(self.agent_selector)
-
-        self.agent_id = (self.agent_id +1) % len(self.agents)
-        self.agent_selector = self.agents[self.agent_id]
-
-        return obs   
-    
-    
-class MjCambrianMultiAgentEnvWrapper(gym.Wrapper):
-    """Wrapper around the MjCambrianEnv that acts as if there is a single agent, where
-    in actuality, there's multi-agents.
-
-    SB3 doesn't support Dict action spaces, so this wrapper will flatten the action
-    into a single space. The observation can be a dict; however, nested dicts are not
-    allowed.
-    """
-
     def __init__(self, env: MjCambrianEnv):
         super().__init__(env)
         self.env: MjCambrianEnv
+        self.selected_agent_id = 0
+        self.agents = list(env.agents)
+    
+    def check_agent_selection(self,agent_name):
+        return agent_name == self.agents[self.selected_agent_id]
+    def mask(self, obj ):
+        if isinstance(obj,list) :
+            for i, x in enumerate(obj):
+                obj[i] = x*0
+        else:
+            obj = obj * 0
+
+        return obj
 
     def reset(self, *args, **kwargs) -> Tuple[ObsType, InfoType]:
         obs, info = self.env.reset(*args, **kwargs)
@@ -130,28 +109,27 @@ class MjCambrianMultiAgentEnvWrapper(gym.Wrapper):
         for agent_name, agent_obs in obs.items():
             if isinstance(agent_obs, dict):
                 for key, value in agent_obs.items():
-                    flattened_obs[f"{agent_name}_{key}"] = value
+                    flattened_obs[f"{agent_name}_{key}"] = value if self.check_agent_selection(agent_name) else self.mask(value)
             else:
-                flattened_obs[agent_name] = agent_obs
+                flattened_obs[agent_name] = agent_obs if self.check_agent_selection(agent_name) else self.mask(agent_obs)
 
         return flattened_obs, info
 
     def step(
         self, action: ActionType
     ) -> Tuple[ObsType, RewardType, TerminatedType, TruncatedType, InfoType]:
-        print("step function called&&&&&&&&&&&&&&&&&&&&&&&&&")
         # Convert the action back to a dict
         action = action.reshape(-1, len(self.env.agents))
         action = {
-            agent_name: action[:, i:i+2]
+            agent_name: action[:, i] if self.check_agent_selection(agent_name) else self.mask(action[:, i])
             for i, agent_name in enumerate(self.env.agents.keys())
-            if self.env.agents[agent_name].config.trainable and agent_name.startswith("agent_")
+            if self.env.agents[agent_name].config.trainable
         }
-
         obs, reward, terminated, truncated, info = self.env.step(action)
 
+        self.selected_agent_id  = (self.selected_agent_id + 1 ) % len(self.agents)
         # Accumulate the rewards, terminated, and truncated
-        reward = sum(reward.values())
+        reward = reward[self.agents[self.selected_agent_id]]
         terminated = any(terminated.values())
         truncated = any(truncated.values())
 
@@ -160,10 +138,10 @@ class MjCambrianMultiAgentEnvWrapper(gym.Wrapper):
         for agent_name, agent_obs in obs.items():
             if isinstance(agent_obs, dict):
                 for key, value in agent_obs.items():
-                    flattened_obs[f"{agent_name}_{key}"] = value
+                    flattened_obs[f"{agent_name}_{key}"] = value if self.check_agent_selection(agent_name) else self.mask(value)
             else:
-                flattened_obs[agent_name] = agent_obs
-
+                flattened_obs[agent_name] = agent_obs if self.check_agent_selection(agent_name) else self.mask(agent_obs)
+ 
         return flattened_obs, reward, terminated, truncated, info
 
     @property
@@ -174,7 +152,6 @@ class MjCambrianMultiAgentEnvWrapper(gym.Wrapper):
         name."""
         observation_space: Dict[str, gym.Space] = {}
         for agent in self.env.agents.values():
-            print("pettingzoo agent:", agent.name)
             agent_observation_space = agent.observation_space
             if isinstance(agent_observation_space, gym.spaces.Dict):
                 for key, value in agent_observation_space.spaces.items():
@@ -239,14 +216,13 @@ class MjCambrianMultiAgentEnvWrapper(gym.Wrapper):
                 f"but {agent_name} has a high value of {agent_action_space.high}."
             )
 
-        len = np.sum(key.startswith("agent_") for key in self.env.agents.keys())
-
-        low = np.tile(low, len)
-        high = np.tile(high, len)
-        shape = (shape[0] * len,)
+        low = np.tile(low, len(self.env.agents))
+        high = np.tile(high, len(self.env.agents))
+        shape = (shape[0] * len(self.env.agents),)
         return gym.spaces.Box(
             low=low, high=high, shape=shape, dtype=first_agent_action_space.dtype
         )
+    
 
 class MjCambrianPettingZooEnvWrapper(gym.Wrapper):
     """Wrapper around the MjCambrianEnv that acts as if there is a single agent, where
@@ -269,7 +245,7 @@ class MjCambrianPettingZooEnvWrapper(gym.Wrapper):
         for agent_name, agent_obs in obs.items():
             if isinstance(agent_obs, dict):
                 for key, value in agent_obs.items():
-                    flattened_obs[f"{agent_name}_{key}_!"] = value
+                    flattened_obs[f"{agent_name}_{key}"] = value
             else:
                 flattened_obs[agent_name] = agent_obs
 
@@ -312,7 +288,6 @@ class MjCambrianPettingZooEnvWrapper(gym.Wrapper):
         name."""
         observation_space: Dict[str, gym.Space] = {}
         for agent in self.env.agents.values():
-            print("pettingzoo agent:", agent.name)
             agent_observation_space = agent.observation_space
             if isinstance(agent_observation_space, gym.spaces.Dict):
                 for key, value in agent_observation_space.spaces.items():
