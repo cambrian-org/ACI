@@ -3,7 +3,7 @@ defaults:
 
 name: Predator
 
-use_privileged_action: false
+use_privileged_action: true
 
 overlay_color: [1, 0, 0, 1]
 

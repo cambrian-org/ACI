@@ -106,7 +106,7 @@ eval_env:
 
     penalize_if_has_contacts:
       # large negative reward for contacts
-      reward: -0.0
+      reward: 0.0
 
   truncation_fn:
     truncate_if_close_to_adversary:

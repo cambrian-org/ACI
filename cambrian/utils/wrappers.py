@@ -130,9 +130,9 @@ class MjCambrianAECEnvWrapper(gym.Wrapper):
         self.selected_agent_id  = (self.selected_agent_id + 1 ) % len(self.agents)
         
         # Accumulate the rewards, terminated, and truncated
-        reward = reward[self.agents[self.selected_agent_id]] * (-1)**(self.selected_agent_id)
-        terminated = terminated[self.agents[self.selected_agent_id]]
-        truncated = truncated[self.agents[self.selected_agent_id]]
+        reward = reward[self.agents[self.selected_agent_id]] * self.selected_agent_id
+        terminated = terminated[self.agents[self.selected_agent_id]] and (self.selected_agent_id != 0)
+        truncated = truncated[self.agents[self.selected_agent_id]] and (self.selected_agent_id != 0)
 
         # Flatten the observations
         flattened_obs: Dict[str, Any] = {}
