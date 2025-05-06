@@ -101,7 +101,7 @@ class MjCambrianAECEnvWrapper(gym.Wrapper):
         else:
             obj = obj * 0
         return obj
-    
+
     def iter_agent(self):
         self.selected_agent = next(self.agents)
 
@@ -145,7 +145,7 @@ class MjCambrianAECEnvWrapper(gym.Wrapper):
                     flattened_obs[f"{agent_name}_{key}"] = value if self.check_agent_selection(agent_name) else self.mask(value)
             else:
                 flattened_obs[agent_name] = agent_obs if self.check_agent_selection(agent_name) else self.mask(agent_obs)
-        print(self.selected_agent,flattened_obs)
+
         return flattened_obs, reward, terminated, truncated, info
 
     @property
