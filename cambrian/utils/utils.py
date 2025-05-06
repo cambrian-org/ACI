@@ -81,7 +81,7 @@ def evaluate_policy(
     # print("obs after reset: ", obs.keys())
     while run < num_runs:
         # get number of parameters
-        action, _ = model.predict(obs, deterministic=True)
+        action, _ = model.predict(obs, deterministic=False)
         obs, reward, done, _ = env.step(action)
         if done:
             get_logger().info(

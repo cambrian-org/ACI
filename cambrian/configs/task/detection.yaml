@@ -14,11 +14,13 @@ defaults:
   - maze_task
 
   # Define one point agent with a single eye
+  - /env/agents@env.agents.agent_prey: prey
+  - /env/agents/eyes@env.agents.agent_prey.eyes.eye: multi_eye
+
   - /env/agents@env.agents.agent_predator: predator
   - /env/agents/eyes@env.agents.agent_predator.eyes.eye: multi_eye
 
-  - /env/agents@env.agents.agent_prey: prey
-  - /env/agents/eyes@env.agents.agent_prey.eyes.eye: multi_eye
+
 
   # Define two objects: a goal and an adversary
   # - /env/agents@env.agents.goal0: object_sphere_textured_goal

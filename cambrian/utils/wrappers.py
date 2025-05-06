@@ -7,6 +7,7 @@ import gymnasium as gym
 import numpy as np
 from gymnasium.wrappers.numpy_to_torch import numpy_to_torch, torch_to_numpy
 from stable_baselines3.common.env_checker import check_env
+from itertools import cycle
 
 from cambrian.envs import MjCambrianEnv, MjCambrianEnvConfig
 from cambrian.utils import device, is_integer
@@ -87,24 +88,27 @@ class MjCambrianAECEnvWrapper(gym.Wrapper):
     def __init__(self, env: MjCambrianEnv):
         super().__init__(env)
         self.env: MjCambrianEnv
-        self.selected_agent_id = 0
-        self.agents = list(env.agents)
+        self.agents = cycle(env.agents)
+        self.selected_agent = None
     
     def check_agent_selection(self,agent_name):
-        return agent_name == self.agents[self.selected_agent_id]
+        return agent_name == self.selected_agent
+
     def mask(self, obj ):
         if isinstance(obj,list) :
             for i, x in enumerate(obj):
                 obj[i] = x*0
         else:
             obj = obj * 0
-
         return obj
+    
+    def iter_agent(self):
+        self.selected_agent = next(self.agents)
 
     def reset(self, *args, **kwargs) -> Tuple[ObsType, InfoType]:
         obs, info = self.env.reset(*args, **kwargs)
-
         # Flatten the observations
+        self.iter_agent()
         flattened_obs: Dict[str, Any] = {}
         for agent_name, agent_obs in obs.items():
             if isinstance(agent_obs, dict):
@@ -112,7 +116,6 @@ class MjCambrianAECEnvWrapper(gym.Wrapper):
                     flattened_obs[f"{agent_name}_{key}"] = value if self.check_agent_selection(agent_name) else self.mask(value)
             else:
                 flattened_obs[agent_name] = agent_obs if self.check_agent_selection(agent_name) else self.mask(agent_obs)
-
         return flattened_obs, info
 
     def step(
@@ -127,12 +130,12 @@ class MjCambrianAECEnvWrapper(gym.Wrapper):
         }
         obs, reward, terminated, truncated, info = self.env.step(action)
 
-        self.selected_agent_id  = (self.selected_agent_id + 1 ) % len(self.agents)
-        
+        self.iter_agent()
+
         # Accumulate the rewards, terminated, and truncated
-        reward = reward[self.agents[self.selected_agent_id]] * self.selected_agent_id
-        terminated = terminated[self.agents[self.selected_agent_id]] and (self.selected_agent_id != 0)
-        truncated = truncated[self.agents[self.selected_agent_id]] and (self.selected_agent_id != 0)
+        reward = reward[self.selected_agent] * (1 if self.selected_agent != 'agent_prey' else 0)
+        terminated = terminated[self.selected_agent] and (self.selected_agent != 'agent_prey')
+        truncated = truncated[self.selected_agent] and (self.selected_agent != 'agent_prey')
 
         # Flatten the observations
         flattened_obs: Dict[str, Any] = {}
@@ -142,6 +145,7 @@ class MjCambrianAECEnvWrapper(gym.Wrapper):
                     flattened_obs[f"{agent_name}_{key}"] = value if self.check_agent_selection(agent_name) else self.mask(value)
             else:
                 flattened_obs[agent_name] = agent_obs if self.check_agent_selection(agent_name) else self.mask(agent_obs)
+        print(self.selected_agent,flattened_obs)
         return flattened_obs, reward, terminated, truncated, info
 
     @property
