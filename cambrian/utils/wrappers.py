@@ -128,10 +128,11 @@ class MjCambrianAECEnvWrapper(gym.Wrapper):
         obs, reward, terminated, truncated, info = self.env.step(action)
 
         self.selected_agent_id  = (self.selected_agent_id + 1 ) % len(self.agents)
+        
         # Accumulate the rewards, terminated, and truncated
-        reward = reward[self.agents[self.selected_agent_id]]
-        terminated = any(terminated.values())
-        truncated = any(truncated.values())
+        reward = reward[self.agents[self.selected_agent_id]] * (-1)**(self.selected_agent_id)
+        terminated = terminated[self.agents[self.selected_agent_id]]
+        truncated = truncated[self.agents[self.selected_agent_id]]
 
         # Flatten the observations
         flattened_obs: Dict[str, Any] = {}
@@ -141,7 +142,6 @@ class MjCambrianAECEnvWrapper(gym.Wrapper):
                     flattened_obs[f"{agent_name}_{key}"] = value if self.check_agent_selection(agent_name) else self.mask(value)
             else:
                 flattened_obs[agent_name] = agent_obs if self.check_agent_selection(agent_name) else self.mask(agent_obs)
- 
         return flattened_obs, reward, terminated, truncated, info
 
     @property

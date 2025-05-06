@@ -3,7 +3,7 @@ defaults:
 
 name: Prey
 
-use_privileged_action: true
+use_privileged_action: false
 
 overlay_color: [0, 1, 0, 1]
 

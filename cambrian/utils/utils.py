@@ -79,16 +79,10 @@ def evaluate_policy(
     obs = env.reset()
     get_logger().info(f"Starting {num_runs} evaluation run(s)...")
     # print("obs after reset: ", obs.keys())
-    while run < 1:
+    while run < num_runs:
         # get number of parameters
         action, _ = model.predict(obs, deterministic=True)
-        # print("action before step: ", action)
-        # print("obs before step: ", obs.keys())
-        
-        # print("obs: ", obs.keys())
-        obs, _, done, _ = env.step(action)
-        # print("obs after step: ", obs.keys())
-
+        obs, reward, done, _ = env.step(action)
         if done:
             get_logger().info(
                 f"Run {run} done. "

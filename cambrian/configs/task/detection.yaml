@@ -42,8 +42,8 @@ env:
     reward_if_done:
       _target_: cambrian.envs.reward_fns.reward_fn_done
       _partial_: true
-      scale_by_quickness: true
-      termination_reward: 1.0
+      scale_by_quickness: false
+      termination_reward: 10.0
       truncation_reward: ${eval:'-${.termination_reward}'}
       disable_on_max_episode_steps: true
       for_agents: ${glob:agent*,${oc.dict.keys:env.agents}}
@@ -51,16 +51,19 @@ env:
     penalize_if_has_contacts:
       _target_: cambrian.envs.reward_fns.reward_fn_has_contacts
       _partial_: true
-      reward: -1.0
+      reward: 0.0
+      for_agents: ${glob:agent*,${oc.dict.keys:env.agents}}
+
+    penalize_time:
+      _target_: cambrian.envs.reward_fns.reward_fn_constant
+      _partial_: true
+      reward: -0.5
       for_agents: ${glob:agent*,${oc.dict.keys:env.agents}}
 
   truncation_fn:
     truncate_if_close_to_adversary:
-      _target_: cambrian.envs.done_fns.done_if_close_to_agents
+      _target_: cambrian.envs.done_fns.done_if_exceeds_max_episode_steps
       _partial_: true
-      for_agents: ${glob:agent*,${oc.dict.keys:env.agents}}
-      to_agents: ${glob:adversary*,${oc.dict.keys:env.agents}}
-      distance_threshold: 1.0
 
   termination_fn:
     terminate_if_close_to_goal:
@@ -71,44 +74,49 @@ env:
       distance_threshold: 1.0
 
 eval_env:
-  step_fn:
+  # step_fn:
     # respawn the goal or adversary if the agent is close to it
     # this subsequently means that agents which avoid the adversary more often are
     # far more likely to be selected for (i.e. they are better agents)
-    respawn_objects_if_agent_close:
-      _target_: cambrian.envs.step_fns.step_respawn_agents_if_close_to_agents
-      _partial_: true
-      for_agents: ${glob:goal*|adversary*,${oc.dict.keys:env.agents}}
-      to_agents: ${glob:agent*,${oc.dict.keys:env.agents}}
-      distance_threshold: 1.0
+    # respawn_objects_if_agent_close:
+    #   _target_: cambrian.envs.step_fns.step_respawn_agents_if_close_to_agents
+    #   _partial_: true
+    #   for_agents: ${glob:goal*|adversary*,${oc.dict.keys:env.agents}}
+    #   to_agents: ${glob:agent*,${oc.dict.keys:env.agents}}
+    #   distance_threshold: 1.0
 
   reward_fn:
-    reward_if_goal_respawned:
-      _target_: cambrian.envs.reward_fns.reward_fn_agent_respawned
-      _partial_: true
-      # large positive reward for respawning the goal (which happens if the agent is
-      # close to it)
-      reward: 10.0
-      for_agents: ${glob:goal*,${oc.dict.keys:env.agents}}
-      scale_by_quickness: true
+    # reward_if_goal_respawned:
+    #   _target_: cambrian.envs.reward_fns.reward_fn_agent_respawned
+    #   _partial_: true
+    #   # large positive reward for respawning the goal (which happens if the agent is
+    #   # close to it)
+    #   reward: 10.0
+    #   for_agents: ${glob:goal*,${oc.dict.keys:env.agents}}
+    #   scale_by_quickness: true
 
-    penalize_if_adversary_respawned:
-      _target_: cambrian.envs.reward_fns.reward_fn_agent_respawned
-      _partial_: true
-      # large negative reward for respawning the adversary (which happens if the agent
-      # is close to it)
-      reward: -20.0
-      for_agents: ${glob:adversary*,${oc.dict.keys:env.agents}}
-      scale_by_quickness: true
+    # penalize_if_adversary_respawned:
+    #   _target_: cambrian.envs.reward_fns.reward_fn_agent_respawned
+    #   _partial_: true
+    #   # large negative reward for respawning the adversary (which happens if the agent
+    #   # is close to it)
+    #   reward: -20.0
+    #   for_agents: ${glob:adversary*,${oc.dict.keys:env.agents}}
+    #   scale_by_quickness: true
 
     penalize_if_has_contacts:
       # large negative reward for contacts
-      reward: -2.0
+      reward: -0.0
 
   truncation_fn:
     truncate_if_close_to_adversary:
-      disable: True
+      _target_: cambrian.envs.done_fns.done_if_exceeds_max_episode_steps
+      _partial_: true
 
   termination_fn:
     terminate_if_close_to_goal:
-      disable: True
+      _target_: cambrian.envs.done_fns.done_if_close_to_agents
+      _partial_: true
+      for_agents: ${glob:agent*,${oc.dict.keys:env.agents}}
+      to_agents: ${glob:agent*,${oc.dict.keys:env.agents}}
+      distance_threshold: 1.0
