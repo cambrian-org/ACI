@@ -90,17 +90,25 @@ class MjCambrianAECEnvWrapper(gym.Wrapper):
         self.env: MjCambrianEnv
         self.agents = cycle(env.agents)
         self.selected_agent = None
+        self.prev_action = np.array([[-1,-1],[-1,-1]])
     
     def check_agent_selection(self,agent_name):
         return agent_name == self.selected_agent
 
-    def mask(self, obj ):
+    def obs_mask(self, obj):
         if isinstance(obj,list) :
             for i, x in enumerate(obj):
                 obj[i] = x*0
         else:
             obj = obj * 0
         return obj
+
+    def action_mask(self, action, i , agent_name):
+        if self.check_agent_selection(agent_name):
+            self.prev_action[:,i] = action[:,i].copy()
+            return action[:,i]
+        else:
+            return self.prev_action[:,i]
 
     def iter_agent(self):
         self.selected_agent = next(self.agents)
@@ -113,9 +121,9 @@ class MjCambrianAECEnvWrapper(gym.Wrapper):
         for agent_name, agent_obs in obs.items():
             if isinstance(agent_obs, dict):
                 for key, value in agent_obs.items():
-                    flattened_obs[f"{agent_name}_{key}"] = value if self.check_agent_selection(agent_name) else self.mask(value)
+                    flattened_obs[f"{agent_name}_{key}"] = value if self.check_agent_selection(agent_name) else self.obs_mask(value)
             else:
-                flattened_obs[agent_name] = agent_obs if self.check_agent_selection(agent_name) else self.mask(agent_obs)
+                flattened_obs[agent_name] = agent_obs if self.check_agent_selection(agent_name) else self.obs_mask(agent_obs)
         return flattened_obs, info
 
     def step(
@@ -124,7 +132,7 @@ class MjCambrianAECEnvWrapper(gym.Wrapper):
         # Convert the action back to a dict
         action = action.reshape(-1, len(self.env.agents))
         action = {
-            agent_name: action[:, i] if self.check_agent_selection(agent_name) else self.mask(action[:, i])
+            agent_name: self.action_mask(action,i,agent_name)
             for i, agent_name in enumerate(self.env.agents.keys())
             if self.env.agents[agent_name].config.trainable
         }
@@ -142,9 +150,11 @@ class MjCambrianAECEnvWrapper(gym.Wrapper):
         for agent_name, agent_obs in obs.items():
             if isinstance(agent_obs, dict):
                 for key, value in agent_obs.items():
-                    flattened_obs[f"{agent_name}_{key}"] = value if self.check_agent_selection(agent_name) else self.mask(value)
+                    flattened_obs[f"{agent_name}_{key}"] = value if self.check_agent_selection(agent_name) else self.obs_mask(value)
             else:
-                flattened_obs[agent_name] = agent_obs if self.check_agent_selection(agent_name) else self.mask(agent_obs)
+                flattened_obs[agent_name] = agent_obs if self.check_agent_selection(agent_name) else self.obs_mask(agent_obs)
+        # print(f'############ {self.selected_agent} ############### \n')
+        # print(flattened_obs)
 
         return flattened_obs, reward, terminated, truncated, info
 
