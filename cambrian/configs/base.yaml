@@ -7,6 +7,8 @@ defaults:
 
   - env: env
   - optional evo: null
+  - optional evo/mutations: null
+  - optional evo/constraints: null
   - trainer: trainer
   - hydra: hydra
 

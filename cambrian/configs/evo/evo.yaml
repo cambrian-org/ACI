@@ -4,9 +4,6 @@ defaults:
   # Set the sweeper to nevergrad
   - override /hydra/sweeper: evolution_nevergrad
 
-  - optional mutations: "???"
-  - optional constraints: "???"
-
 # Update the seed based on the current generation and rank such that each agent's is
 # unique
 seed: |

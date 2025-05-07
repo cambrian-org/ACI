@@ -2,7 +2,7 @@
 
 hydra:
   sweeper:
-    params:
+    parametrization:
       trainer.model.policy_kwargs.net_arch.pi:
         init: [1, 1]
         step: 1
