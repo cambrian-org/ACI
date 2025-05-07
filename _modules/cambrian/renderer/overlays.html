@@ -375,16 +375,16 @@
 
     <span class="k">def</span><span class="w"> </span><span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">container_width</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">container_height</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_set_position</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">set_position</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">assert</span> <span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
             <span class="p">),</span> <span class="s2">&quot;Either container width and height or x and y must be provided.&quot;</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">_set_position</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_position</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">position</span> <span class="o">==</span> <span class="n">MjCambrianCursor</span><span class="o">.</span><span class="n">Position</span><span class="o">.</span><span class="n">TOP_LEFT</span><span class="p">:</span>
             <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">margin</span>
-            <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">container_height</span>  <span class="c1"># + self.margin + TEXT_HEIGHT</span>
+            <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">container_height</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">margin</span> <span class="o">-</span> <span class="n">TEXT_HEIGHT</span>
         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">position</span> <span class="o">==</span> <span class="n">MjCambrianCursor</span><span class="o">.</span><span class="n">Position</span><span class="o">.</span><span class="n">TOP_RIGHT</span><span class="p">:</span>
             <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">container_width</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">margin</span>
             <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">container_height</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">margin</span> <span class="o">-</span> <span class="n">TEXT_HEIGHT</span>
@@ -552,7 +552,10 @@
         <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cursor</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_obj_cpu</span><span class="o">.</span><span class="n">copy_</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_obj</span><span class="p">,</span> <span class="n">non_blocking</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="n">viewport</span> <span class="o">=</span> <span class="n">mj</span><span class="o">.</span><span class="n">MjrRect</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_cursor</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cursor</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_obj</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">_obj</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_cursor</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cursor</span><span class="o">.</span><span class="n">margin</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_cursor</span><span class="o">.</span><span class="n">y</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cursor</span><span class="o">.</span><span class="n">margin</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_obj</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_obj</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
         <span class="p">)</span>
         <span class="n">mj</span><span class="o">.</span><span class="n">mjr_drawPixels</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_obj_cpu</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="kc">None</span><span class="p">,</span> <span class="n">viewport</span><span class="p">,</span> <span class="n">mjr_context</span><span class="p">)</span></div>
 
@@ -560,12 +563,14 @@
 <div class="viewcode-block" id="MjCambrianImageViewerOverlay.place">
 <a class="viewcode-back" href="../../../reference/api/cambrian/renderer/overlays/index.html#cambrian.renderer.overlays.MjCambrianImageViewerOverlay.place">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">place</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cursor</span><span class="p">:</span> <span class="n">MjCambrianCursor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MjCambrianCursor</span><span class="p">:</span>
-        <span class="c1"># Just resize the image to fit the container</span>
-        <span class="c1"># We won&#39;t change the cursor, so it will be placed at the same location</span>
+        <span class="c1"># Resize the image to fit the container</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_obj</span> <span class="o">=</span> <span class="n">resize_with_aspect_fill</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_obj</span><span class="p">,</span> <span class="n">cursor</span><span class="o">.</span><span class="n">container_height</span><span class="p">,</span> <span class="n">cursor</span><span class="o">.</span><span class="n">container_width</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_obj_cpu</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_obj</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span>
+
+        <span class="c1"># Adjust the cursor position</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cursor</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">x</span>
 
         <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">place</span><span class="p">(</span><span class="n">cursor</span><span class="p">)</span></div>
 </div>
@@ -647,7 +652,7 @@
       
     </aside>
   </div>
-</div><script src="../../../_static/documentation_options.js?v=8a01cc57"></script>
+</div><script src="../../../_static/documentation_options.js?v=9231739c"></script>
     <script src="../../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/scripts/furo.js?v=5fa4622c"></script>
