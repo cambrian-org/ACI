@@ -44,7 +44,12 @@ class MjCambrianCursor:
                 self.x is not None and self.y is not None
             ), "Either container width and height or x and y must be provided."
 
-    def set_position(self):
+    def set_position(self, x: int | None = Ellipsis, y: int | None = Ellipsis):
+        if x is not Ellipsis:
+            self.x = x
+        if y is not Ellipsis:
+            self.y = y
+
         if self.position == MjCambrianCursor.Position.TOP_LEFT:
             x = self.margin
             y = self.container_height - self.margin - TEXT_HEIGHT

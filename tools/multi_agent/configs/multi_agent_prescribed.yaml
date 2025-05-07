@@ -22,6 +22,8 @@ defaults:
 
   - _self_
 
+expname: multi_agent_prescribed
+
 env:
   agents:
     agent:

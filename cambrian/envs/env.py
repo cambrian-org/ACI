@@ -459,8 +459,9 @@ class MjCambrianEnv(ParallelEnv, Env):
             for overlay in agent_overlays:
                 cursor = overlay.place(cursor)
                 overlays.append(overlay)
-            # Move cursor back to initial height but over by overlay_width
-            cursor.y = overlay_height
+
+            # Reset the cursor
+            cursor.set_position(y=None)
             cursor.x += overlay_width
         return overlays
 

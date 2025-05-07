@@ -19,6 +19,8 @@ defaults:
 
   - _self_
 
+expname: multi_agent
+
 env:
   agents:
     agent:
