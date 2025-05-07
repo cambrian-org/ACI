@@ -9,7 +9,7 @@ defaults:
   - wrappers@wrappers.constant_action_wrapper: constant_action_wrapper
 
 total_timesteps: 500_000
-max_episode_steps: 256
+max_episode_steps: 500
 n_envs: ${eval:'int(${num_cpus:} // 2)'}
 
 prune_fn: null

@@ -84,11 +84,6 @@ def evaluate_policy(
         # action, _ = model.predict(obs, deterministic=False)
         # print('model action',action)
         action = env.action_space.sample()
-        action[3] = 0.7
-        action[2] = -1.0
-        # action[0] = -1.0
-        # action[1] = -1.0
-        # action, _ = env.action_space.sample()
         obs, reward, done, _ = env.step([action])
         if done:
             get_logger().info(

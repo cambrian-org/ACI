@@ -90,7 +90,7 @@ class MjCambrianAECEnvWrapper(gym.Wrapper):
         self.env: MjCambrianEnv
         self.agents = cycle(env.agents)
         self.selected_agent = None
-        self.prev_action = np.array([[-1,-1],[-1,-1]])
+        self.prev_action = np.array([[-1.0,-1.0],[-1.0,-1.0]])
     
     def check_agent_selection(self,agent_name):
         return agent_name == self.selected_agent
@@ -105,9 +105,12 @@ class MjCambrianAECEnvWrapper(gym.Wrapper):
 
     def action_mask(self, action, i , agent_name):
         if self.check_agent_selection(agent_name):
-            self.prev_action[:,i] = action[:,i].copy()
+            # print('action',action)
+            self.prev_action[:,i] = action[:,i]
+            # print('prev action',self.prev_action)
             return action[:,i]
         else:
+            # print(self.prev_action)
             return self.prev_action[:,i]
 
     def iter_agent(self):
@@ -136,6 +139,7 @@ class MjCambrianAECEnvWrapper(gym.Wrapper):
             for i, agent_name in enumerate(self.env.agents.keys())
             if self.env.agents[agent_name].config.trainable
         }
+
         obs, reward, terminated, truncated, info = self.env.step(action)
 
         self.iter_agent()
