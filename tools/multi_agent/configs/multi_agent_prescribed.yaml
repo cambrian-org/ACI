@@ -1,0 +1,49 @@
+# @package _global_
+
+# To run, use:
+# python .../multi_agent.py --config-name multi_agent_prescribed --eval/--train
+
+defaults:
+  - base
+
+  # Define a second point agent with a single eye
+  - /env/agents@env.agents.agent1: point_seeker
+  - /env/agents/eyes@env.agents.agent1.eyes.eye: multi_eye
+
+  # Set each agent to use the prescribed policy
+  - override /env/agents@env.agents.agent: point_seeker
+
+  # We also need to add a petting zoo env wrapper
+  # This enables multi-agent training in stable baselines
+  - override /trainer/wrappers@trainer.wrappers.agent_env_wrapper: petting_zoo_env_wrapper
+
+  # Override the task to be whichever you want.
+  - override /task: detection
+
+  - _self_
+
+env:
+  agents:
+    agent:
+      instance:
+        target: goal0
+
+      eyes:
+        eye:
+          resolution: [20, 20]
+          num_eyes: [1, 3]
+          lon_range: [-30, 30]
+
+    agent1:
+      instance:
+        target: goal0
+
+      eyes:
+        eye:
+          resolution: [20, 20]
+          num_eyes: [1, 3]
+          lon_range: [-30, 30]
+
+hydra:
+  searchpath:
+    - pkg://cambrian/configs

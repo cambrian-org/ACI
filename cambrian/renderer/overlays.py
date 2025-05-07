@@ -38,16 +38,16 @@ class MjCambrianCursor:
 
     def __post_init__(self):
         if self.container_width is not None and self.container_height is not None:
-            self._set_position()
+            self.set_position()
         else:
             assert (
                 self.x is not None and self.y is not None
             ), "Either container width and height or x and y must be provided."
 
-    def _set_position(self):
+    def set_position(self):
         if self.position == MjCambrianCursor.Position.TOP_LEFT:
             x = self.margin
-            y = self.container_height  # + self.margin + TEXT_HEIGHT
+            y = self.container_height - self.margin - TEXT_HEIGHT
         elif self.position == MjCambrianCursor.Position.TOP_RIGHT:
             x = self.container_width - self.margin
             y = self.container_height - self.margin - TEXT_HEIGHT
@@ -181,17 +181,22 @@ class MjCambrianImageViewerOverlay(MjCambrianViewerOverlay):
         assert self._cursor is not None
         self._obj_cpu.copy_(self._obj, non_blocking=True)
         viewport = mj.MjrRect(
-            self._cursor.x, self._cursor.y, self._obj.shape[1], self._obj.shape[0]
+            self._cursor.x - self._cursor.margin,
+            self._cursor.y - self._cursor.margin,
+            self._obj.shape[1],
+            self._obj.shape[0],
         )
         mj.mjr_drawPixels(self._obj_cpu.numpy().ravel(), None, viewport, mjr_context)
 
     def place(self, cursor: MjCambrianCursor) -> MjCambrianCursor:
-        # Just resize the image to fit the container
-        # We won't change the cursor, so it will be placed at the same location
+        # Resize the image to fit the container
         self._obj = resize_with_aspect_fill(
             self._obj, cursor.container_height, cursor.container_width
         )
         self._obj_cpu = self._obj.cpu()
+
+        # Adjust the cursor position
+        self._cursor.x = cursor.x
 
         return super().place(cursor)
 
