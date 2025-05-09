@@ -95,7 +95,12 @@ class MjCambrianTrainer:
         env = self._make_env(self._config.env, self._config.trainer.n_envs)
         eval_env = self._make_env(self._config.eval_env, 1, monitor="eval_monitor.csv")
         callback = self._make_callback(eval_env)
-        model = self._make_model(env)
+
+        agent_models =[]
+        for i, _ in env.agents:
+            agent_models.append(self._make_model(env))
+        env.set_agent_models(agent_models)
+
 
         # Save the eval environments xml
         cambrian_env: MjCambrianEnv = eval_env.envs[0].unwrapped
@@ -105,13 +110,17 @@ class MjCambrianTrainer:
 
         # Start training
         total_timesteps = self._config.trainer.total_timesteps
-        model.learn(total_timesteps=total_timesteps, callback=callback)
-        get_logger().info("Finished training the agent...")
+        iterations = 4
+        for i in range(iterations):
+            for i, _ in env.agents:
+                agent_models[i].learn(total_timesteps=total_timesteps, callback=callback)
+                env.set_agent_models(agent_models)
+                get_logger().info("Finished training the agent...")
 
-        # Save the policy
-        get_logger().info(f"Saving model to {self._config.expdir}...")
-        model.save_policy(self._config.expdir)
-        get_logger().debug(f"Saved model to {self._config.expdir}...")
+                # Save the policy
+                get_logger().info(f"Saving model to {self._config.expdir}...")
+                agent_models[i].save_policy(self._config.expdir)
+                get_logger().debug(f"Saved model to {self._config.expdir}...")
 
         # The finished file indicates to the evo script that the agent is done
         Path(self._config.expdir / "finished").touch()

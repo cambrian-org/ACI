@@ -7,7 +7,7 @@
   <worldbody>
     <body name="${parent:xml}_body" pos="0 0 0.2">
       <!-- Make the alpha very small so it's almost invisible but still visible to mj_ray -->
-      <geom name="${parent:xml}_geom" type="sphere" size="0.2" rgba="0.0 0.0 1.0 0.01"
+      <geom name="${parent:xml}_geom" type="sphere" size="0.2" rgba="0.0 0.0 1.0 1.0"
         contype="1" friction=".5 .1 .1" density="1000" margin="0.002" condim="1" conaffinity="1" group="2" />
       <site name="${parent:xml}_site" pos="0.0 0.0 0.0" material="${parent:xml}_mat"
         size="0.2" />
