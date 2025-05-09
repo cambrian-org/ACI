@@ -89,13 +89,20 @@ class MjCambrianAECEnvWrapper(gym.Wrapper):
         super().__init__(env)
         self.env: MjCambrianEnv
         self.agents = cycle(env.agents)
-        self.selected_agent = None
+        self.selected_agent = None # The agnet to take the current step
+        self.training_agent = None # The agent being trained
         self.prev_action = np.array([[-1.0,-1.0],[-1.0,-1.0]])
         self.agent_models = [] # [predator_model, prey_model]
         self.last_obs = None
 
-    def set_agent_model(self, agent_models):
+    def set_agent_models(self, agent_models):
         self.agent_models = agent_models
+
+    def set_training_agent(self, agent_name):
+        self.training_agent = agent_name
+
+    def is_training_agent(self, agent_name):
+        return self.training_agent==agent_name
     
     def check_agent_selection(self,agent_name):
         return agent_name == self.selected_agent
@@ -117,6 +124,17 @@ class MjCambrianAECEnvWrapper(gym.Wrapper):
         else:
             # print(self.prev_action)
             return self.prev_action[:,i]
+
+    def fill_action(self,action,i,agent_name):
+        # print("agent id: ", i)
+        if not self.is_training_agent(agent_name) and len(self.agent_models) != 0:
+            other_agent_model = self.agent_models[i]
+            other_agent_obs = self.last_obs.copy()
+            other_agent_obs[agent_name] = self.obs_mask(other_agent_obs[agent_name])
+            other_agent_action, _ = other_agent_model.predict(other_agent_obs)
+            return other_agent_action
+        else:
+            return action[:,i]
 
     def iter_agent(self):
         self.selected_agent = next(self.agents)
@@ -140,30 +158,20 @@ class MjCambrianAECEnvWrapper(gym.Wrapper):
     ) -> Tuple[ObsType, RewardType, TerminatedType, TruncatedType, InfoType]:
         # Convert the action back to a dict
         action = action.reshape(-1, len(self.env.agents))
-        # action = {
-        #     agent_name: self.action_mask(action,i,agent_name)
-        #     for i, agent_name in enumerate(self.env.agents.keys())
-        #     if self.env.agents[agent_name].config.trainable
-        # }
-
-        for i, agent_name in enumerate(self.env.agents.keys()):
-            if self.env.agents[agent_name].config.trainable:
-                print("agent id: ", i)
-                if not self.check_agent_selection(agent_name):
-                    other_agent_model = self.agent_models[i]
-                    other_agent_obs = self.last_obs
-                    other_agent_obs["agnet_name"] = 0
-                    other_agent_action, _ = other_agent_model.predict(other_agent_obs)
-                    action[:,i] = other_agent_action
-
+        action = {
+            agent_name: self.fill_action(action,i,agent_name)
+            for i, agent_name in enumerate(self.env.agents.keys())
+            if self.env.agents[agent_name].config.trainable
+        }
+          
         obs, reward, terminated, truncated, info = self.env.step(action)
 
-        self.iter_agent()
-
         # Accumulate the rewards, terminated, and truncated
-        reward = reward[self.selected_agent] * (1 if self.selected_agent != 'agent_prey' else 0)
-        terminated = terminated[self.selected_agent] and (self.selected_agent != 'agent_prey')
-        truncated = truncated[self.selected_agent] and (self.selected_agent != 'agent_prey')
+        reward = reward[self.selected_agent] * (1 if self.check_agent_selection(self.training_agent) else 0)
+        terminated = terminated[self.selected_agent] and self.check_agent_selection(self.training_agent)
+        truncated = truncated[self.selected_agent] and self.check_agent_selection(self.training_agent)
+
+        self.iter_agent()
 
         # Flatten the observations
         flattened_obs: Dict[str, Any] = {}

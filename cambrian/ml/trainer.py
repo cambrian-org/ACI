@@ -96,11 +96,6 @@ class MjCambrianTrainer:
         eval_env = self._make_env(self._config.eval_env, 1, monitor="eval_monitor.csv")
         callback = self._make_callback(eval_env)
 
-        agent_models =[]
-        for i, _ in env.agents:
-            agent_models.append(self._make_model(env))
-        env.set_agent_models(agent_models)
-
 
         # Save the eval environments xml
         cambrian_env: MjCambrianEnv = eval_env.envs[0].unwrapped
@@ -108,13 +103,22 @@ class MjCambrianTrainer:
         with open(self._config.expdir / "compiled_env.xml", "w") as f:
             f.write(cambrian_env.spec.to_xml())
 
+        agent_models =[]
+        print("env: ", cambrian_env)
+        for agent_name, _ in cambrian_env.observation_spaces.items():
+            print("adding model:", agent_name)
+            agent_models.append(self._make_model(env))
+        cambrian_env.set_agent_models(agent_models)
+
         # Start training
         total_timesteps = self._config.trainer.total_timesteps
         iterations = 4
         for i in range(iterations):
-            for i, _ in env.agents:
+            for agent_name, _ in cambrian_env.observation_spaces.items():
+                print("training agent:", agent_name)
+                cambrian_env.set_training_agent(agent_name)
                 agent_models[i].learn(total_timesteps=total_timesteps, callback=callback)
-                env.set_agent_models(agent_models)
+                cambrian_env.set_agent_models(agent_models)
                 get_logger().info("Finished training the agent...")
 
                 # Save the policy
