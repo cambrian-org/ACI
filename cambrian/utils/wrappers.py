@@ -500,14 +500,14 @@ def make_wrapped_env(
     def _init():
         env = config.instance(config, **kwargs)
         for wrapper in wrappers:
-            print(f"Wrapping {env} with {wrapper}")
+            # print(f"Wrapping {env} with {wrapper}")
             env = wrapper(env)
             # if isinstance(wrapper, MjCambrianMultiAgentEnvWrapper):
             #     print("cambrian_env.agents.keys: ", env.agents.keys())
         # check_env will call reset and set the seed to 0; call set_random_seed after
-        print(f"Checking env {env}")
-        print("observation space:", env.observation_space)
-        print("action space:", env.action_space)
+        # print(f"Checking env {env}")
+        # print("observation space:", env.observation_space)
+        # print("action space:", env.action_space)
         # print("cambrian_env.agents.keys: ", env.agents.keys())
         check_env(env, warn=False)
         env.unwrapped.set_random_seed(seed)

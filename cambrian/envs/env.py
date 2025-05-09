@@ -176,7 +176,6 @@ class MjCambrianEnv(ParallelEnv, Env):
     def _create_agents(self):
         """Helper method to create the agents."""
         for name, agent_config in self._config.agents.items():
-            print(f"Creating agent: ", agent_config.name)
             assert name not in self._agents, f"Agent {name} already exists."
             self._agents[name] = agent_config.instance(agent_config, name)
 
@@ -221,7 +220,6 @@ class MjCambrianEnv(ParallelEnv, Env):
         # Then, reset the agents
         obs: Dict[str, Dict[str, Any]] = {}
         for name, agent in self._agents.items():
-            print(f"Resetting agent: {name}")
             obs[name] = agent.reset(self._spec)
 
         # Recompile the model/data
@@ -257,8 +255,6 @@ class MjCambrianEnv(ParallelEnv, Env):
             )
             self._rollout.setdefault("positions", [])
             self._rollout["positions"].append([a.qpos for a in self._agents.values()])
-
-        print("obs: ", obs.keys())
 
         return self._config.step_fn(self, obs, info)
 

@@ -85,6 +85,7 @@ def evaluate_policy(
         # print('model action',action)
         action = env.action_space.sample()
         obs, reward, done, _ = env.step([action])
+        # print(reward)
         if done:
             get_logger().info(
                 f"Run {run} done. "
