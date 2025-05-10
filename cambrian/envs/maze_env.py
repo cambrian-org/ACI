@@ -151,12 +151,12 @@ class MjCambrianMazeEnv(MjCambrianEnv):
 
         super().__init__(config, **kwargs)
 
-    def set_agent_models(self, agent_models):
-        # print("setting agent models: ", agent_models)
-        self._agent_models = agent_models
+    # def set_agent_models(self, agent_models):
+    #     # print("setting agent models: ", agent_models)
+    #     self._agent_models = agent_models
 
-    def set_training_agent(self, agent_name: str):
-        self._training_agent = self.agents[agent_name]
+    # def set_training_agent(self, agent_name: str):
+    #     self._training_agent = self.agents[agent_name]
 
     @property
     def agent_models(self):
@@ -331,77 +331,22 @@ class MjCambrianMaze:
                     gridlayout=".U..LFRB.D..",
                 )
 
-        # Add all walls as a single geom using a mesh
+        # Add the walls. Each wall has it's own geom.
         scale = self._config.scale / 2
         height = self._config.height
-
-        # Create a mesh for all walls
-        wall_vertices = []
-        wall_faces = []
-        vertex_count = 0
-
         for i, (x, y) in enumerate(self._wall_locations):
-            # Create vertices for a box
-            vertices = [
-                [x - scale, y - scale, 0],
-                [x + scale, y - scale, 0],
-                [x + scale, y + scale, 0],
-                [x - scale, y + scale, 0],
-                [x - scale, y - scale, height * scale],
-                [x + scale, y - scale, height * scale],
-                [x + scale, y + scale, height * scale],
-                [x - scale, y + scale, height * scale],
-            ]
-            
-            # Add vertices
-            wall_vertices.extend(vertices)
-            
-            # Add faces (each face is a triangle)
-            # Bottom face
-            wall_faces.extend([
-                [vertex_count, vertex_count + 1, vertex_count + 2],
-                [vertex_count, vertex_count + 2, vertex_count + 3]
-            ])
-            # Top face
-            wall_faces.extend([
-                [vertex_count + 4, vertex_count + 5, vertex_count + 6],
-                [vertex_count + 4, vertex_count + 6, vertex_count + 7]
-            ])
-            # Side faces
-            wall_faces.extend([
-                [vertex_count, vertex_count + 1, vertex_count + 5],
-                [vertex_count, vertex_count + 5, vertex_count + 4],
-                [vertex_count + 1, vertex_count + 2, vertex_count + 6],
-                [vertex_count + 1, vertex_count + 6, vertex_count + 5],
-                [vertex_count + 2, vertex_count + 3, vertex_count + 7],
-                [vertex_count + 2, vertex_count + 7, vertex_count + 6],
-                [vertex_count + 3, vertex_count, vertex_count + 4],
-                [vertex_count + 3, vertex_count + 4, vertex_count + 7]
-            ])
-            
-            vertex_count += 8
-
-        # Add the mesh to assets
-        mesh_name = f"wall_{self._name}_mesh"
-        xml.add(
-            assets,
-            "mesh",
-            name=mesh_name,
-            vertex=" ".join(f"{v[0]} {v[1]} {v[2]}" for v in wall_vertices),
-            face=" ".join(f"{f[0]} {f[1]} {f[2]}" for f in wall_faces)
-        )
-
-        # Add a single geom using the mesh
-        xml.add(
-            worldbody,
-            "geom",
-            name=f"wall_{self._name}",
-            type="mesh",
-            mesh=mesh_name,
-            contype="1",
-            conaffinity="2",
-            **{"class": f"maze_wall_{self._name}"}
-        )
+            name = f"wall_{self._name}_{i}"
+            # Set the contype != conaffinity so walls don't collide with each other
+            xml.add(
+                worldbody,
+                "geom",
+                name=name,
+                pos=f"{x} {y} {scale * height}",
+                size=f"{scale} {scale} {scale * height}",
+                contype="1",
+                conaffinity="2",
+                **{"class": f"maze_wall_{self._name}"},
+            )
 
         # Update floor size based on the map extent
         # Only done if the size is explicitly set to 0 0 0
