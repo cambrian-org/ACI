@@ -117,15 +117,18 @@ class MjCambrianAlternateTrainingEnvWrapper(gym.Wrapper):
         self.observation_space = self._training_agent.observation_space
         
         self.last_obs = None
-        self.agent_models = [] # [predator_model, prey_model]
+        self._agent_models = env.agent_models
+        self.prev_actions = np.array([[-1.0,0.0] for _ in range(len(env.agents))])
 
-    def set_agent_models(self, agent_models):
-        self.agent_models = agent_models
+    # def set_agent_models(self, agent_models):
+    #     print("setting agent models: ", agent_models)
+    #     self.agent_models = agent_models
 
     def set_training_agent(self, agent_name):
         self._training_agent = self.env.agents[agent_name]
 
     def is_training_agent(self, agent_name):
+        print("is_training_agent: ", agent_name, self._training_agent.name)
         return agent_name == self._training_agent.name
 
     def reset(self, *args, **kwargs) -> Tuple[ObsType, InfoType]:
@@ -133,15 +136,18 @@ class MjCambrianAlternateTrainingEnvWrapper(gym.Wrapper):
         return obs[self._training_agent.name], info[self._training_agent.name]
     
     def fill_action(self,i,agent_name, training_agent_action):
-        if len(self.agent_models) == 0:
-            return self.action_space.sample() # random action
+        if len(self._agent_models) == 0:
+            # print("no agent models, returning previous action")
+            return self.prev_actions[i] # previous action
         if self.is_training_agent(agent_name):
+            print("it's the training agent, returning action")
+            self.prev_actions[i] = training_agent_action
             return training_agent_action
         else:
-            other_agent_model = self.agent_models[i]
+            other_agent_model = self._agent_models[i]
             other_agent_obs = self.last_obs.copy()
-            other_agent_obs[agent_name] = self.obs_mask(other_agent_obs[agent_name])
-            other_agent_action, _ = other_agent_model.predict(other_agent_obs)
+            other_agent_action, _ = other_agent_model.predict(other_agent_obs[agent_name])
+            self.prev_actions[i] = other_agent_action
             return other_agent_action
 
     def step(
@@ -155,6 +161,8 @@ class MjCambrianAlternateTrainingEnvWrapper(gym.Wrapper):
             for i, agent_name in enumerate(self.env.agents.keys())
             if self.env.agents[agent_name].config.trainable
         }
+        
+        print("actions: ", actions)
         
         obs, rewards, terminateds, truncateds, infos = self.env.step(actions)
         self.last_obs = obs
@@ -184,11 +192,11 @@ class MjCambrianAECEnvWrapper(gym.Wrapper):
         self.selected_agent = None # The agnet to take the current step
         self.training_agent = None # The agent being trained
         self.prev_action = np.array([[-1.0,-1.0],[-1.0,-1.0]])
-        self.agent_models = [] # [predator_model, prey_model]
+        # self.agent_models = [] # [predator_model, prey_model]
         self.last_obs = None
 
-    def set_agent_models(self, agent_models):
-        self.agent_models = agent_models
+    # def set_agent_models(self, agent_models):
+    #     self.agent_models = agent_models
 
     def set_training_agent(self, agent_name):
         self.training_agent = agent_name
@@ -219,8 +227,8 @@ class MjCambrianAECEnvWrapper(gym.Wrapper):
 
     def fill_action(self,action,i,agent_name):
         # print("agent id: ", i)
-        if not self.is_training_agent(agent_name) and len(self.agent_models) != 0:
-            other_agent_model = self.agent_models[i]
+        if not self.is_training_agent(agent_name) and len(self._agent_models) != 0:
+            other_agent_model = self._agent_models[i]
             other_agent_obs = self.last_obs.copy()
             other_agent_obs[agent_name] = self.obs_mask(other_agent_obs[agent_name])
             other_agent_action, _ = other_agent_model.predict(other_agent_obs)

@@ -10,6 +10,6 @@ defaults:
 
 total_timesteps: 500_000
 max_episode_steps: 500
-n_envs: ${eval:'int(${num_cpus:} // 2)'}
+n_envs: 1
 
 prune_fn: null

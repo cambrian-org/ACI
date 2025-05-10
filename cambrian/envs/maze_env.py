@@ -146,21 +146,17 @@ class MjCambrianMazeEnv(MjCambrianEnv):
         # MjCambrianEnv constructor
         self._maze: MjCambrianMaze = None
         self._maze_store = MjCambrianMazeStore(config.mazes, config.maze_selection_fn)
-        self._agent_models: []
-        self._training_agent: str = None
+        self._agent_models: List[MjCambrianModel] = []
+        self._training_agent: None
 
         super().__init__(config, **kwargs)
 
     def set_agent_models(self, agent_models):
+        # print("setting agent models: ", agent_models)
         self._agent_models = agent_models
 
     def set_training_agent(self, agent_name: str):
-        """Sets which agent is currently being trained.
-        
-        Args:
-            agent_name (str): Name of the agent to train.
-        """
-        self._training_agent = agent_name
+        self._training_agent = self.agents[agent_name]
 
     @property
     def agent_models(self):
