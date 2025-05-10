@@ -84,6 +84,98 @@ class MjCambrianSingleAgentEnvWrapper(gym.Wrapper):
 
         return obs, reward, terminated, truncated, info
     
+class MjCambrianAlternateTrainingEnvWrapper(gym.Wrapper):
+    """Wrapper around the MjCambrianEnv that acts as if there is a single agent.
+
+    Will replace all multi-agent methods to just use the first agent.
+
+    Keyword Args:
+        agent_name: The name of the agent to use. If not provided, the first agent
+            will be used.
+    """
+
+    def __init__(
+        self,
+        env: MjCambrianEnv,
+        *,
+        agent_name: Optional[str] = None,
+        combine_rewards: bool = True,
+        combine_terminated: bool = True,
+        combine_truncated: bool = True,
+    ):
+        super().__init__(env)
+
+        self._combine_rewards = combine_rewards
+        self._combine_terminated = combine_terminated
+        self._combine_truncated = combine_truncated
+
+        agent_name = agent_name or next(iter(env.agents.keys()))
+        assert agent_name in env.agents, f"agent {agent_name} not found."
+        
+        self._training_agent = env.agents[agent_name]
+        self.action_space = self._training_agent.action_space
+        self.observation_space = self._training_agent.observation_space
+        
+        self.last_obs = None
+        self.agent_models = [] # [predator_model, prey_model]
+
+    def set_agent_models(self, agent_models):
+        self.agent_models = agent_models
+
+    def set_training_agent(self, agent_name):
+        self._training_agent = self.env.agents[agent_name]
+
+    def is_training_agent(self, agent_name):
+        return agent_name == self._training_agent.name
+
+    def reset(self, *args, **kwargs) -> Tuple[ObsType, InfoType]:
+        obs, info = self.env.reset(*args, **kwargs)
+        return obs[self._training_agent.name], info[self._training_agent.name]
+    
+    def fill_action(self,i,agent_name, training_agent_action):
+        if len(self.agent_models) == 0:
+            return self.action_space.sample() # random action
+        if self.is_training_agent(agent_name):
+            return training_agent_action
+        else:
+            other_agent_model = self.agent_models[i]
+            other_agent_obs = self.last_obs.copy()
+            other_agent_obs[agent_name] = self.obs_mask(other_agent_obs[agent_name])
+            other_agent_action, _ = other_agent_model.predict(other_agent_obs)
+            return other_agent_action
+
+    def step(
+        self, action: ActionType
+    ) -> Tuple[ObsType, RewardType, TerminatedType, TruncatedType, InfoType]:
+        # action = {self._training_agent.name: action}
+        # fill actions for all the other agents
+        training_agent_action = action
+        actions = {
+            agent_name: self.fill_action(i,agent_name, training_agent_action)
+            for i, agent_name in enumerate(self.env.agents.keys())
+            if self.env.agents[agent_name].config.trainable
+        }
+        
+        obs, rewards, terminateds, truncateds, infos = self.env.step(actions)
+        self.last_obs = obs
+
+        ob = obs[self._training_agent.name]
+        info = infos[self._training_agent.name]
+        
+        reward = rewards[self._training_agent.name]
+
+        if self._combine_terminated:
+            terminated = any(terminateds.values())
+        else:
+            terminated = terminateds[self._training_agent.name]
+
+        if self._combine_truncated:
+            truncated = any(truncateds.values())
+        else:
+            truncated = truncateds[self._training_agent.name]
+
+        return ob, reward, terminated, truncated, info
+    
 class MjCambrianAECEnvWrapper(gym.Wrapper):
     def __init__(self, env: MjCambrianEnv):
         super().__init__(env)

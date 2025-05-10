@@ -3,7 +3,7 @@ defaults:
   - callbacks: callbacks
   - fitness_fn: eval_monitor
 
-  - wrappers@wrappers.agent_env_wrapper: aec_env_wrapper
+  - wrappers@wrappers.agent_env_wrapper: alternate_raining_env_wrapper
   - wrappers@wrappers.torch_to_numpy_wrapper: torch_to_numpy_wrapper
   - wrappers@wrappers.frame_stack_wrapper: frame_stack_wrapper
   - wrappers@wrappers.constant_action_wrapper: constant_action_wrapper

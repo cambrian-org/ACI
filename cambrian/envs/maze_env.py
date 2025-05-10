@@ -146,8 +146,30 @@ class MjCambrianMazeEnv(MjCambrianEnv):
         # MjCambrianEnv constructor
         self._maze: MjCambrianMaze = None
         self._maze_store = MjCambrianMazeStore(config.mazes, config.maze_selection_fn)
+        self._agent_models: []
+        self._training_agent: str = None
 
         super().__init__(config, **kwargs)
+
+    def set_agent_models(self, agent_models):
+        self._agent_models = agent_models
+
+    def set_training_agent(self, agent_name: str):
+        """Sets which agent is currently being trained.
+        
+        Args:
+            agent_name (str): Name of the agent to train.
+        """
+        self._training_agent = agent_name
+
+    @property
+    def agent_models(self):
+        return self._agent_models
+
+    @property
+    def training_agent(self) -> str:
+        """Returns the name of the agent currently being trained."""
+        return self._training_agent
 
     def generate_xml(self) -> MjCambrianXML:
         """Generates the xml for the environment."""
@@ -313,22 +335,77 @@ class MjCambrianMaze:
                     gridlayout=".U..LFRB.D..",
                 )
 
-        # Add the walls. Each wall has it's own geom.
+        # Add all walls as a single geom using a mesh
         scale = self._config.scale / 2
         height = self._config.height
+
+        # Create a mesh for all walls
+        wall_vertices = []
+        wall_faces = []
+        vertex_count = 0
+
         for i, (x, y) in enumerate(self._wall_locations):
-            name = f"wall_{self._name}_{i}"
-            # Set the contype != conaffinity so walls don't collide with each other
-            xml.add(
-                worldbody,
-                "geom",
-                name=name,
-                pos=f"{x} {y} {scale * height}",
-                size=f"{scale} {scale} {scale * height}",
-                contype="1",
-                conaffinity="2",
-                **{"class": f"maze_wall_{self._name}"},
-            )
+            # Create vertices for a box
+            vertices = [
+                [x - scale, y - scale, 0],
+                [x + scale, y - scale, 0],
+                [x + scale, y + scale, 0],
+                [x - scale, y + scale, 0],
+                [x - scale, y - scale, height * scale],
+                [x + scale, y - scale, height * scale],
+                [x + scale, y + scale, height * scale],
+                [x - scale, y + scale, height * scale],
+            ]
+            
+            # Add vertices
+            wall_vertices.extend(vertices)
+            
+            # Add faces (each face is a triangle)
+            # Bottom face
+            wall_faces.extend([
+                [vertex_count, vertex_count + 1, vertex_count + 2],
+                [vertex_count, vertex_count + 2, vertex_count + 3]
+            ])
+            # Top face
+            wall_faces.extend([
+                [vertex_count + 4, vertex_count + 5, vertex_count + 6],
+                [vertex_count + 4, vertex_count + 6, vertex_count + 7]
+            ])
+            # Side faces
+            wall_faces.extend([
+                [vertex_count, vertex_count + 1, vertex_count + 5],
+                [vertex_count, vertex_count + 5, vertex_count + 4],
+                [vertex_count + 1, vertex_count + 2, vertex_count + 6],
+                [vertex_count + 1, vertex_count + 6, vertex_count + 5],
+                [vertex_count + 2, vertex_count + 3, vertex_count + 7],
+                [vertex_count + 2, vertex_count + 7, vertex_count + 6],
+                [vertex_count + 3, vertex_count, vertex_count + 4],
+                [vertex_count + 3, vertex_count + 4, vertex_count + 7]
+            ])
+            
+            vertex_count += 8
+
+        # Add the mesh to assets
+        mesh_name = f"wall_{self._name}_mesh"
+        xml.add(
+            assets,
+            "mesh",
+            name=mesh_name,
+            vertex=" ".join(f"{v[0]} {v[1]} {v[2]}" for v in wall_vertices),
+            face=" ".join(f"{f[0]} {f[1]} {f[2]}" for f in wall_faces)
+        )
+
+        # Add a single geom using the mesh
+        xml.add(
+            worldbody,
+            "geom",
+            name=f"wall_{self._name}",
+            type="mesh",
+            mesh=mesh_name,
+            contype="1",
+            conaffinity="2",
+            **{"class": f"maze_wall_{self._name}"}
+        )
 
         # Update floor size based on the map extent
         # Only done if the size is explicitly set to 0 0 0
@@ -354,27 +431,20 @@ class MjCambrianMaze:
     def _reset_wall_textures(self, spec: MjCambrianSpec):
         """Helper method to reset the wall textures.
 
-        All like-labelled walls will have the same texture. Their textures will be
-        randomly selected from their respective texture lists.
+        All walls will have the same texture since they're now a single geom.
         """
+        # Generate a random texture for all walls
+        texture_id = self._wall_textures[0] if self._wall_textures else "default"
+        texture_name = np.random.choice(list(self._config.wall_texture_map[texture_id]))
+        
+        # Update the wall geom material
+        wall_name = f"wall_{self._name}"
+        geom_id = spec.get_geom_id(wall_name)
+        assert geom_id != -1, f"`{wall_name}` geom not found"
 
-        # First, generate the texture_id -> texture_name mapping
-        texture_map: Dict[str, str] = {}
-        for t in self._wall_textures:
-            if t not in texture_map:
-                texture_map[t] = np.random.choice(
-                    list(self._config.wall_texture_map[t])
-                )
-
-        # Now, update the wall textures
-        for i, t in zip(range(len(self._wall_locations)), self._wall_textures):
-            wall_name = f"wall_{self._name}_{i}"
-            geom_id = spec.get_geom_id(wall_name)
-            assert geom_id != -1, f"`{wall_name}` geom not found"
-
-            # Update the geom material
-            material_name = f"wall_{self._name}_{t}_{texture_map[t]}_mat"
-            spec.geoms[geom_id].material = material_name
+        # Update the geom material
+        material_name = f"wall_{self._name}_{texture_id}_{texture_name}_mat"
+        spec.geoms[geom_id].material = material_name
 
     # ==================
 

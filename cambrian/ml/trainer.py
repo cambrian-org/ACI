@@ -119,7 +119,7 @@ class MjCambrianTrainer:
                 cambrian_env.set_training_agent(agent_name)
                 agent_models[i].learn(total_timesteps=total_timesteps, callback=callback)
                 cambrian_env.set_agent_models(agent_models)
-                get_logger().info("Finished training the agent...")
+                get_logger().info("Finished training the agent: ", agent_name)
 
                 # Save the policy
                 get_logger().info(f"Saving model to {self._config.expdir}...")
