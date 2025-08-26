@@ -14,11 +14,11 @@
     </script>
     <link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Using Custom Configs" href="custom.html" /><link rel="prev" title="Tracking Task" href="tracking.html" />
 
-    <link rel="shortcut icon" href="../_static/eye.png"/><!-- Generated with Sphinx 8.2.3 and Furo 2024.08.06 -->
+    <link rel="shortcut icon" href="../_static/eye.png"/><!-- Generated with Sphinx 7.2.6 and Furo 2024.08.06 -->
         <title>Optics - ACI</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d75fae25" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=354aac6f" />
-    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=eafc0fe6" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=302659d7" />
@@ -347,8 +347,7 @@
 <h2>Imaging Model<a class="headerlink" href="#imaging-model" title="Link to this heading">¶</a></h2>
 <p>Our model consists of a lens described by a phase mask, refractive index, and amplitude modulating (aperture) elements. We model a retina emulated by a discretized pixel at the sensor plane at a focal length distance away from the pupil.</p>
 <figure class="align-center" id="id1">
-<a class="example-figure reference internal image-reference" href="../_images/imaging.png"><img alt="../_images/imaging.png" class="example-figure" src="../_images/imaging.png" style="width: 75%;" />
-</a>
+<a class="example-figure reference internal image-reference" href="../_images/imaging.png"><img alt="../_images/imaging.png" class="example-figure" src="../_images/imaging.png" style="width: 75%;" /></a>
 <figcaption>
 <p><span class="caption-text"><strong>Agent’s imaging model.</strong> Our simulation implements both wave and geometric optics using a OpenGL <strong>(a)</strong> Our scene imaging model shows how a depth dependent blur kernel is derived: light from a point source in the 3D scene propagates through free space, passing through a pupil plane which is composed of (1) an aperture with a variable aperture radius (<span class="math notranslate nohighlight">\(r\)</span>) and (2) a programmable phase mask with height map <span class="math notranslate nohighlight">\(H(x,y)\)</span> and refractive index <span class="math notranslate nohighlight">\(n\)</span>, before forming an image on the sensor plane. (b) The approximated model uses a 2D convolution between the scene, a depth map, and a single blur kernel using the far-field approximation (i.e., the Point Spread Function) for computational efficiency.</span><a class="headerlink" href="#id1" title="Link to this image">¶</a></p>
 </figcaption>
@@ -381,12 +380,12 @@
 </section>
 <section id="using-the-imaging-model">
 <h2>Using the Imaging Model<a class="headerlink" href="#using-the-imaging-model" title="Link to this heading">¶</a></h2>
-<p>You can override the eye configuration to use the optics model either by setting it via the command line or directly in a yaml configuration file. We provide an example of how to create a simple custom app in <a class="extlink-src reference external" href="https://github.com/cambrian-org/ACI/blob/main/tools/optics">tools/optics/</a>.</p>
+<p>You can override the eye configuration to use the optics model either by setting it via the command line or directly in a yaml configuration file. We provide an example of how to create a simple custom app in <a class="reference external" href="https://github.com/cambrian-org/ACI/blob/main/tools/optics">tools/optics/</a>.</p>
 <p>You can run this tool using the following command:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>tools/optics/optics_sweep.py
 </pre></div>
 </div>
-<figure  class="sphinx-contrib-video-container align-center" style="width: 75%"><div class="align-center"><video autoplay="True" controls="True" loop="True" muted="True" preload="auto" class="example-figure"><source src="../_images/circular_aperture_sweep.mp4" type="video/mp4"></video></div><figcaption class="align-center"><p style="text-align: left; display:inline-block"><span class="caption-text">In this example, we sweep various aperture radii to demonstrate the relative blurring for different aperture size values. The radius is essentially a percentage that the aperture is open; a value of 0.1 corresponds to a 10% open aperture and 1.0 corresponds to a fully open aperture.</span></p></figcaption></figure><p>The script source used to generate this video is shown below:</p>
+<video autoplay="True" controls="True" loop="True" muted="True" preload="auto" class="example-figure"><source src="../_images/circular_aperture_sweep.mp4" type="video/mp4"></video><p>The script source used to generate this video is shown below:</p>
 <details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
 <summary class="sd-summary-title sd-card-header">
 <span class="sd-summary-text">Python Script</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
@@ -562,7 +561,7 @@ hydra:
 <span class="w">    </span>env.agents.agent.eyes.eye.single_eye.noise_std<span class="o">=</span><span class="m">0</span>.1
 </pre></div>
 </div>
-<figure  class="sphinx-contrib-video-container align-center" style="width: 75%"><div class="align-center"><video autoplay="True" controls="True" loop="True" muted="True" preload="auto" class="example-figure"><source src="../_images/circular_aperture_sweep_realistic.mp4" type="video/mp4"></video></div><figcaption class="align-center"><p style="text-align: left; display:inline-block"><span class="caption-text">You can see how at very small aperture values, it's almost impossible to make out the scene. Thus, there is a trade-off between light throughput and image sharpness. This is even with artificially increased intensity for sake of visualization (see the example script).</span></p></figcaption></figure></section>
+<video autoplay="True" controls="True" loop="True" muted="True" preload="auto" class="example-figure"><source src="../_images/circular_aperture_sweep_realistic.mp4" type="video/mp4"></video></section>
 <section id="using-a-random-mask">
 <h3>Using a Random Mask<a class="headerlink" href="#using-a-random-mask" title="Link to this heading">¶</a></h3>
 <p>The above examples use a radially symmetric aperture (see <a class="reference internal" href="../reference/api/cambrian/eyes/optics/index.html#cambrian.eyes.optics.MjCambrianCircularApertureConfig" title="cambrian.eyes.optics.MjCambrianCircularApertureConfig"><code class="xref py py-class docutils literal notranslate"><span class="pre">MjCambrianCircularApertureConfig</span></code></a>). However, we can directly specify a mask via the <a class="reference internal" href="../reference/api/cambrian/eyes/optics/index.html#cambrian.eyes.optics.MjCambrianMaskApertureConfig" title="cambrian.eyes.optics.MjCambrianMaskApertureConfig"><code class="xref py py-class docutils literal notranslate"><span class="pre">MjCambrianMaskApertureConfig</span></code></a> class. This mask can be any size up to the rendered image size, and can produce some interesting looking blurring.</p>
@@ -570,7 +569,7 @@ hydra:
 <span class="w">    </span>env/agents/eyes/aperture@env.agents.agent.eyes.eye.single_eye.aperture<span class="o">=</span>random_mask
 </pre></div>
 </div>
-<figure  class="sphinx-contrib-video-container align-center" style="width: 75%"><div class="align-center"><video autoplay="True" controls="True" loop="True" muted="True" preload="auto" class="example-figure"><source src="../_images/mask_aperture_sweep.mp4" type="video/mp4"></video></div><figcaption class="align-center"><p style="text-align: left; display:inline-block"><span class="caption-text">We randomly initialize a new mask 5 times a second as an example. We use a cubic interpolation to calculate the aperture in image space.</span></p></figcaption></figure></section>
+<video autoplay="True" controls="True" loop="True" muted="True" preload="auto" class="example-figure"><source src="../_images/mask_aperture_sweep.mp4" type="video/mp4"></video></section>
 </section>
 <section id="training-an-agent-with-optics">
 <h2>Training an Agent with Optics<a class="headerlink" href="#training-an-agent-with-optics" title="Link to this heading">¶</a></h2>
@@ -581,7 +580,7 @@ hydra:
 <span class="w">    </span>env.agents.agent.eyes.eye.single_eye.aperture.radius<span class="o">=</span><span class="m">0</span>.75
 </pre></div>
 </div>
-<figure  class="sphinx-contrib-video-container align-center" style="width: 75%"><div class="align-center"><video autoplay="True" controls="True" loop="True" muted="True" preload="auto" class="example-figure"><source src="../_images/trained_agent_r0p75.mp4" type="video/mp4"></video></div><figcaption class="align-center"><p style="text-align: left; display:inline-block"><span class="caption-text">Trained with a blurred observation, the agent does learn to navigate to objects but it fails to discern the goal from the adversarial object.</span></p></figcaption></figure></section>
+<video autoplay="True" controls="True" loop="True" muted="True" preload="auto" class="example-figure"><source src="../_images/trained_agent_r0p75.mp4" type="video/mp4"></video></section>
 </section>
 
         </article>
@@ -658,8 +657,8 @@ hydra:
       
     </aside>
   </div>
-</div><script src="../_static/documentation_options.js?v=aa20bfbb"></script>
-    <script src="../_static/doctools.js?v=9bcbadda"></script>
+</div><script src="../_static/documentation_options.js?v=825afb5f"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/furo.js?v=5fa4622c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>

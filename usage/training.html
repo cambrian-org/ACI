@@ -14,11 +14,11 @@
     </script>
     <link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Visualizing the Env" href="visualizing.html" /><link rel="prev" title="Configuring an Experiment" href="configuration.html" />
 
-    <link rel="shortcut icon" href="../_static/eye.png"/><!-- Generated with Sphinx 8.2.3 and Furo 2024.08.06 -->
+    <link rel="shortcut icon" href="../_static/eye.png"/><!-- Generated with Sphinx 7.2.6 and Furo 2024.08.06 -->
         <title>Training an Agent - ACI</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d75fae25" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=354aac6f" />
-    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=eafc0fe6" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=302659d7" />
@@ -346,11 +346,11 @@
 <p><a class="reference external" href="https://hydra.cc/">Hydra</a> is powerful in the sense that it provides different methods for sweeping parameters and launching jobs. Common use cases are doing a grid search over hyperparameters while launching these jobs on a cluster or running locally.</p>
 <section id="running-a-single-training-loop">
 <h2>Running a single training loop<a class="headerlink" href="#running-a-single-training-loop" title="Link to this heading">¶</a></h2>
-<p>To run locally, you can use the <a class="extlink-src reference external" href="https://github.com/cambrian-org/ACI/blob/main/scripts/run.sh">run.sh</a> script. For example, you can run:</p>
+<p>To run locally, you can use the <a class="reference external" href="https://github.com/cambrian-org/ACI/blob/main/scripts/run.sh">run.sh</a> script. For example, you can run:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>bash<span class="w"> </span>scripts/run.sh<span class="w"> </span>cambrian/main.py<span class="w"> </span>--train<span class="w"> </span><span class="nv">exp</span><span class="o">=</span>&lt;EXPERIMENT&gt;
 </pre></div>
 </div>
-<p><a class="extlink-src reference external" href="https://github.com/cambrian-org/ACI/blob/main/scripts/run.sh">run.sh</a> isn’t actually necessary, it just sets some default environment variables and is helpful as it’s the same entrypoint for running on a cluster. You can also run the above command directly with <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">cambrian/main.py</span> <span class="pre">...</span></code>.</p>
+<p><a class="reference external" href="https://github.com/cambrian-org/ACI/blob/main/scripts/run.sh">run.sh</a> isn’t actually necessary, it just sets some default environment variables and is helpful as it’s the same entrypoint for running on a cluster. You can also run the above command directly with <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">cambrian/main.py</span> <span class="pre">...</span></code>.</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>When invoked with bash, <code class="docutils literal notranslate"><span class="pre">run.sh</span></code> script will default to setting <code class="docutils literal notranslate"><span class="pre">MUJOCO_GL=egl</span></code>. Training should always be done with <code class="docutils literal notranslate"><span class="pre">MUJOCO_GL=egl</span></code> cause that runs with a headless implementation of OpenGL and is significantly faster.</p>
@@ -361,7 +361,7 @@
 </div>
 <section id="running-on-a-cluster">
 <h3>Running on a cluster<a class="headerlink" href="#running-on-a-cluster" title="Link to this heading">¶</a></h3>
-<p>We have provided scripts to run on three clusters: <a class="reference external" href="https://supercloud.mit.edu">SuperCloud</a>, <a class="reference external" href="https://mcgovern.mit.edu/tile/openmind-computing-cluster/">OpenMind</a>, and <a class="reference external" href="https://euler-cluster.readthedocs.io/en/latest/">Euler</a>. Coupled with these scripts are the <a class="reference external" href="https://hydra.cc/docs/plugins/submitit_launcher/">Slurm-based launcher configuration</a>, located at <a class="extlink-src reference external" href="https://github.com/cambrian-org/ACI/blob/main/cambrian/configs/hydra/launcher">configs/hydra/launcher/</a>. When running on a cluster, a daemon job will always be launched to monitor the training process; this is a requirement of hydra and will simply block until the training is complete.</p>
+<p>We have provided scripts to run on three clusters: <a class="reference external" href="https://supercloud.mit.edu">SuperCloud</a>, <a class="reference external" href="https://mcgovern.mit.edu/tile/openmind-computing-cluster/">OpenMind</a>, and <a class="reference external" href="https://euler-cluster.readthedocs.io/en/latest/">Euler</a>. Coupled with these scripts are the <a class="reference external" href="https://hydra.cc/docs/plugins/submitit_launcher/">Slurm-based launcher configuration</a>, located at <a class="reference external" href="https://github.com/cambrian-org/ACI/blob/main/cambrian/configs/hydra/launcher">configs/hydra/launcher/</a>. When running on a cluster, a daemon job will always be launched to monitor the training process; this is a requirement of hydra and will simply block until the training is complete.</p>
 <p>To run, you can still use the <code class="docutils literal notranslate"><span class="pre">run.sh</span></code> script, which has some default Slurm configs set.</p>
 <div class="literal-block-wrapper docutils container" id="id2">
 <div class="code-block-caption"><span class="caption-text">run.sh</span><a class="headerlink" href="#id2" title="Link to this code">¶</a></div>
@@ -426,8 +426,8 @@ sbatch<span class="w"> </span>scripts/run.sh<span class="w"> </span>cambrian/mai
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>bash<span class="w"> </span>scripts/run.sh<span class="w"> </span>cambrian/main.py<span class="w"> </span>--train<span class="w"> </span><span class="nv">exp</span><span class="o">=</span>&lt;EXPERIMENT&gt;<span class="w"> </span><span class="nv">evo</span><span class="o">=</span>evo<span class="w"> </span>--multirun
 </pre></div>
 </div>
-<p>The evolution loop utilizes the <a class="reference external" href="https://hydra.cc/docs/plugins/nevergrad_sweeper/"><code class="docutils literal notranslate"><span class="pre">nevergrad</span></code> sweeper</a>, and it’s configs are located at <a class="extlink-src reference external" href="https://github.com/cambrian-org/ACI/blob/main/cambrian/configs/hydra/sweeper">configs/hydra/sweeper/</a>. You can replace <code class="docutils literal notranslate"><span class="pre">bash</span></code> with <code class="docutils literal notranslate"><span class="pre">sbatch</span></code> to run on a cluster.</p>
-<p>In total, you should see <code class="docutils literal notranslate"><span class="pre">min(hydra.sweeper.optim.num_workers,</span> <span class="pre">hydra.launcher.array_parallelism)</span> <span class="pre">+</span> <span class="pre">1</span></code> jobs. The <code class="docutils literal notranslate"><span class="pre">+</span> <span class="pre">1</span></code> is for the daemon job that monitors the training process. See the <a class="extlink-src reference external" href="https://github.com/cambrian-org/ACI/blob/main/cambrian/configs/hydra/sweeper/evolution_nevergrad.yaml">evolution_nevergrad.yaml</a> and <a class="extlink-src reference external" href="https://github.com/cambrian-org/ACI/blob/main/cambrian/configs/hydra/launcher/slurm.yaml">slurm.yaml</a> for more info.</p>
+<p>The evolution loop utilizes the <a class="reference external" href="https://hydra.cc/docs/plugins/nevergrad_sweeper/"><code class="docutils literal notranslate"><span class="pre">nevergrad</span></code> sweeper</a>, and it’s configs are located at <a class="reference external" href="https://github.com/cambrian-org/ACI/blob/main/cambrian/configs/hydra/sweeper">configs/hydra/sweeper/</a>. You can replace <code class="docutils literal notranslate"><span class="pre">bash</span></code> with <code class="docutils literal notranslate"><span class="pre">sbatch</span></code> to run on a cluster.</p>
+<p>In total, you should see <code class="docutils literal notranslate"><span class="pre">min(hydra.sweeper.optim.num_workers,</span> <span class="pre">hydra.launcher.array_parallelism)</span> <span class="pre">+</span> <span class="pre">1</span></code> jobs. The <code class="docutils literal notranslate"><span class="pre">+</span> <span class="pre">1</span></code> is for the daemon job that monitors the training process. See the <a class="reference external" href="https://github.com/cambrian-org/ACI/blob/main/cambrian/configs/hydra/sweeper/evolution_nevergrad.yaml">evolution_nevergrad.yaml</a> and <a class="reference external" href="https://github.com/cambrian-org/ACI/blob/main/cambrian/configs/hydra/launcher/slurm.yaml">slurm.yaml</a> for more info.</p>
 <p>Running on a cluster can aid in parallelizing the training process. And note the
 <code class="docutils literal notranslate"><span class="pre">--multirun</span></code> flag (can also be <code class="docutils literal notranslate"><span class="pre">-m</span></code>) is required to run a sweep.</p>
 <section id="adding-parameters-to-optimize">
@@ -587,8 +587,8 @@ via <code class="docutils literal notranslate"><span class="pre">evo=evo</span><
       
     </aside>
   </div>
-</div><script src="../_static/documentation_options.js?v=aa20bfbb"></script>
-    <script src="../_static/doctools.js?v=9bcbadda"></script>
+</div><script src="../_static/documentation_options.js?v=825afb5f"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/furo.js?v=5fa4622c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>

@@ -14,11 +14,11 @@
     </script>
     <link rel="index" title="Index" href="../../../../../genindex.html" /><link rel="search" title="Search" href="../../../../../search.html" /><link rel="next" title="cambrian.utils.spec" href="../spec/index.html" /><link rel="prev" title="cambrian.utils.cambrian_xml" href="../cambrian_xml/index.html" />
 
-    <link rel="shortcut icon" href="../../../../../_static/eye.png"/><!-- Generated with Sphinx 8.2.3 and Furo 2024.08.06 -->
+    <link rel="shortcut icon" href="../../../../../_static/eye.png"/><!-- Generated with Sphinx 7.2.6 and Furo 2024.08.06 -->
         <title>cambrian.utils.logger - ACI</title>
       <link rel="stylesheet" type="text/css" href="../../../../../_static/pygments.css?v=d75fae25" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/styles/furo.css?v=354aac6f" />
-    <link rel="stylesheet" type="text/css" href="../../../../../_static/graphviz.css?v=4ae1632d" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/graphviz.css?v=eafc0fe6" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/styles/furo-extensions.css?v=302659d7" />
@@ -379,14 +379,14 @@
 <h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="cambrian.utils.logger.MjCambrianFileHandler">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MjCambrianFileHandler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/cambrian/utils/logger.html#MjCambrianFileHandler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cambrian.utils.logger.MjCambrianFileHandler" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MjCambrianFileHandler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/cambrian/utils/logger.html#MjCambrianFileHandler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cambrian.utils.logger.MjCambrianFileHandler" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">logging.FileHandler</span></code></p>
 <p>A file handler which creates the directory if it doesn’t exist.</p>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="cambrian.utils.logger.MjCambrianTqdmStreamHandler">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MjCambrianTqdmStreamHandler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stream</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/cambrian/utils/logger.html#MjCambrianTqdmStreamHandler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cambrian.utils.logger.MjCambrianTqdmStreamHandler" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MjCambrianTqdmStreamHandler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stream</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/cambrian/utils/logger.html#MjCambrianTqdmStreamHandler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cambrian.utils.logger.MjCambrianTqdmStreamHandler" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">logging.StreamHandler</span></code></p>
 <p>A handler that uses tqdm.write to log messages.</p>
 <dl class="py method">
@@ -405,7 +405,7 @@ output to the stream.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="cambrian.utils.logger.MjCambrianLoggerMaxLevelFilter">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MjCambrianLoggerMaxLevelFilter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">max_level</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/cambrian/utils/logger.html#MjCambrianLoggerMaxLevelFilter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cambrian.utils.logger.MjCambrianLoggerMaxLevelFilter" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MjCambrianLoggerMaxLevelFilter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">max_level</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/cambrian/utils/logger.html#MjCambrianLoggerMaxLevelFilter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cambrian.utils.logger.MjCambrianLoggerMaxLevelFilter" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">logging.Filter</span></code></p>
 <p>This filter sets a maximum level.</p>
 <dl class="py method">
@@ -420,7 +420,7 @@ If deemed appropriate, the record may be modified in-place.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="cambrian.utils.logger.MjCambrianOnceFilter">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MjCambrianOnceFilter</span></span><a class="reference internal" href="../../../../../_modules/cambrian/utils/logger.html#MjCambrianOnceFilter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cambrian.utils.logger.MjCambrianOnceFilter" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MjCambrianOnceFilter</span></span><a class="reference internal" href="../../../../../_modules/cambrian/utils/logger.html#MjCambrianOnceFilter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cambrian.utils.logger.MjCambrianOnceFilter" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">logging.Filter</span></code></p>
 <p>This filter allows a message to be logged only once.</p>
 <dl class="py method">
@@ -520,8 +520,8 @@ If deemed appropriate, the record may be modified in-place.</p>
       
     </aside>
   </div>
-</div><script src="../../../../../_static/documentation_options.js?v=aa20bfbb"></script>
-    <script src="../../../../../_static/doctools.js?v=9bcbadda"></script>
+</div><script src="../../../../../_static/documentation_options.js?v=825afb5f"></script>
+    <script src="../../../../../_static/doctools.js?v=888ff710"></script>
     <script src="../../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../../_static/scripts/furo.js?v=5fa4622c"></script>
     <script src="../../../../../_static/clipboard.min.js?v=a7894cd8"></script>

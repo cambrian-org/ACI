@@ -14,11 +14,11 @@
     </script>
     <link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Tracking Task" href="tracking.html" /><link rel="prev" title="Detection Task" href="detection.html" />
 
-    <link rel="shortcut icon" href="../_static/eye.png"/><!-- Generated with Sphinx 8.2.3 and Furo 2024.08.06 -->
+    <link rel="shortcut icon" href="../_static/eye.png"/><!-- Generated with Sphinx 7.2.6 and Furo 2024.08.06 -->
         <title>Navigation Task - ACI</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d75fae25" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=354aac6f" />
-    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=eafc0fe6" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=302659d7" />
@@ -345,8 +345,7 @@
 <h1>Navigation Task<a class="headerlink" href="#navigation-task" title="Link to this heading">¶</a></h1>
 <p>The navigation task is designed to train an agent to orient itself in a map-like environment. The agent is spawned at one end of a map and is tasked to navigate as far as it can get through the corridor-like world to reach the other end.</p>
 <figure class="align-center" id="id1">
-<a class="example-figure reference internal image-reference" href="../_images/screenshot1.png"><img alt="../_images/screenshot1.png" class="example-figure" src="../_images/screenshot1.png" style="width: 75%;" />
-</a>
+<a class="example-figure reference internal image-reference" href="../_images/screenshot1.png"><img alt="../_images/screenshot1.png" class="example-figure" src="../_images/screenshot1.png" style="width: 75%;" /></a>
 <figcaption>
 <p><span class="caption-text"><strong>Screenshot of the navigation task.</strong> The agent is spawned at the right end of the map in two possible locations (with small permutations to remove deterministic behavior). The agent must then navigate to the left while avoiding contact with walls using only visual stimuli.</span><a class="headerlink" href="#id1" title="Link to this image">¶</a></p>
 </figcaption>
@@ -361,8 +360,8 @@
 <h2>Training/Evaluation/Evolving an Agent<a class="headerlink" href="#training-evaluation-evolving-an-agent" title="Link to this heading">¶</a></h2>
 <p>The training, evaluation, and evolution of an agent for the navigation task is identical to the detection task, except the <code class="docutils literal notranslate"><span class="pre">task=navigation</span></code>. Please refer to the <a class="reference internal" href="detection.html"><span class="std std-doc">Detection Task</span></a> for more information. To enable a privileged agent, you should specify the agent as <code class="docutils literal notranslate"><span class="pre">...agent=point_seeker_maze</span></code> instead of <code class="docutils literal notranslate"><span class="pre">...agent=point_seeker</span></code> so that the policy avoids the maze walls.</p>
 <p>Below is an example of a successfully trained agent on the navigation task:</p>
-<figure  class="sphinx-contrib-video-container align-center" style="width: 75%"><div class="align-center"><video autoplay="True" controls="True" loop="True" muted="True" preload="auto" class="example-figure"><source src="../_images/trained_agent1.mp4" type="video/mp4"></video></div><figcaption class="align-center"><p style="text-align: left; display:inline-block"><span class="caption-text">This agent has been successfully trained to navigate from the right side of the map to the left. It uses a default set of eye parameters; in this case, 15 eyes, each with a field-of-view of 10°, and a resolution of 1x1 pixels.</span></p></figcaption></figure><p>Below is an example of a privileged agent evaluation on the navigation task:</p>
-<figure  class="sphinx-contrib-video-container align-center" style="width: 75%"><div class="align-center"><video autoplay="True" controls="True" loop="True" muted="True" preload="auto" class="example-figure"><source src="../_images/privileged_agent1.mp4" type="video/mp4"></video></div><figcaption class="align-center"><p style="text-align: left; display:inline-block"><span class="caption-text">The privileged policy simply tries to reduce the distance between itself and the end of the map. It uses a simple breadth-first search algorithm to select a trajectory through the maze without contacting the walls.</span></p></figcaption></figure></section>
+<video autoplay="True" controls="True" loop="True" muted="True" preload="auto" class="example-figure"><source src="../_images/trained_agent1.mp4" type="video/mp4"></video><p>Below is an example of a privileged agent evaluation on the navigation task:</p>
+<video autoplay="True" controls="True" loop="True" muted="True" preload="auto" class="example-figure"><source src="../_images/privileged_agent1.mp4" type="video/mp4"></video></section>
 <section id="evolving-an-agent">
 <h2>Evolving an Agent<a class="headerlink" href="#evolving-an-agent" title="Link to this heading">¶</a></h2>
 <p>You can also evolve an agent using the following command (similar to the <a class="reference internal" href="detection.html#evolving-an-agent"><span class="std std-ref">Detection Task</span></a>)</p>
@@ -370,7 +369,7 @@
 </pre></div>
 </div>
 <p>The optimized configuration and its trained policy is shown below:</p>
-<figure  class="sphinx-contrib-video-container align-center" style="width: 75%"><div class="align-center"><video autoplay="True" controls="True" loop="True" muted="True" preload="auto" class="example-figure"><source src="../_images/evolved_agent1.mp4" type="video/mp4"></video></div><figcaption class="align-center"><p style="text-align: left; display:inline-block"><span class="caption-text">The optimized policy has 10 eyes, with a longitudinal range of 120° and a resolution of 4x4 pixels.</span></p></figcaption></figure></section>
+<video autoplay="True" controls="True" loop="True" muted="True" preload="auto" class="example-figure"><source src="../_images/evolved_agent1.mp4" type="video/mp4"></video></section>
 <section id="task-configuration">
 <h2>Task Configuration<a class="headerlink" href="#task-configuration" title="Link to this heading">¶</a></h2>
 <div class="literal-block-wrapper docutils container" id="id2">
@@ -544,8 +543,8 @@
       
     </aside>
   </div>
-</div><script src="../_static/documentation_options.js?v=aa20bfbb"></script>
-    <script src="../_static/doctools.js?v=9bcbadda"></script>
+</div><script src="../_static/documentation_options.js?v=825afb5f"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/furo.js?v=5fa4622c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>

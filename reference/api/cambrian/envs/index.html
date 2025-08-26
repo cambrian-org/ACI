@@ -14,11 +14,11 @@
     </script>
     <link rel="index" title="Index" href="../../../../genindex.html" /><link rel="search" title="Search" href="../../../../search.html" /><link rel="next" title="cambrian.envs.done_fns" href="done_fns/index.html" /><link rel="prev" title="API Reference" href="../../../index.html" />
 
-    <link rel="shortcut icon" href="../../../../_static/eye.png"/><!-- Generated with Sphinx 8.2.3 and Furo 2024.08.06 -->
+    <link rel="shortcut icon" href="../../../../_static/eye.png"/><!-- Generated with Sphinx 7.2.6 and Furo 2024.08.06 -->
         <title>cambrian.envs - ACI</title>
       <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=d75fae25" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo.css?v=354aac6f" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css?v=4ae1632d" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css?v=eafc0fe6" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo-extensions.css?v=302659d7" />
@@ -381,7 +381,7 @@
 <h2>Package Contents<a class="headerlink" href="#package-contents" title="Link to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="cambrian.envs.MjCambrianEnv">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MjCambrianEnv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/cambrian/envs/env.html#MjCambrianEnv"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cambrian.envs.MjCambrianEnv" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MjCambrianEnv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/cambrian/envs/env.html#MjCambrianEnv"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cambrian.envs.MjCambrianEnv" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">pettingzoo.ParallelEnv</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">gymnasium.Env</span></code></p>
 <p>A MjCambrianEnv defines a gymnasium environment that’s based off mujoco.</p>
 <p>NOTES:
@@ -410,7 +410,7 @@ to the renderer.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cambrian.envs.MjCambrianEnv.reset">
-<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/cambrian/envs/env.html#MjCambrianEnv.reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cambrian.envs.MjCambrianEnv.reset" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/cambrian/envs/env.html#MjCambrianEnv.reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cambrian.envs.MjCambrianEnv.reset" title="Link to this definition">¶</a></dt>
 <dd><p>Reset the environment.</p>
 <p>Will reset all underlying components (the maze, the agents, etc.). The
 simulation will then be stepped once to ensure that the observations are
@@ -461,92 +461,92 @@ Dict[str, Dict[str, Any]]: The info dict for each agent.</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="cambrian.envs.MjCambrianEnv.name">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#cambrian.envs.MjCambrianEnv.name" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#cambrian.envs.MjCambrianEnv.name" title="Link to this definition">¶</a></dt>
 <dd><p>Returns the name of the environment.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="cambrian.envs.MjCambrianEnv.xml">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">xml</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../utils/cambrian_xml/index.html#cambrian.utils.cambrian_xml.MjCambrianXML" title="cambrian.utils.cambrian_xml.MjCambrianXML"><span class="pre">cambrian.utils.cambrian_xml.MjCambrianXML</span></a></em><a class="headerlink" href="#cambrian.envs.MjCambrianEnv.xml" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">xml</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../utils/cambrian_xml/index.html#cambrian.utils.cambrian_xml.MjCambrianXML" title="cambrian.utils.cambrian_xml.MjCambrianXML"><span class="pre">cambrian.utils.cambrian_xml.MjCambrianXML</span></a></em><a class="headerlink" href="#cambrian.envs.MjCambrianEnv.xml" title="Link to this definition">¶</a></dt>
 <dd><p>Returns the xml for the environment.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="cambrian.envs.MjCambrianEnv.agents">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">agents</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="../agents/agent/index.html#cambrian.agents.agent.MjCambrianAgent" title="cambrian.agents.agent.MjCambrianAgent"><span class="pre">cambrian.agents.agent.MjCambrianAgent</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#cambrian.envs.MjCambrianEnv.agents" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">agents</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="../agents/agent/index.html#cambrian.agents.agent.MjCambrianAgent" title="cambrian.agents.agent.MjCambrianAgent"><span class="pre">cambrian.agents.agent.MjCambrianAgent</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#cambrian.envs.MjCambrianEnv.agents" title="Link to this definition">¶</a></dt>
 <dd><p>Returns the agents in the environment.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="cambrian.envs.MjCambrianEnv.renderer">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">renderer</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../renderer/index.html#cambrian.renderer.MjCambrianRenderer" title="cambrian.renderer.MjCambrianRenderer"><span class="pre">cambrian.renderer.MjCambrianRenderer</span></a></em><a class="headerlink" href="#cambrian.envs.MjCambrianEnv.renderer" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">renderer</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../renderer/index.html#cambrian.renderer.MjCambrianRenderer" title="cambrian.renderer.MjCambrianRenderer"><span class="pre">cambrian.renderer.MjCambrianRenderer</span></a></em><a class="headerlink" href="#cambrian.envs.MjCambrianEnv.renderer" title="Link to this definition">¶</a></dt>
 <dd><p>Returns the renderer for the environment.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="cambrian.envs.MjCambrianEnv.spec">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">spec</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">cambrian.utils.spec.MjCambrianSpec</span></em><a class="headerlink" href="#cambrian.envs.MjCambrianEnv.spec" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">spec</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">cambrian.utils.spec.MjCambrianSpec</span></em><a class="headerlink" href="#cambrian.envs.MjCambrianEnv.spec" title="Link to this definition">¶</a></dt>
 <dd><p>Returns the mujoco spec for the environment.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="cambrian.envs.MjCambrianEnv.model">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">model</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">mujoco.MjModel</span></em><a class="headerlink" href="#cambrian.envs.MjCambrianEnv.model" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">model</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">mujoco.MjModel</span></em><a class="headerlink" href="#cambrian.envs.MjCambrianEnv.model" title="Link to this definition">¶</a></dt>
 <dd><p>Returns the mujoco model for the environment.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="cambrian.envs.MjCambrianEnv.data">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">data</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">mujoco.MjData</span></em><a class="headerlink" href="#cambrian.envs.MjCambrianEnv.data" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">data</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">mujoco.MjData</span></em><a class="headerlink" href="#cambrian.envs.MjCambrianEnv.data" title="Link to this definition">¶</a></dt>
 <dd><p>Returns the mujoco data for the environment.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="cambrian.envs.MjCambrianEnv.episode_step">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">episode_step</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#cambrian.envs.MjCambrianEnv.episode_step" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">episode_step</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#cambrian.envs.MjCambrianEnv.episode_step" title="Link to this definition">¶</a></dt>
 <dd><p>Returns the current episode step.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="cambrian.envs.MjCambrianEnv.num_timesteps">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">num_timesteps</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#cambrian.envs.MjCambrianEnv.num_timesteps" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">num_timesteps</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#cambrian.envs.MjCambrianEnv.num_timesteps" title="Link to this definition">¶</a></dt>
 <dd><p>Returns the number of timesteps.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="cambrian.envs.MjCambrianEnv.max_episode_steps">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">max_episode_steps</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#cambrian.envs.MjCambrianEnv.max_episode_steps" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">max_episode_steps</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#cambrian.envs.MjCambrianEnv.max_episode_steps" title="Link to this definition">¶</a></dt>
 <dd><p>Returns the max episode steps.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="cambrian.envs.MjCambrianEnv.overlays">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">overlays</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#cambrian.envs.MjCambrianEnv.overlays" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">overlays</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#cambrian.envs.MjCambrianEnv.overlays" title="Link to this definition">¶</a></dt>
 <dd><p>Returns the overlays.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="cambrian.envs.MjCambrianEnv.cumulative_reward">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">cumulative_reward</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#cambrian.envs.MjCambrianEnv.cumulative_reward" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">cumulative_reward</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#cambrian.envs.MjCambrianEnv.cumulative_reward" title="Link to this definition">¶</a></dt>
 <dd><p>Returns the cumulative reward.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="cambrian.envs.MjCambrianEnv.stashed_cumulative_reward">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">stashed_cumulative_reward</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#cambrian.envs.MjCambrianEnv.stashed_cumulative_reward" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">stashed_cumulative_reward</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#cambrian.envs.MjCambrianEnv.stashed_cumulative_reward" title="Link to this definition">¶</a></dt>
 <dd><p>Returns the previous cumulative reward.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="cambrian.envs.MjCambrianEnv.num_agents">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">num_agents</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#cambrian.envs.MjCambrianEnv.num_agents" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">num_agents</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#cambrian.envs.MjCambrianEnv.num_agents" title="Link to this definition">¶</a></dt>
 <dd><p>Returns the number of agents in the environment.</p>
 <p>This is part of the PettingZoo API.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="cambrian.envs.MjCambrianEnv.possible_agents">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">possible_agents</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#cambrian.envs.MjCambrianEnv.possible_agents" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">possible_agents</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#cambrian.envs.MjCambrianEnv.possible_agents" title="Link to this definition">¶</a></dt>
 <dd><p>Returns the possible agents in the environment.</p>
 <p>This is part of the PettingZoo API.</p>
 <p>Assumes that the possible agents are the same as the agents.</p>
@@ -554,7 +554,7 @@ Dict[str, Dict[str, Any]]: The info dict for each agent.</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="cambrian.envs.MjCambrianEnv.observation_spaces">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">observation_spaces</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">gymnasium.spaces.Dict</span></em><a class="headerlink" href="#cambrian.envs.MjCambrianEnv.observation_spaces" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">observation_spaces</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">gymnasium.spaces.Dict</span></em><a class="headerlink" href="#cambrian.envs.MjCambrianEnv.observation_spaces" title="Link to this definition">¶</a></dt>
 <dd><p>Creates the observation spaces.</p>
 <p>This is part of the PettingZoo API.</p>
 <p>By default, this environment will support multi-agent
@@ -567,7 +567,7 @@ baselines3.</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="cambrian.envs.MjCambrianEnv.action_spaces">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">action_spaces</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">gymnasium.spaces.Dict</span></em><a class="headerlink" href="#cambrian.envs.MjCambrianEnv.action_spaces" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">action_spaces</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">gymnasium.spaces.Dict</span></em><a class="headerlink" href="#cambrian.envs.MjCambrianEnv.action_spaces" title="Link to this definition">¶</a></dt>
 <dd><p>Creates the action spaces.</p>
 <p>This is part of the PettingZoo API.</p>
 <p>By default, this environment will support multi-agent
@@ -594,7 +594,7 @@ baselines3.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cambrian.envs.MjCambrianEnv.state">
-<em class="property"><span class="k"><span class="pre">abstractmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">state</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/cambrian/envs/env.html#MjCambrianEnv.state"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cambrian.envs.MjCambrianEnv.state" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">state</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/cambrian/envs/env.html#MjCambrianEnv.state"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cambrian.envs.MjCambrianEnv.state" title="Link to this definition">¶</a></dt>
 <dd><p>Returns the state of the environment.</p>
 <p>This is part of the PettingZoo API.</p>
 </dd></dl>
@@ -607,13 +607,13 @@ baselines3.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cambrian.envs.MjCambrianEnv.record">
-<span class="sig-name descname"><span class="pre">record</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">record</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/cambrian/envs/env.html#MjCambrianEnv.record"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cambrian.envs.MjCambrianEnv.record" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">record</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">record</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/cambrian/envs/env.html#MjCambrianEnv.record"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cambrian.envs.MjCambrianEnv.record" title="Link to this definition">¶</a></dt>
 <dd><p>Sets whether the environment is recording.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cambrian.envs.MjCambrianEnv.save">
-<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_pkl</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/cambrian/envs/env.html#MjCambrianEnv.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cambrian.envs.MjCambrianEnv.save" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_pkl</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/cambrian/envs/env.html#MjCambrianEnv.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cambrian.envs.MjCambrianEnv.save" title="Link to this definition">¶</a></dt>
 <dd><p>Saves the simulation output to the given path.</p>
 </dd></dl>
 
@@ -627,7 +627,7 @@ baselines3.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="cambrian.envs.MjCambrianEnvConfig">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MjCambrianEnvConfig</span></span><a class="reference internal" href="../../../../_modules/cambrian/envs/env.html#MjCambrianEnvConfig"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cambrian.envs.MjCambrianEnvConfig" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MjCambrianEnvConfig</span></span><a class="reference internal" href="../../../../_modules/cambrian/envs/env.html#MjCambrianEnvConfig"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cambrian.envs.MjCambrianEnvConfig" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://aaronyoung5.github.io/hydra-config/reference/api/hydra_config/index.html#hydra_config.HydraContainerConfig" title="(in hydra-config)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">hydra_config.HydraContainerConfig</span></code></a></p>
 <p>Defines a config for the cambrian environment.</p>
 <dl class="field-list simple">
@@ -675,7 +675,7 @@ set in the agent config.</p></li>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="cambrian.envs.MjCambrianMazeEnv">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MjCambrianMazeEnv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/cambrian/envs/maze_env.html#MjCambrianMazeEnv"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cambrian.envs.MjCambrianMazeEnv" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MjCambrianMazeEnv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/cambrian/envs/maze_env.html#MjCambrianMazeEnv"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cambrian.envs.MjCambrianMazeEnv" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="env/index.html#cambrian.envs.env.MjCambrianEnv" title="cambrian.envs.env.MjCambrianEnv"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cambrian.envs.env.MjCambrianEnv</span></code></a></p>
 <p>A MjCambrianEnv defines a gymnasium environment that’s based off mujoco.</p>
 <p>NOTES:
@@ -700,7 +700,7 @@ to the renderer.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cambrian.envs.MjCambrianMazeEnv.reset">
-<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/cambrian/envs/maze_env.html#MjCambrianMazeEnv.reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cambrian.envs.MjCambrianMazeEnv.reset" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/cambrian/envs/maze_env.html#MjCambrianMazeEnv.reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cambrian.envs.MjCambrianMazeEnv.reset" title="Link to this definition">¶</a></dt>
 <dd><p>Reset the environment.</p>
 <p>Will reset all underlying components (the maze, the agents, etc.). The
 simulation will then be stepped once to ensure that the observations are
@@ -719,13 +719,13 @@ up-to-date.</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="cambrian.envs.MjCambrianMazeEnv.maze">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">maze</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="maze_env/index.html#cambrian.envs.maze_env.MjCambrianMaze" title="cambrian.envs.maze_env.MjCambrianMaze"><span class="pre">MjCambrianMaze</span></a></em><a class="headerlink" href="#cambrian.envs.MjCambrianMazeEnv.maze" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">maze</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="maze_env/index.html#cambrian.envs.maze_env.MjCambrianMaze" title="cambrian.envs.maze_env.MjCambrianMaze"><span class="pre">MjCambrianMaze</span></a></em><a class="headerlink" href="#cambrian.envs.MjCambrianMazeEnv.maze" title="Link to this definition">¶</a></dt>
 <dd><p>Returns the current maze.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="cambrian.envs.MjCambrianMazeEnv.maze_store">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">maze_store</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="maze_env/index.html#cambrian.envs.maze_env.MjCambrianMazeStore" title="cambrian.envs.maze_env.MjCambrianMazeStore"><span class="pre">MjCambrianMazeStore</span></a></em><a class="headerlink" href="#cambrian.envs.MjCambrianMazeEnv.maze_store" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">maze_store</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="maze_env/index.html#cambrian.envs.maze_env.MjCambrianMazeStore" title="cambrian.envs.maze_env.MjCambrianMazeStore"><span class="pre">MjCambrianMazeStore</span></a></em><a class="headerlink" href="#cambrian.envs.MjCambrianMazeEnv.maze_store" title="Link to this definition">¶</a></dt>
 <dd><p>Returns the maze store.</p>
 </dd></dl>
 
@@ -733,7 +733,7 @@ up-to-date.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="cambrian.envs.MjCambrianMazeEnvConfig">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MjCambrianMazeEnvConfig</span></span><a class="reference internal" href="../../../../_modules/cambrian/envs/maze_env.html#MjCambrianMazeEnvConfig"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cambrian.envs.MjCambrianMazeEnvConfig" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MjCambrianMazeEnvConfig</span></span><a class="reference internal" href="../../../../_modules/cambrian/envs/maze_env.html#MjCambrianMazeEnvConfig"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cambrian.envs.MjCambrianMazeEnvConfig" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="env/index.html#cambrian.envs.env.MjCambrianEnvConfig" title="cambrian.envs.env.MjCambrianEnvConfig"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cambrian.envs.env.MjCambrianEnvConfig</span></code></a></p>
 <dl class="simple">
 <dt>mazes (Dict[str, MjCambrianMazeEnvConfig]): The configs for the mazes. Each</dt><dd><p>maze will be loaded into the scene and the agent will be placed in a maze
@@ -860,8 +860,8 @@ to use. See <cite>MjCambrianMazeSelectionFn</cite> and <cite>maze.py</cite> for 
       
     </aside>
   </div>
-</div><script src="../../../../_static/documentation_options.js?v=aa20bfbb"></script>
-    <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
+</div><script src="../../../../_static/documentation_options.js?v=825afb5f"></script>
+    <script src="../../../../_static/doctools.js?v=888ff710"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/scripts/furo.js?v=5fa4622c"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>

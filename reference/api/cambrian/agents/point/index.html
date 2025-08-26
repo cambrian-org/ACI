@@ -14,11 +14,11 @@
     </script>
     <link rel="index" title="Index" href="../../../../../genindex.html" /><link rel="search" title="Search" href="../../../../../search.html" /><link rel="next" title="cambrian.eyes" href="../../eyes/index.html" /><link rel="prev" title="cambrian.agents.object" href="../object/index.html" />
 
-    <link rel="shortcut icon" href="../../../../../_static/eye.png"/><!-- Generated with Sphinx 8.2.3 and Furo 2024.08.06 -->
+    <link rel="shortcut icon" href="../../../../../_static/eye.png"/><!-- Generated with Sphinx 7.2.6 and Furo 2024.08.06 -->
         <title>cambrian.agents.point - ACI</title>
       <link rel="stylesheet" type="text/css" href="../../../../../_static/pygments.css?v=d75fae25" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/styles/furo.css?v=354aac6f" />
-    <link rel="stylesheet" type="text/css" href="../../../../../_static/graphviz.css?v=4ae1632d" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/graphviz.css?v=eafc0fe6" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/styles/furo-extensions.css?v=302659d7" />
@@ -363,7 +363,7 @@
 <h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="cambrian.agents.point.MjCambrianAgentPoint">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MjCambrianAgentPoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">kp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.75</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/cambrian/agents/point.html#MjCambrianAgentPoint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cambrian.agents.point.MjCambrianAgentPoint" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MjCambrianAgentPoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.75</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/cambrian/agents/point.html#MjCambrianAgentPoint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cambrian.agents.point.MjCambrianAgentPoint" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="../agent/index.html#cambrian.agents.agent.MjCambrianAgent2D" title="cambrian.agents.agent.MjCambrianAgent2D"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cambrian.agents.agent.MjCambrianAgent2D</span></code></a></p>
 <p>This is a hardcoded class which implements the agent as actuated by a forward
 velocity and a rotational position. In mujoco, to the best of my knowledge, all
@@ -389,7 +389,7 @@ which is not ideal.</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="cambrian.agents.point.MjCambrianAgentPoint.action_space">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">action_space</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">gymnasium.spaces.Space</span></em><a class="reference internal" href="../../../../../_modules/cambrian/agents/point.html#MjCambrianAgentPoint.action_space"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cambrian.agents.point.MjCambrianAgentPoint.action_space" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">action_space</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">gymnasium.spaces.Space</span></em><a class="reference internal" href="../../../../../_modules/cambrian/agents/point.html#MjCambrianAgentPoint.action_space"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cambrian.agents.point.MjCambrianAgentPoint.action_space" title="Link to this definition">¶</a></dt>
 <dd><p>Overrides the base implementation to only have two elements.</p>
 </dd></dl>
 
@@ -397,7 +397,7 @@ which is not ideal.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="cambrian.agents.point.MjCambrianAgentPointSeeker">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MjCambrianAgentPointSeeker</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">speed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-0.75</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">distance_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_optimal_trajectory</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/cambrian/agents/point.html#MjCambrianAgentPointSeeker"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cambrian.agents.point.MjCambrianAgentPointSeeker" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MjCambrianAgentPointSeeker</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">speed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-0.75</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">distance_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_optimal_trajectory</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/cambrian/agents/point.html#MjCambrianAgentPointSeeker"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cambrian.agents.point.MjCambrianAgentPointSeeker" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cambrian.agents.point.MjCambrianAgentPoint" title="cambrian.agents.point.MjCambrianAgentPoint"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MjCambrianAgentPoint</span></code></a></p>
 <p>This is an agent which is non-trainable and defines a custom policy which
 acts as a ‘homing’ agent in the maze environment. This agent will attempt to reach
@@ -528,8 +528,8 @@ used to get information about the environment.</p>
       
     </aside>
   </div>
-</div><script src="../../../../../_static/documentation_options.js?v=aa20bfbb"></script>
-    <script src="../../../../../_static/doctools.js?v=9bcbadda"></script>
+</div><script src="../../../../../_static/documentation_options.js?v=825afb5f"></script>
+    <script src="../../../../../_static/doctools.js?v=888ff710"></script>
     <script src="../../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../../_static/scripts/furo.js?v=5fa4622c"></script>
     <script src="../../../../../_static/clipboard.min.js?v=a7894cd8"></script>

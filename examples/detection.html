@@ -14,11 +14,11 @@
     </script>
     <link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Navigation Task" href="navigation.html" /><link rel="prev" title="Examples" href="index.html" />
 
-    <link rel="shortcut icon" href="../_static/eye.png"/><!-- Generated with Sphinx 8.2.3 and Furo 2024.08.06 -->
+    <link rel="shortcut icon" href="../_static/eye.png"/><!-- Generated with Sphinx 7.2.6 and Furo 2024.08.06 -->
         <title>Detection Task - ACI</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d75fae25" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=354aac6f" />
-    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=eafc0fe6" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=302659d7" />
@@ -345,8 +345,7 @@
 <h1>Detection Task<a class="headerlink" href="#detection-task" title="Link to this heading">¶</a></h1>
 <p>The detection task is designed to train the agent to perform object discrimination. There are two objects in the environment, a goal object and an adversarial object, A screenshot of the agent’s view is shown below:</p>
 <figure class="align-center" id="id1">
-<a class="example-figure reference internal image-reference" href="../_images/screenshot.png"><img alt="../_images/screenshot.png" class="example-figure" src="../_images/screenshot.png" style="width: 75%;" />
-</a>
+<a class="example-figure reference internal image-reference" href="../_images/screenshot.png"><img alt="../_images/screenshot.png" class="example-figure" src="../_images/screenshot.png" style="width: 75%;" /></a>
 <figcaption>
 <p><span class="caption-text"><strong>Screenshot of the detection task.</strong> The detection task incorporates two objects, a goal object and an adversarial object. The goal (visualized with a green dot above in the birds eye view) has vertical stripes. Conversely, the adversarial object (visualized with a red dot) has horizontal stripes. The green and red dots are not visible to the agent. The first person view of the agent is shown at the bottom of the image. In this screenshot, the agent has three eyes, each with 50x50 pixels.</span><a class="headerlink" href="#id1" title="Link to this image">¶</a></p>
 </figcaption>
@@ -364,7 +363,7 @@
 </pre></div>
 </div>
 <p>A successfully trained agent may look like the following:</p>
-<figure  class="sphinx-contrib-video-container align-center" style="width: 75%"><div class="align-center"><video autoplay="True" controls="True" loop="True" muted="True" preload="auto" class="example-figure"><source src="../_images/trained_agent.mp4" type="video/mp4"></video></div><figcaption class="align-center"><p style="text-align: left; display:inline-block"><span class="caption-text">This agent has been successfully trained to discern between the goal and adversary objects. The above command uses a default set of eye parameters; in this case, 3 eyes, each with a field-of-view of 45°, and a resolution of 20x20 pixels.</span></p></figcaption></figure></section>
+<video autoplay="True" controls="True" loop="True" muted="True" preload="auto" class="example-figure"><source src="../_images/trained_agent.mp4" type="video/mp4"></video></section>
 <section id="evaluating-an-agent">
 <h2>Evaluating an Agent<a class="headerlink" href="#evaluating-an-agent" title="Link to this heading">¶</a></h2>
 <p>You can evaluate a trained policy or the task itself in a few ways.</p>
@@ -375,7 +374,7 @@
 </pre></div>
 </div>
 <p>This command will save the evaluation results in the log directory, which defaults to <code class="docutils literal notranslate"><span class="pre">logs/&lt;today's</span> <span class="pre">date&gt;/detection/</span></code>.</p>
-<figure  class="sphinx-contrib-video-container align-center" style="width: 75%"><div class="align-center"><video autoplay="True" controls="True" loop="True" muted="True" preload="auto"><source src="../_images/privileged_agent.mp4" type="video/mp4"></video></div><figcaption class="align-center"><p style="text-align: left; display:inline-block"><span class="caption-text">The privileged policy simply tries to reduce the distance and angle error between itself in the goal. It doesn't use any visual stimuli.</span></p></figcaption></figure><div class="admonition tip">
+<video autoplay="True" controls="True" loop="True" muted="True" preload="auto"><source src="../_images/privileged_agent.mp4" type="video/mp4"></video><div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>You can also visualize the evaluation in a gui window by setting <code class="docutils literal notranslate"><span class="pre">env.renderer.render_modes='[human]'</span></code>. You may also need to set the environment variable <code class="docutils literal notranslate"><span class="pre">MUJOCO_GL=glfw</span></code> to use the window-based renderer.</p>
 </div>
@@ -398,7 +397,7 @@
 <p>This command will launch the individual scripts using <a class="reference external" href="https://github.com/facebookincubator/submitit">submitit</a>, with configurations defined in the <code class="docutils literal notranslate"><span class="pre">configs/hydra/launcher/supercloud.yaml</span></code> file. This file can be amended to work for other Slurm clusters.</p>
 <p>Additionally, this command enables 3 types of mutations: <code class="docutils literal notranslate"><span class="pre">num_eyes</span></code>, <code class="docutils literal notranslate"><span class="pre">resolution</span></code>, and <code class="docutils literal notranslate"><span class="pre">lon_range</span></code>. Additional mutations can be added by modifying the <code class="docutils literal notranslate"><span class="pre">evo/mutations</span></code> argument.</p>
 <p>The optimized configuration and its trained policy is shown below:</p>
-<figure  class="sphinx-contrib-video-container align-center" style="width: 75%"><div class="align-center"><video autoplay="True" controls="True" loop="True" muted="True" preload="auto" class="example-figure"><source src="../_images/evolved_agent.mp4" type="video/mp4"></video></div><figcaption class="align-center"><p style="text-align: left; display:inline-block"><span class="caption-text">The optimized policy has 3 eyes, with a longitudinal range of 60° and a resolution of 14x14 pixels.</span></p></figcaption></figure></section>
+<video autoplay="True" controls="True" loop="True" muted="True" preload="auto" class="example-figure"><source src="../_images/evolved_agent.mp4" type="video/mp4"></video></section>
 <section id="task-configuration">
 <h2>Task Configuration<a class="headerlink" href="#task-configuration" title="Link to this heading">¶</a></h2>
 <div class="literal-block-wrapper docutils container" id="id2">
@@ -595,8 +594,8 @@
       
     </aside>
   </div>
-</div><script src="../_static/documentation_options.js?v=aa20bfbb"></script>
-    <script src="../_static/doctools.js?v=9bcbadda"></script>
+</div><script src="../_static/documentation_options.js?v=825afb5f"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/furo.js?v=5fa4622c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>

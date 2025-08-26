@@ -39,8 +39,9 @@ Functions
 Module Contents
 ---------------
 
-.. py:type:: MjCambrianXMLConfig
-   :canonical: HydraContainerConfig | List[Dict[str, Self]]
+.. py:data:: MjCambrianXMLConfig
+   :type:  TypeAlias
+   :value: HydraContainerConfig | List[Dict[str, Self]]
 
 
    List[Dict[str, Self]]
