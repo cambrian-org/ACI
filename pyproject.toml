@@ -13,48 +13,49 @@ dynamic = ["version"]
 readme = "README.md"
 requires-python = ">=3.11,<4.0"
 dependencies = [
-    "stable_baselines3[extra] >= 2.4.0",
-    "pettingzoo >= 1.24.3",
-    "mujoco >= 3.2.6",
-    "pyyaml >= 6.0.2",
-    "scipy >= 1.14.1",
-    "scikit-image >= 0.24.0",
-    "imageio[ffmpeg] >= 2.36.0",
-    "opencv-python >= 4.10.0.84",
-    "fcmaes >= 1.6.11",
-    "tqdm >= 4.67.0",
-    "nevergrad >= 1.0.3",
-    "bayesian-optimization >= 1.4.0",
-    "hydra-config >= 0.0.10",
-    "omegaconf >= 2.4.0.dev3",
-    "hydra-core >= 1.4.0.dev1",
-    "hydra-submitit-launcher >= 1.2.0",
-    "hydra-joblib-launcher >= 1.2.0",
+    "stable_baselines3[extra] == 2.4.0",
+    "pettingzoo == 1.24.3",
+    "mujoco == 3.2.6",
+    "pyyaml == 6.0.2",
+    "scipy == 1.14.1",
+    "scikit-image == 0.24.0",
+    "imageio[ffmpeg] == 2.36.0",
+    "array-api-compat == 1.12.0",
+    "opencv-python == 4.10.0.84",
+    "fcmaes == 1.6.11",
+    "tqdm == 4.67.0",
+    "nevergrad == 1.0.3",
+    "bayesian-optimization == 1.4.0",
+    "hydra-config == 0.0.10",
+    "omegaconf == 2.4.0.dev3",
+    "hydra-core == 1.4.0.dev1",
+    "hydra-submitit-launcher == 1.2.0",
+    "hydra-joblib-launcher == 1.2.0",
     # Use the custom nevergrad-only branch until #3029 is merged
     "hydra-nevergrad-sweeper @ git+https://github.com/AaronYoung5/hydra.git@nevergrad-only#subdirectory=plugins/hydra_nevergrad_sweeper",
 ]
 
 [project.optional-dependencies]
 dev = [
-    "black >= 24.8.0",
-    "flake8 >= 7.1.1",
-    "Flake8-pyproject >= 1.2.3",
-    "isort >= 5.13.2",
-    "pyright >= 1.1.381",
-    "pytest >= 8.3.3",
-    "pre-commit >= 3.8.0",
+    "black == 24.8.0",
+    "flake8 == 7.1.1",
+    "Flake8-pyproject == 1.2.3",
+    "isort == 5.13.2",
+    "pyright == 1.1.381",
+    "pytest == 8.3.3",
+    "pre-commit == 3.8.0",
 ]
 
 docs = [
-    "sphinx >= 7.2.6",
-    "furo >= 2024.8.6",
-    "sphinx-autoapi >= 3.4.0",
-    "sphinx-autobuild >= 2024.10.3",
-    "sphinx-copybutton >= 0.5.2",
-    "myst-parser >= 4.0.0",
-    "sphinxcontrib-video >= 0.3.1",
-    "sphinxcontrib-googleanalytics >= 0.4",
-    "sphinx_design >= 0.6.1"
+    "sphinx == 7.2.6",
+    "furo == 2024.8.6",
+    "sphinx-autoapi == 3.4.0",
+    "sphinx-autobuild == 2024.10.3",
+    "sphinx-copybutton == 0.5.2",
+    "myst-parser == 4.0.0",
+    "sphinxcontrib-video == 0.3.1",
+    "sphinxcontrib-googleanalytics == 0.4",
+    "sphinx_design == 0.6.1"
 ]
 
 [project.scripts]
